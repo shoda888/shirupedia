@@ -1,17 +1,13 @@
-img.bg[src="/intro03.jpg" alt=""]
+/ img.bg[src="/intro03.jpg" alt=""]
 #container
   .login-box
     .login-logo
       b
-        | DigitalHoldem
-      br
-      .login-logo-sub
-        |  いつでもどこでもpoipoiカジノ
-      |  新規プレイヤー登録
+        | Shirupedia
     .card
       .card-body.login-card-body
         p.login-box-msg
-          | プレイヤー登録をしてください
+          | ユーザー登録をしてください
         .form-body
           - @user.errors.full_messages.each do |message|
             .form-error
@@ -29,4 +25,4 @@ img.bg[src="/intro03.jpg" alt=""]
           a.btn.btn-block.btn-primary[href="#"]
             i.fab.fa-facebook-f.mr-2
             |  Sign in using Facebook
-          = link_to 'ログインはこちらから', new_session_path, class: 'btn btn-block btn-info'
+          = link_to 'ログインはこちらから', new_sessions_path, class: 'btn btn-block btn-info'

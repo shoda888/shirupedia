@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+ @import 'bootstrap/dist/css/bootstrap.min.css';
+ @import 'font-awesome/css/font-awesome.min.css';
+ @import 'admin-lte/dist/css/adminlte.min.css';
