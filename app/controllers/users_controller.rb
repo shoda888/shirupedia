@@ -8,8 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザーが登録されました"
-      @profile = @user.profiles.new
-      redirect_to new_profile_path(@profile)
+      redirect_to new_profile_path
     else
       render :new
     end
@@ -17,6 +16,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:email)
   end
 end

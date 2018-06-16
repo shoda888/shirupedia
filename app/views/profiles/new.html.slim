@@ -1,0 +1,9 @@
+.container#main
+  .row
+    .col-12
+      h4.form-heading プロフィールを登録しましょう
+      - if @user.errors.any?
+        .alert.alert-danger role="alert"
+          - @user.errors.full_messages.each do |message|
+            = message
+      = render 'form'

@@ -4,6 +4,7 @@ class CreateProfiles < ActiveRecord::Migration[5.1]
       t.string :grade
       t.string :department
       t.string :lesson
+      t.integer :user_id
 
       t.timestamps
     end

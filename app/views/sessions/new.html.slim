@@ -3,7 +3,7 @@
   .login-box
     .login-logo
       b
-        | Shirupedia
+        | Shirupedia for TokyoTech
       |  Login
     .card
       .card-body.login-card-body
@@ -17,8 +17,9 @@
             = flash[:notice]
         .form-body
           =form_tag sessions_path do
-            .form-group.has-feedback
-              input.form-control[name="name" type="name" placeholder="ユーザー名"]
+            .form-group
+              = label_tag :email, 'mアドレス', class: 'control-label small gray-text'
+              = text_field :user, :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
             .row
               .col-8
               .col-4
