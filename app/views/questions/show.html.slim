@@ -1,0 +1,27 @@
+.content-wrapper
+  section.content-header
+  section.content
+    .row
+      .col-md-12
+        .card.card-success
+          .card-header.with-border
+            h3.card-title = @question.title
+
+          .form
+            .row
+              .col-lg-12
+                .card-body
+                  table.table.table-striped.table-hover.table-bordered
+                    tbody
+                      tr
+                        th 本文
+                        td = @question.content
+                      tr
+                        th チップ
+                        td = @question.amount_paid
+                      tr
+                        th タグ
+                        td = @question.tag
+                .card-footer
+                  .form-inline.pull-right
+                    = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'

@@ -1,11 +1,12 @@
-.container
-  .row
-    .col-lg-12
-      table.table.table-bordered.table-striped.dataTable role="grid"
-        thead
-          tr role="row"
-            th タイトル
-        tbody
-          - @questions.each do |q|
+.content-wrapper
+  .container
+    .row
+      .col-lg-12
+        table.table.table-bordered.table-striped.dataTable role="grid"
+          thead
             tr role="row"
-              td = q.title
+              th タイトル
+          tbody
+            - @questions.each do |q|
+              tr role="row"
+                td = link_to q.title, question_path(q)
