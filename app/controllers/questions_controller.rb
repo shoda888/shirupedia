@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  layout 'main_table'
   before_action :authenticate_user
 
   def index
@@ -6,10 +7,17 @@ class QuestionsController < ApplicationController
   end
 
   def new
-
+    @question = Question.new
   end
 
   def create
+    @question = Question.new(user_id: @current_user.id)
+    @question.attributes = question_params
+    if @question.save
+      redirect_to questions_path
+    else
+      render :new
+    end
   end
 
   def show
@@ -23,6 +31,11 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+  def question_params
+    params.require(:question).permit(:title, :content, :amount_paid, :tag)
   end
 
 end

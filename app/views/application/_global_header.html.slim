@@ -4,7 +4,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
       a.nav-link[data-widget="pushmenu" href="#"]
         i.fa.fa-bars
     li.nav-item.d-none.d-sm-inline-block
-      a.nav-link[href="new_question_path"]
+      a.nav-link[href=new_question_path]
         i.nav-icon.fa.fa-edit
           | 質問を投稿する
   form.form-inline.ml-3
@@ -22,7 +22,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
       .dropdown-menu.dropdown-menu-lg.dropdown-menu-right
         a.dropdown-item[href="#"]
           .media
-            img.img-size-50.mr-3.img-circle[src="user1-128x128.jpg" alt="User Avatar"]
+            img.img-size-50.mr-3.img-circle[src="/user1-128x128.jpg" alt="User Avatar"]
             .media-body
               h3.dropdown-item-title
                 |  Brad Diesel
@@ -36,7 +36,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
         .dropdown-divider
         a.dropdown-item[href="#"]
           .media
-            img.img-size-50.img-circle.mr-3[src="user1-128x128.jpg" alt="User Avatar"]
+            img.img-size-50.img-circle.mr-3[src="/user1-128x128.jpg" alt="User Avatar"]
             .media-body
               h3.dropdown-item-title
                 |  John Pierce
@@ -50,7 +50,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
         .dropdown-divider
         a.dropdown-item[href="#"]
           .media
-            img.img-size-50.img-circle.mr-3[src="user1-128x128.jpg" alt="User Avatar"]
+            img.img-size-50.img-circle.mr-3[src="/user1-128x128.jpg" alt="User Avatar"]
             .media-body
               h3.dropdown-item-title
                 |  Nora Silvester
@@ -99,7 +99,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
     li.nav-item.dropdown.user.user-menu
       a.nav-link[data-toggle="dropdown" href="#"]
         .media
-          img.img-size-32.mr-3.img-circle[alt="User Avatar" src="user2-160x160.jpg"]
+          img.img-size-32.mr-3.img-circle[alt="User Avatar" src="/user2-160x160.jpg"]
           .media-body
             span.hidden-xs
               = @current_user.name
@@ -129,7 +129,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
 
       ul.dropdown-menu
         li.user-header
-          img.img-size-32.mr-3.img-circle[src="user2-160x160.jpg" alt="User Image"]
+          img.img-size-32.mr-3.img-circle[src="/user2-160x160.jpg" alt="User Image"]
           p
             = @current_user.name
             small
