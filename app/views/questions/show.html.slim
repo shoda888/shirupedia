@@ -24,4 +24,5 @@
                         td = @question.tag
                 .card-footer
                   .form-inline.pull-right
-                    = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'
+                    - if @question_user == @current_user
+                      = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'

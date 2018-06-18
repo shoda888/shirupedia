@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   layout 'main_table'
   before_action :authenticate_user
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   def index
     @questions = Question.all
@@ -22,6 +23,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @question_user = @question.user
   end
 
   def edit
