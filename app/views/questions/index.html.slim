@@ -9,4 +9,4 @@
           tbody
             - @questions.each do |q|
               tr role="row"
-                td = q.title
+                td = link_to q.title, question_path(q)

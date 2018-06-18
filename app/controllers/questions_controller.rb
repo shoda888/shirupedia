@@ -14,20 +14,28 @@ class QuestionsController < ApplicationController
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      redirect_to questions_path
+      redirect_to question_path(@question), notice: '質問を作成しました'
     else
       render :new
     end
   end
 
   def show
+    @question = Question.find(params[:id])
   end
 
   def edit
-
+    @question = Question.find(params[:id])
   end
 
   def update
+    @question = Question.find(params[:id])
+    @question.attributes = question_params
+    if @question.save
+      redirect_to question_path(@question), notice: '質問を編集しました'
+    else
+      render :edit
+    end
   end
 
   def destroy
