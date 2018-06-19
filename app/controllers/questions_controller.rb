@@ -43,6 +43,13 @@ class QuestionsController < ApplicationController
   def destroy
   end
 
+  def fire
+    @question = Question.find(params[:id])
+    @question.aasm.fire!(params[:event].to_sym)
+    @question.save
+    redirect_to question_path(@question), notice: '質問を終了しました'
+  end
+
   private
   def question_params
     params.require(:question).permit(:title, :content, :amount_paid, :tag, :field_list)

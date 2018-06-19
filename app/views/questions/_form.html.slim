@@ -21,7 +21,7 @@
     .form-group
       = f.label :field_list, class: 'col-sm-3 control-label'
       .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(',')
+        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: 'programing,機械'
 
     / 待ち合わせ用
     / .form-group
@@ -56,4 +56,4 @@
       - else
         a.btn.bg-gray href=question_path(@question) = '戻る'
       | &nbsp;
-      = f.submit class: 'btn btn-success pull-right'
+      = f.submit class: 'btn btn-success pull-right', type: 'button', onclick: "submit();", value: "登録"
