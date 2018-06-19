@@ -24,6 +24,7 @@ gem 'webpacker'
 # gem 'jquery-ui-rails'
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'aasm'
+gem 'carrierwave'
 # Use slim
 gem 'slim-rails'
 # Use CoffeeScript for .coffee assets and views

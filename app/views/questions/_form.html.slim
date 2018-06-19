@@ -23,6 +23,9 @@
       .col-sm-9
         = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: 'programing,機械'
 
+    .form-group
+      = f.label :file
+      = f.file_field :file
     / 待ち合わせ用
     / .form-group
     /   = f.label :meeting_place, class: 'col-sm-3 control-label'

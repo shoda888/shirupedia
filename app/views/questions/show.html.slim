@@ -43,7 +43,13 @@
                       tr
                         th チップ
                         td = @question.amount_paid
-                        
+
+                      tr
+                        th ファイル
+                        td = image_tag @question.file.url
+
+
+
                 .card-footer
                   .form-inline.pull-right
                     - if @question_user == @current_user
