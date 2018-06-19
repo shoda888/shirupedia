@@ -19,9 +19,9 @@
         = f.text_area :content, class: 'form-control', placeholder: '通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
 
     .form-group
-      = f.label :tag, class: 'col-sm-3 control-label'
+      = f.label :field_list, class: 'col-sm-3 control-label'
       .col-sm-9
-        = f.text_field :tag, class: 'form-control', placeholder: 'programing'
+        = text_field_tag 'question[field_list]', @question.field_list.join(',')
 
     / 待ち合わせ用
     / .form-group

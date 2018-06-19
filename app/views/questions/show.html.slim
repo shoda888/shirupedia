@@ -20,8 +20,12 @@
                         th チップ
                         td = @question.amount_paid
                       tr
-                        th タグ
-                        td = @question.tag
+                        th 分野タグ
+                        td
+                          - @question.field_list.each do |field|
+                            span.btn.btn-sm.btn-info
+                              = field
+                            | &nbsp;
                 .card-footer
                   .form-inline.pull-right
                     - if @question_user == @current_user
