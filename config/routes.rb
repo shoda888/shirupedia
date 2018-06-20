@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   resources :profiles
   resources :communities
   resources :answers
-  resources :questions
+  resources :questions do
+    member do
+      put :fire
+    end
+  end
 end
