@@ -46,9 +46,9 @@
 
                       tr
                         th ファイル
-                        td = image_tag @question.file.url
-
-
+                        td
+                          - if @question.file?
+                            = image_tag @question.file.url
 
                 .card-footer
                   .form-inline.pull-right

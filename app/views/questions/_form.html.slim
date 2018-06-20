@@ -11,21 +11,23 @@
     .form-group
       = f.label :title, class: 'col-sm-3 control-label'
       .col-sm-9
-        = f.text_field :title, class: 'form-control', placeholder: '重み付きレーベンシュタイン距離の定義について'
+        = f.text_field :title, required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
     .form-group
       = f.label :content, class: 'col-sm-3 control-label'
       .col-sm-9
-        = f.text_area :content, class: 'form-control', placeholder: '通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
+        = f.text_area :content, class: 'form-control', placeholder: '例）通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
 
     .form-group
       = f.label :field_list, class: 'col-sm-3 control-label'
       .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: 'programing,機械'
+        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械'
 
     .form-group
-      = f.label :file
-      = f.file_field :file
+      = f.label :file, class: 'col-sm-3 control-label'
+      .col-sm-9
+        = f.file_field :file
+
     / 待ち合わせ用
     / .form-group
     /   = f.label :meeting_place, class: 'col-sm-3 control-label'
@@ -59,4 +61,4 @@
       - else
         a.btn.bg-gray href=question_path(@question) = '戻る'
       | &nbsp;
-      = f.submit class: 'btn btn-success pull-right', type: 'button', onclick: "submit();", value: "登録"
+      = f.submit class: 'btn btn-success pull-right'
