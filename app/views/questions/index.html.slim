@@ -1,19 +1,22 @@
 .content-wrapper
-  .container
+  .content-header
+  .content
     .row
-      .col-lg-12
-        .row
-          .col-md-6
-            .input-group.input-group-sm
-              input.form-control.form-control-navbar[type="search" placeholder="Search" aria-label="Search"]
-              .input-group-append
-                button.btn.btn-success[type="submit"]
-                  i.fa.fa-search
-        table.table.table-bordered.table-striped.dataTable role="grid"
-          thead
-            tr role="row"
-              th タイトル
-          tbody
-            - @questions.each do |q|
-              tr role="row"
-                td = link_to q.title, question_path(q)
+      .col-12
+        .card.card-success
+          .card-header
+            h3.card-title
+              | 今ホットな質問
+            .card-tools
+              .input-group.input-group-sm[style="width: 150px;"]
+                input.form-control.float-right[type="text" name="table_search" placeholder="Search"]
+                .input-group-append
+                  button.btn.btn-default[type="submit"]
+                    i.fa.fa-search
+
+                    .card-body.table-responsive.p-0
+          table.table.table-hover
+            tbody
+              - @questions.each do |q|
+                tr role="row"
+                  td = link_to q.title, question_path(q)
