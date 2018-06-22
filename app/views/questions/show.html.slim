@@ -19,13 +19,13 @@
                             :class => 'btn btn-block btn-danger btn-sm', data: { confirm: '質問を終了してよろしいですか？'}
                       - else
                         .btn.btn-block.btn-primary.btn-sm.disabled
-                          | 質問終了
+                          | 質問は終了しました
                     - else
-                      - if @quesiton.wanted?
+                      - if @question.wanted?
                         .btn.btn-block.btn-danger.btn-sm
                           | 回答募集中
                       - else
-                        .btn.btn-block.btn-danger.btn-sm.disabled
+                        .btn.btn-block.btn-primary.btn-sm.disabled
                           | 質問は終了しました
 
                   table.table.table-striped.table-hover.table-bordered

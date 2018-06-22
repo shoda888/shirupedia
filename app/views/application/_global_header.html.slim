@@ -119,6 +119,9 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
         .dropdown-divider
         a.dropdown-item.dropdown-footer[href="#"]
           | See my profile
+        .dropdown-divider
+        .dropdown-item.dropdown-footer
+          = link_to "ログアウト", logout_path, class: 'fa fa-sign-out mr-2'
 
       ul.dropdown-menu
         li.user-header
