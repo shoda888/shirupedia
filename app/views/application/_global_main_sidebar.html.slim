@@ -8,7 +8,7 @@ aside.main-sidebar.sidebar-light-primary.elevation-4
       .image
         img.img-circle.elevation-2[src="/user2-160x160.jpg" alt="User Image"]
       .info
-        a.d-block[href="#"]
+        a.d-block[href="/profiles/#{@current_user.profile.id}"]
           = @current_user.name
     nav.mt-2
       ul.nav.nav-pills.nav-sidebar.flex-column[data-widget="treeview" role="menu" data-accordion="false"]
