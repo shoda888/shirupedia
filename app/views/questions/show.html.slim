@@ -1,56 +1,55 @@
-.content-wrapper
-  section.content-header
-  section.content
-    .row
-      .col-md-12
-        .card.card-success
-          .card-header.with-border
-            h3.card-title = @question.title
+section.content-header
+section.content
+  .row
+    .col-md-12
+      .card.card-success
+        .card-header.with-border
+          h3.card-title = @question.title
 
-          .form
-            .row
-              .col-lg-12
-                .card-body
-                  .state_btn
-                    - if @question_user == @current_user
-                      - if @question.wanted?
-                        = link_to '質問終了にする',
-                            fire_question_path(@question, event: 'finish'), method: :put,
-                            :class => 'btn btn-block btn-danger btn-sm', data: { confirm: '質問を終了してよろしいですか？'}
-                      - else
-                        .btn.btn-block.btn-primary.btn-sm.disabled
-                          | 質問は終了しました
+        .form
+          .row
+            .col-lg-12
+              .card-body
+                .state_btn
+                  - if @question_user == @current_user
+                    - if @question.wanted?
+                      = link_to '質問終了にする',
+                          fire_question_path(@question, event: 'finish'), method: :put,
+                          :class => 'btn btn-block btn-danger btn-sm', data: { confirm: '質問を終了してよろしいですか？'}
                     - else
-                      - if @question.wanted?
-                        .btn.btn-block.btn-danger.btn-sm
-                          | 回答募集中
-                      - else
-                        .btn.btn-block.btn-primary.btn-sm.disabled
-                          | 質問は終了しました
+                      .btn.btn-block.btn-primary.btn-sm.disabled
+                        | 質問は終了しました
+                  - else
+                    - if @question.wanted?
+                      .btn.btn-block.btn-danger.btn-sm
+                        | 回答募集中
+                    - else
+                      .btn.btn-block.btn-primary.btn-sm.disabled
+                        | 質問は終了しました
 
-                  table.table.table-hover
-                    tbody
-                      tr
-                        th 本文
-                        td = @question.content
-                      tr
-                        th 分野タグ
-                        td
-                          - @question.field_list.each do |field|
-                            span.btn.btn-sm.btn-info
-                              = field
-                            | &nbsp;
-                      tr
-                        th チップ
-                        td = @question.amount_paid
+                table.table.table-hover
+                  tbody
+                    tr
+                      th 本文
+                      td = @question.content
+                    tr
+                      th 分野タグ
+                      td
+                        - @question.field_list.each do |field|
+                          span.btn.btn-sm.btn-info
+                            = field
+                          | &nbsp;
+                    tr
+                      th チップ
+                      td = @question.amount_paid
 
-                      tr
-                        th ファイル
-                        td
-                          - if @question.file?
-                            = image_tag @question.file.url
+                    tr
+                      th ファイル
+                      td
+                        - if @question.file?
+                          = image_tag @question.file.url
 
-                .card-footer
-                  .form-inline.pull-right
-                    - if @question_user == @current_user
-                      = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'
+              .card-footer
+                .form-inline.pull-right
+                  - if @question_user == @current_user
+                    = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'

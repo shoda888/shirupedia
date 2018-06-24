@@ -1,18 +1,27 @@
 = form_tag(profiles_path, multipart: true) do
-  .form-group
-    = label_tag :name, '名前', class: 'control-label small gray-text'
-    = text_field :user, :name, required: true, class: 'form-control'
-  .form-group
-    = label_tag :email, 'メールアドレス', class: 'control-label small gray-text'
-    = text_field :user, :email, required: true, class: 'form-control'
-  .form-group
-    = label_tag :grade, '学年', class: 'control-label small gray-text'
-    = text_field :profile, :grade, required: true, class: "form-control", placeholder: '学部４年'
-  .form-group
-    = label_tag :department, '系', class: 'control-label small gray-text'
-    = text_field :profile, :department, required: true, class: "form-control", placeholder: 'システム制御系'
-  .form-group
-    = label_tag :lesson, '受講している講義名', class: 'control-label small gray-text'
-    = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
+  .card-body
+    .form-group
+      = label_tag :name, '名前', class: 'control-label small gray-text'
+      = text_field :user, :name, required: true, class: 'form-control'
+    .form-group
+      = label_tag :email, 'メールアドレス', class: 'control-label small gray-text'
+      = text_field :user, :email, required: true, class: 'form-control'
+    .form-group
+      = label_tag :grade, '学年', class: 'control-label small gray-text'
+      = text_field :profile, :grade, required: true, class: "form-control", placeholder: '学部４年'
+    .form-group
+      = label_tag :department, '系', class: 'control-label small gray-text'
+      = text_field :profile, :department, required: true, class: "form-control", placeholder: 'システム制御系'
+    .form-group
+      = label_tag :lesson, '受講している講義名', class: 'control-label small gray-text'
+      = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
 
-  = submit_tag("登録", class: 'btn btn-info')
+
+  .card-footer
+    .form-inline.pull-right
+      - if @profile.new_record?
+        a.btn.bg-gray href=login_path = 'キャンセル'
+      - else
+        a.btn.bg-gray href=profile_path(@profile) = '戻る'
+      | &nbsp;
+      = submit_tag("登録", class: 'btn btn-info')

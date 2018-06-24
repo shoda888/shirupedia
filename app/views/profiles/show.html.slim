@@ -1,0 +1,29 @@
+section.content-header
+section.content
+  .row
+    .col-md-12
+      .card.card-info
+        .card-header.with-border
+          h3.card-title = @user.name
+
+        .form
+          .row
+            .col-lg-12
+              .card-body
+                table.table.table-hover
+                  tbody
+                    tr
+                      th 学年
+                      td = @profile.grade
+                    tr
+                      th 系
+                      td = @profile.department
+
+                    tr
+                      th 受講講義
+                      td = @profile.lesson
+
+              .card-footer
+                .form-inline.pull-right
+                  - if @user == @current_user
+                    = link_to '編集', edit_profile_path(@profile), class: 'btn btn-info pull-right'

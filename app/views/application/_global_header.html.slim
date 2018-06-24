@@ -115,9 +115,9 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
           span
             | Chips
           span.float-right.text-sm
-            | 500 $
+            = "#{@current_user.chip} $"
         .dropdown-divider
-        a.dropdown-item.dropdown-footer[href="#"]
+        a.dropdown-item.dropdown-footer[href="/profiles/#{@current_user.profile.id}"]
           | See my profile
         .dropdown-divider
         .dropdown-item.dropdown-footer
