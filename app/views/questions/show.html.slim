@@ -1,7 +1,7 @@
 section.content-header
 section.content
   .row
-    .col-md-12
+    .col-lg-9
       .card.card-success
         .card-header.with-border
           h3.card-title = @question.title
@@ -53,3 +53,5 @@ section.content
                 .form-inline.pull-right
                   - if @question_user == @current_user
                     = link_to '編集', edit_question_path(@question), class: 'btn btn-success pull-right'
+                  - else
+                    = link_to '回答する', new_answer_path, class: 'btn btn-danger pull-right'
