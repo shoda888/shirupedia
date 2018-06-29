@@ -1,4 +1,4 @@
-nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
+nav.main-header.navbar.navbar-expand.bg-info.navbar-light.border-bottom
   ul.navbar-nav
     li.nav-item
       a.nav-link[data-widget="pushmenu" href="#"]
@@ -118,10 +118,11 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
             = "#{@current_user.chip} $"
         .dropdown-divider
         a.dropdown-item.dropdown-footer[href="/profiles/#{@current_user.profile.id}"]
-          | See my profile
+          | プロフィール
         .dropdown-divider
-        .dropdown-item.dropdown-footer
-          = link_to "ログアウト", logout_path, class: 'fa fa-sign-out mr-2'
+        a.dropdown-item.dropdown-footer[href="/logout"]
+          i.fa.fa-sign-out.mr-2
+            | ログアウト
 
       ul.dropdown-menu
         li.user-header

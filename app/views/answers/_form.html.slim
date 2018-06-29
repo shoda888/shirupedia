@@ -1,0 +1,25 @@
+= form_for [@question, @answer], html: {class: 'form-horizontal'} do |f|
+  .card-body
+    - if @answer.errors.any?
+      .callout.callout-danger
+        h4 入力内容をご確認ください
+        ul
+          - @answer.errors.full_messages.each do |error|
+            li
+              = error
+
+    .form-group
+      = f.label :title, class: 'col-sm-3 control-label'
+      .col-sm-9
+        = f.text_field :title, required: true, class: 'form-control', placeholder: '例）こうすればいいんです'
+
+    .form-group
+      = f.label :content, class: 'col-sm-3 control-label'
+      .col-sm-9
+        = f.text_area :content, class: 'form-control', placeholder: '例）まず、(1)において、目的を設定してください。それから、、、'
+
+  .card-footer
+    .form-inline.pull-right
+      a.btn.bg-gray href=question_path(@question) = 'キャンセル'
+      | &nbsp;
+      = f.submit class: 'btn btn-danger pull-right'

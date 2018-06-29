@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   resources :users
   resources :profiles
   resources :communities
-  resources :answers
   resources :questions do
+    resources :answers
     member do
       put :fire
     end

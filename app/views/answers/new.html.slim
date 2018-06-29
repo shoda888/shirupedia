@@ -1,0 +1,33 @@
+section.content-header
+section.content
+  .row
+    .col-lg-9
+      .card.card-info
+        .card-header.with-border
+          .form-inline.pull-left
+            h3.card-title = @question.title
+          .form-inline.pull-right
+            - @question.field_list.each do |field|
+              span.badge.badge-pill.badge-light
+                = field
+              | &nbsp;
+
+        .form
+          .row
+            .col-lg-12
+              .card-body
+                .row
+                  .content
+                    = @question.content
+
+                  .content
+                    - if @question.file?
+                      = image_tag @question.file.url, class: 'col-lg-12'
+
+    .col-lg-9
+      .card.card-danger
+        .card-header.with-border
+          h3.card-title
+            | 回答
+        .form
+          = render 'form'

@@ -23,7 +23,9 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answers = @question.answers
     @question_user = @question.user
+    @answered_by_me = @answers.find_by(user_id: @current_user.id)
   end
 
   def edit
