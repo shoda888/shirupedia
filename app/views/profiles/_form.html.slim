@@ -1,6 +1,10 @@
 = form_tag(profiles_path, multipart: true) do
   .card-body
     .form-group
+      = label_tag :avatar, 'アイコン', class: 'control-label small gray-text'
+      .col-sm-9
+        = file_field :profile, :avatar
+    .form-group
       = label_tag :name, '名前', class: 'control-label small gray-text'
       = text_field :user, :name, required: true, class: 'form-control'
     .form-group

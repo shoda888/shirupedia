@@ -6,7 +6,7 @@ aside.main-sidebar.sidebar-light-primary.elevation-4
   .sidebar
     .user-panel.mt-3.pb-3.mb-3.d-flex
       .image
-        img.img-circle.elevation-2[src="/user2-160x160.jpg" alt="User Image"]
+        img.img-circle.elevation-2[src="#{@current_user.profile.avatar.thumb}" alt="User Image" style='height:2.1rem;']
       .info
         a.d-block[href="/profiles/#{@current_user.profile.id}"]
           = @current_user.name

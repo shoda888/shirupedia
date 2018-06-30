@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180627015958) do
   end
 
   create_table "profiles", force: :cascade do |t|
+    t.string "avatar"
     t.string "grade"
     t.string "department"
     t.string "lesson"

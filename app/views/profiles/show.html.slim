@@ -10,8 +10,11 @@ section.content
           .row
             .col-lg-12
               .card-body
-                table.table.table-hover
+                table.table
                   tbody
+                    tr
+                      td
+                        img.img-circle[src="#{@profile.avatar.thumb}" style='width:48px; height:48px;']
                     tr
                       th 学年
                       td = @profile.grade
