@@ -13,9 +13,12 @@
                 button.btn.btn-default[type="submit"]
                   i.fa.fa-search
 
-                  .card-body.table-responsive.p-0
-        table.table.table-hover
-          tbody
-            - @questions.each do |q|
-              tr role="row"
-                td = link_to q.title, question_path(q)
+        .card-body[style='padding:10px;']
+          - @questions.each do |q|
+            .border-top[style='padding:5px 0px;']
+              = link_to q.title, question_path(q)
+              .content
+                - q.field_list.each do |field|
+                  span.badge.badge-pill.badge-info
+                    = field
+                  | &nbsp;
