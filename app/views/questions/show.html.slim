@@ -5,6 +5,8 @@ section.content
       .card.card-info
         .card-header.with-border
           .form-inline.pull-left
+            a[href="/profiles/#{@question_user.profile.id}"]
+              img.img-size-32.img-circle[alt="User Avatar" src="#{@avatar}" style='margin-right:10px;']
             h3.card-title = @question.title
           .form-inline.pull-right
             - @question.field_list.each do |field|
@@ -51,7 +53,10 @@ section.content
       - @answers.each do |answer|
         .card.card-danger
           .card-header.with-border
-            h3.card-title = answer.title
+            .form-inline.pull-left
+              a[href="/profiles/#{answer.user.profile.id}"]
+                img.img-size-32.img-circle[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}" style='margin-right:10px;']
+              h3.card-title = answer.title
 
           .form
             .row

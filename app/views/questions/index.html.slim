@@ -26,4 +26,4 @@
                   | &nbsp;
                 .form-inline.pull-right
                   span[style='font-size:11px; margin-top:12px; color:#85797c;']
-                    | 作成日：#{q.created_at}
+                    | 作成日：#{q.created_at.to_s(:db)}

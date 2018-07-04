@@ -5,6 +5,8 @@ section.content
       .card.card-info
         .card-header.with-border
           .form-inline.pull-left
+            a[href="/profiles/#{@question_user.profile.id}"]
+              img.img-size-32.img-circle[alt="User Avatar" src="#{@question_user_avatar}" style='margin-right:10px;']
             h3.card-title = @question.title
           .form-inline.pull-right
             - @question.field_list.each do |field|
@@ -26,7 +28,9 @@ section.content
 
     .col-lg-9
       .card.card-danger
-        .card-header.with-border
+        .card-header.with-border.form-inline.pull-left
+          a[href="/profiles/#{@answer_user.profile.id}"]
+            img.img-size-32.img-circle[alt="User Avatar" src="#{@answer_user_avatar}" style='margin-right:10px;']
           h3.card-title
             | 回答
         .form

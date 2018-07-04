@@ -3,12 +3,15 @@ class AnswersController < ApplicationController
   before_action :authenticate_user
 
   def index
-    @answers = Answer.all
   end
 
   def new
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(user_id: @current_user.id)
+    @question_user = @question.user
+    @answer_user = @answer.user
+    @question_user_avatar = @question_user.profile.avatar.thumb
+    @answer_user_avatar = @answer_user.profile.avatar.thumb
   end
 
   def create
@@ -30,13 +33,18 @@ class AnswersController < ApplicationController
   def edit
     @question = Question.find(params[:question_id])
     @answer = Answer.find(params[:id])
+    @question_user = @question.user
+    @answer_user = @answer.user
+    @question_user_avatar = @question_user.profile.avatar.thumb
+    @answer_user_avatar = @answer_user.profile.avatar.thumb
   end
 
   def update
+    @question = Question.find(params[:question_id])
     @answer = Answer.find(params[:id])
     @answer.attributes = answer_params
     if @answer.save
-      redirect_to answer_path(@answer), notice: ''
+      redirect_to question_path(@question), notice: '回答を編集しました'
     else
       render :edit
     end
