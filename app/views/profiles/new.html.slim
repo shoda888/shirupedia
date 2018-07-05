@@ -8,8 +8,9 @@
             h3.card-title
               | プロフィールを登録しましょう
           .card-body
-            - if @user.errors.any?
-              .alert.alert-danger role="alert"
-                - @user.errors.full_messages.each do |message|
-                  = message
-            = render 'form'
+            = form_tag(profiles_path, multipart: true) do
+              - if @user.errors.any?
+                .alert.alert-danger role="alert"
+                  - @user.errors.full_messages.each do |message|
+                    = message
+              = render 'form'
