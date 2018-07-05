@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   def index
-    @questions = Question.includes([user: :profile]).order('created_at desc')
+    @questions = Question.includes([:fields, user: :profile]).order('created_at desc')
   end
 
   def new

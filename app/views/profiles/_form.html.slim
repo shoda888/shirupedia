@@ -17,6 +17,9 @@
       = label_tag :department, '系', class: 'control-label small gray-text'
       = text_field :profile, :department, required: true, class: "form-control", placeholder: 'システム制御系'
     .form-group
+      = label_tag :interest_list, '興味のある分野', class: 'control-label small gray-text'
+      = text_field_tag 'profile[interest_list]', @profile.interest_list.join(','), placeholder: '例）programing,ロボット', class: 'form-control'
+    .form-group
       = label_tag :lesson, '受講している講義名', class: 'control-label small gray-text'
       = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
 

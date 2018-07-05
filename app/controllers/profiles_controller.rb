@@ -56,7 +56,7 @@ class ProfilesController < ApplicationController
   def set_attribute
     user_params = params.require(:user).permit(:name, :email)
     @user.attributes = user_params
-    profile_params = params.require(:profile).permit(:grade, :department, :lesson, :avatar)
+    profile_params = params.require(:profile).permit(:grade, :department, :lesson, :avatar, :interest_list)
     @profile.attributes = profile_params
   end
 end
