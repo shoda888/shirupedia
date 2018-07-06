@@ -21,7 +21,7 @@
     .form-group
       = f.label :field_list, class: 'col-sm-3 control-label'
       .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械'
+        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
 
     .form-group
       = f.label :file, class: 'col-sm-3 control-label'
@@ -51,7 +51,7 @@
 
     .form-group
       = f.label :amount_paid, class: 'col-sm-3 control-label'
-      .col-sm-9
+      .col-sm-3
         = f.text_field :amount_paid, class: 'form-control', placeholder: 300
 
   .card-footer
@@ -61,4 +61,5 @@
       - else
         a.btn.bg-gray href=question_path(@question) = '戻る'
       | &nbsp;
-      = f.submit class: 'btn btn-success pull-right'
+      button.btn.btn-success.pull-right[type="button" onclick="submit();"]
+        | 登録

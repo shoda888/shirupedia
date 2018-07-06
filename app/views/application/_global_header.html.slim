@@ -1,4 +1,4 @@
-nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
+nav.main-header.navbar.navbar-expand.bg-info.navbar-light.border-bottom
   ul.navbar-nav
     li.nav-item
       a.nav-link[data-widget="pushmenu" href="#"]
@@ -95,7 +95,7 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
     li.nav-item.dropdown.user.user-menu.d-none.d-sm-inline-block
       a#user-ava.nav-link[data-toggle="dropdown" href="#" style="padding-top: 4px;"]
         .media
-          img.img-size-32.img-circle[alt="User Avatar" src="/user2-160x160.jpg"]
+          img.img-size-32.img-circle[alt="User Avatar" src="#{@current_user.profile.avatar.thumb}"]
 
       .dropdown-menu.dropdown-menu-lg.dropdown-menu-right
         span.dropdown-header
@@ -115,13 +115,14 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
           span
             | Chips
           span.float-right.text-sm
-            | 500 $
+            = "#{@current_user.chip} $"
         .dropdown-divider
-        a.dropdown-item.dropdown-footer[href="#"]
-          | See my profile
+        a.dropdown-item.dropdown-footer[href="/profiles/#{@current_user.profile.id}"]
+          | プロフィール
         .dropdown-divider
-        .dropdown-item.dropdown-footer
-          = link_to "ログアウト", logout_path, class: 'fa fa-sign-out mr-2'
+        a.dropdown-item.dropdown-footer[href="/logout"]
+          i.fa.fa-sign-out.mr-2
+            | ログアウト
 
       ul.dropdown-menu
         li.user-header
