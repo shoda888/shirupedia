@@ -22,6 +22,10 @@ gem 'webpacker'
 # gem 'therubyracer', platforms: :ruby
 # gem 'jquery-rails'
 # gem 'jquery-ui-rails'
+gem 'acts-as-taggable-on', '~> 5.0'
+gem 'aasm'
+gem 'carrierwave'
+gem 'mini_magick'
 # Use slim
 gem 'slim-rails'
 # Use CoffeeScript for .coffee assets and views

@@ -1,0 +1,37 @@
+section.content-header
+section.content
+  .row
+    .col-lg-9
+      .card.card-info
+        .card-header.with-border
+          .form-inline.pull-left
+            a[href="/profiles/#{@question_user.profile.id}"]
+              img.img-size-32.img-circle[alt="User Avatar" src="#{@question_user_avatar}" style='margin-right:10px;']
+            h3.card-title = @question.title
+          .form-inline.pull-right
+            - @question.field_list.each do |field|
+              span.badge.badge-pill.badge-light
+                = field
+              | &nbsp;
+
+        .form
+          .row
+            .col-lg-12
+              .card-body
+                .row
+                  .content
+                    = @question.content
+
+                  .content
+                    - if @question.file?
+                      = image_tag @question.file.url, class: 'col-lg-12'
+
+    .col-lg-9
+      .card.card-danger
+        .card-header.with-border.form-inline.pull-left
+          a[href="/profiles/#{@answer_user.profile.id}"]
+            img.img-size-32.img-circle[alt="User Avatar" src="#{@answer_user_avatar}" style='margin-right:10px;']
+          h3.card-title
+            | 回答
+        .form
+          = render 'form'

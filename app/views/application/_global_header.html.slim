@@ -1,18 +1,14 @@
-nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
+nav.main-header.navbar.navbar-expand.bg-info.navbar-light.border-bottom
   ul.navbar-nav
     li.nav-item
       a.nav-link[data-widget="pushmenu" href="#"]
         i.fa.fa-bars
-    li.nav-item.d-none.d-sm-inline-block
+    li.nav-item
+      a.nav-link[href=questions_path]
+        i.nav-icon.fa.fa-home.fa-lg
+    li.nav-item
       a.nav-link[href=new_question_path]
-        i.nav-icon.fa.fa-edit
-          | 質問を投稿する
-  form.form-inline.ml-3
-    .input-group.input-group-sm
-      input.form-control.form-control-navbar[type="search" placeholder="Search" aria-label="Search"]
-      .input-group-append
-        button.btn.btn-navbar[type="submit"]
-          i.fa.fa-search
+        i.nav-icon.fa.fa-edit.fa-lg
   ul.navbar-nav.ml-auto
     li.nav-item.dropdown
       a.nav-link[data-toggle="dropdown" href="#"]
@@ -96,13 +92,10 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
         .dropdown-divider
         a.dropdown-item.dropdown-footer[href="#"]
           | See All Notifications
-    li.nav-item.dropdown.user.user-menu
-      a.nav-link[data-toggle="dropdown" href="#"]
+    li.nav-item.dropdown.user.user-menu.d-none.d-sm-inline-block
+      a#user-ava.nav-link[data-toggle="dropdown" href="#" style="padding-top: 4px;"]
         .media
-          img.img-size-32.mr-3.img-circle[alt="User Avatar" src="/user2-160x160.jpg"]
-          .media-body
-            span.hidden-xs
-              = @current_user.name
+          img.img-size-32.img-circle[alt="User Avatar" src="#{@current_user.profile.avatar.thumb}"]
 
       .dropdown-menu.dropdown-menu-lg.dropdown-menu-right
         span.dropdown-header
@@ -122,10 +115,14 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
           span
             | Chips
           span.float-right.text-sm
-            | 500 $
+            = "#{@current_user.chip} $"
         .dropdown-divider
-        a.dropdown-item.dropdown-footer[href="#"]
-          | See my profile
+        a.dropdown-item.dropdown-footer[href="/profiles/#{@current_user.profile.id}"]
+          | プロフィール
+        .dropdown-divider
+        a.dropdown-item.dropdown-footer[href="/logout"]
+          i.fa.fa-sign-out.mr-2
+            | ログアウト
 
       ul.dropdown-menu
         li.user-header
@@ -155,4 +152,4 @@ nav.main-header.navbar.navbar-expand.bg-success.navbar-light.border-bottom
 
     li.nav-item
       a.nav-link[data-widget="control-sidebar" data-slide="true" href="#"]
-        i.fa.fa-th-large
+        i.fa.fa-cogs

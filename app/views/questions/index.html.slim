@@ -1,12 +1,29 @@
-.content-wrapper
-  .container
-    .row
-      .col-lg-12
-        table.table.table-bordered.table-striped.dataTable role="grid"
-          thead
-            tr role="row"
-              th タイトル
-          tbody
-            - @questions.each do |q|
-              tr role="row"
-                td = link_to q.title, question_path(q)
+.content-header
+.content
+  .row
+    .col-12
+      .card.card-info
+        .card-header
+          h3.card-title
+            | 今ホットな質問
+          .card-tools
+            .input-group.input-group-sm[style="width: 150px;"]
+              input.form-control.float-right[type="text" name="table_search" placeholder="Search"]
+              .input-group-append
+                button.btn.btn-default[type="submit"]
+                  i.fa.fa-search
+
+        .card-body[style='padding:10px;']
+          - @questions.each do |q|
+            .border-top[style='padding:5px 0px;']
+              a[href="/profiles/#{q.user.profile.id}"]
+                img.form-inline.pull-left.img-circle[src="#{q.user.profile.avatar.thumb}" style='width:48px; height:48px; margin-right:10px;']
+              = link_to q.title, question_path(q)
+              .content
+                - q.field_list.each do |field|
+                  span.badge.badge-pill.badge-info
+                    = field
+                  | &nbsp;
+                .form-inline.pull-right
+                  span[style='font-size:11px; margin-top:12px; color:#85797c;']
+                    | 作成日：#{q.created_at.to_s(:db)}

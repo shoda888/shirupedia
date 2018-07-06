@@ -4,6 +4,7 @@ html
     title
       | Shirupedia
     = csrf_meta_tags
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
@@ -11,7 +12,16 @@ html
       = render 'global_header'
       = render 'global_main_sidebar'
 
-      = yield
+      .content-wrapper
+        - if flash[:notice]
+          .alert.alert-warning.alert-dismissible[style="margin-bottom:0px;"]
+            button.close[type="button" data-dismiss="alert" aria-hidden="true"]
+              | ×
+            h6
+              i.icon.fa.fa-info
+              = notice
+
+        = yield
 
       = render 'global_right_sidebar'
       = render 'global_footer'
