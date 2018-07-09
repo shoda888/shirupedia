@@ -1,17 +1,25 @@
 .content-header
 .content
   .row
+    .col-6
+      = form_tag questions_path, :method => 'get' do
+        .input-group.input-group-sm[style="width: 150px;"]
+          = text_field_tag :search, params[:search], placeholder: '自由検索', class: 'form-control float-right'
+          .input-group-append
+            button.btn.btn-default[type="submit"]
+              i.fa.fa-search
     .col-12
       .card.card-info
         .card-header
           h3.card-title
             | 今ホットな質問
-          .card-tools
-            .input-group.input-group-sm[style="width: 150px;"]
-              input.form-control.float-right[type="text" name="table_search" placeholder="Search"]
-              .input-group-append
-                button.btn.btn-default[type="submit"]
-                  i.fa.fa-search
+          / .card-tools
+          /   = form_tag questions_path, :method => 'get' do
+          /     .input-group.input-group-sm[style="width: 150px;"]
+          /       = text_field_tag :search, params[:search], placeholder: '自由検索', class: 'form-control float-right'
+          /       .input-group-append
+          /         button.btn.btn-default[type="submit"]
+          /           i.fa.fa-search
 
         .card-body[style='padding:10px;']
           - @questions.each do |q|
