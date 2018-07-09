@@ -17,3 +17,10 @@
  @import 'font-awesome/css/font-awesome.min.css';
  @import 'admin-lte/dist/css/adminlte.min.css';
  @import 'bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css';
+
+a{
+  color: #149fb5;
+}
+a:hover{
+  color: #008ba1
+}
