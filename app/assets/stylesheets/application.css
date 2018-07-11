@@ -17,3 +17,12 @@
  @import 'font-awesome/css/font-awesome.min.css';
  @import 'admin-lte/dist/css/adminlte.min.css';
  @import 'bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css';
+
+/* #q_img{
+  position: relative;
+}
+#q_prof_img{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+} */
