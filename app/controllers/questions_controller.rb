@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   def index
-    @questions = Question.includes([:fields, user: :profile]).order('created_at desc')
+    @questions = Question.search(params[:search]).includes([:fields, user: :profile]).order('created_at desc')
   end
 
   def new
@@ -27,6 +27,8 @@ class QuestionsController < ApplicationController
     @question_user = @question.user
     @avatar = @question_user.profile.avatar.thumb
     @answered_by_me = @answers.find_by(user_id: @current_user.id)
+
+    @related_questions = @question.find_related_fields
   end
 
   def edit

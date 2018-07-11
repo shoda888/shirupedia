@@ -1,7 +1,7 @@
 section.content-header
 section.content
   .row
-    .col-lg-9
+    .col-md-8
       .card.card-info
         .card-header.with-border
           .form-inline.pull-left
@@ -69,3 +69,19 @@ section.content
                   .form-inline.pull-right
                     - if answer.user == @current_user
                       = link_to '編集', edit_question_answer_path(question_id: @question.id, id: answer.id), class: 'btn btn-danger pull-right'
+
+    .col-md-4
+      .card.border-info.mb-3
+        .card-header
+          | 類似した質問
+        .card-body.text-info[style="padding:10px;"]
+          - @related_questions.each do |q|
+            .border-top[style='padding:5px 0px;']
+              a[href="/profiles/#{q.user.profile.id}"]
+                img.form-inline.pull-left.img-circle[src="#{q.user.profile.avatar.thumb}" style='width:48px; height:48px; margin-right:10px;']
+              = link_to q.title, question_path(q)
+              .content
+                - q.field_list.each do |field|
+                  span.badge.badge-pill.badge-info
+                    = field
+                  | &nbsp;
