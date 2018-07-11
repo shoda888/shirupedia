@@ -18,9 +18,11 @@
  @import 'admin-lte/dist/css/adminlte.min.css';
  @import 'bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css';
 
-a{
-  color: #149fb5;
+/* #q_img{
+  position: relative;
 }
-a:hover{
-  color: #008ba1
-}
+#q_prof_img{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+} */
