@@ -11,8 +11,8 @@ html
   body
     script[src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"]
 
+    = render 'main_header'
     .container
-      = render 'main_header'
 
       .content
         - if flash[:notice]
