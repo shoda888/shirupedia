@@ -28,9 +28,9 @@ nav
 
 ul#mobile-demo.sidenav
   li[style='height:64px;']
-    form
+    = form_tag questions_path, :method => 'get' do
       .input-field
-        input[type="search" required]
+        = search_field_tag("search", nil, placeholder: "Search")
         label.label-icon[for="search"]
           i.material-icons
             | search
