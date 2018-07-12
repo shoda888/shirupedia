@@ -1,0 +1,27 @@
+nav
+  .nav-wrapper.teal.lighten-3
+    a.brand-logo[href=questions_path]
+      | Shirupedia
+    a.sidenav-trigger[href="#" data-target="mobile-demo"]
+      i.material-icons
+        | menu
+    ul.right.hide-on-med-and-down
+      li
+        a[href="#"]
+          | Chats
+      li
+        a[href="/profiles/#{@current_user.profile.id}"]
+          | プロフィール
+      li
+        a[href="/logout"]
+          | ログアウト
+ul#mobile-demo.sidenav
+  li
+    a[href="#"]
+      | Chats
+  li
+    a[href="/profiles/#{@current_user.profile.id}"]
+      | プロフィール
+  li
+    a[href="/logout"]
+      | ログアウト
