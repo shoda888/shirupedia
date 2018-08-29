@@ -16,12 +16,9 @@ ActiveRecord::Schema.define(version: 20180627015958) do
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
     t.string "aasm_state"
     t.string "tag"
     t.string "file"
-    t.integer "amount_paid"
     t.integer "user_id"
     t.integer "question_id"
     t.datetime "created_at", null: false
@@ -42,8 +39,6 @@ ActiveRecord::Schema.define(version: 20180627015958) do
     t.string "title"
     t.string "content"
     t.string "aasm_state"
-    t.string "tag"
-    t.integer "amount_paid"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,7 +73,6 @@ ActiveRecord::Schema.define(version: 20180627015958) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "chip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -59,7 +59,7 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :content, :amount_paid, :tag, :field_list, :file, :file_cache)
+    params.require(:question).permit(:title, :tag, :field_list, :file, :file_cache)
   end
 
 end

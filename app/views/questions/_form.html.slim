@@ -13,10 +13,10 @@
       .col-sm-9
         = f.text_field :title, required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
-    .form-group
-      = f.label :content, class: 'col-sm-3 control-label'
-      .col-sm-9
-        = f.text_area :content, class: 'form-control', placeholder: '例）通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
+    / .form-group
+    /   = f.label :content, class: 'col-sm-3 control-label'
+    /   .col-sm-9
+    /     = f.text_area :content, class: 'form-control', placeholder: '例）通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
 
     .form-group
       = f.label :field_list, class: 'col-sm-3 control-label'
@@ -28,31 +28,10 @@
       .col-sm-9
         = f.file_field :file
 
-    / 待ち合わせ用
     / .form-group
-    /   = f.label :meeting_place, class: 'col-sm-3 control-label'
-    /   .col-sm-9
-    /     multilingual name='proposal[meeting_place]' value="#{@question.meeting_place_value.to_json}" caption="30#{t('activerecord.attributes.form.characters_limit')}#{t('ph.proposal.new.easy_to_understand_loaction_input') }"
-    /
-    / .form-group
-    /   /集合場所（緯度経度）
-    /   = f.label :meeting_place_lat_lng, class: 'col-sm-3 control-label'
-    /   .col-sm-9
-    /     a href="#" @click="open_map()" = t('ph.proposal.new.get_coordinates_from_map')
-    /   .col-sm-4
-    /     = f.text_field :meeting_place_lat, id: 'lat', class: 'form-control', placeholder: '35.6580382'
-    /   .col-sm-4
-    /     = f.text_field :meeting_place_lng, id: 'lng', class: 'form-control', placeholder:'139.6994471'
-    /
-    / .form-group
-    /   = f.label :meeting_memo, class: 'col-sm-3 control-label'
-    /   .col-sm-9
-    /     multilingual type='textarea' name='proposal[meeting_memo]' value="#{@question.meeting_memo_value.to_json}" caption="#{t('ph.proposal.new.meeting_supplement')}"
-
-    .form-group
-      = f.label :amount_paid, class: 'col-sm-3 control-label'
-      .col-sm-3
-        = f.text_field :amount_paid, class: 'form-control', placeholder: 300
+    /   = f.label :amount_paid, class: 'col-sm-3 control-label'
+    /   .col-sm-3
+    /     = f.text_field :amount_paid, class: 'form-control', placeholder: 300
 
   .card-footer
     .form-inline.pull-right
