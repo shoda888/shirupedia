@@ -1,10 +1,12 @@
 class QuestionsController < ApplicationController
   layout 'main_table'
+  QuestionColor = ['lime', 'yellow', 'orange', 'red', 'purple', 'blue']
   before_action :authenticate_user
   before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   def index
     @questions = Question.search(params[:search]).includes([:fields, user: :profile]).order('created_at desc')
+    @colors = QuestionColor
   end
 
   def new
