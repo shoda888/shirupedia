@@ -18,15 +18,16 @@
     /   .col-sm-9
     /     = f.text_area :content, class: 'form-control', placeholder: '例）通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
 
-    .form-group
-      = f.label :field_list, class: 'col-sm-3 control-label'
-      .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
 
     .form-group
       = f.label :file, class: 'col-sm-3 control-label'
       .col-sm-9
         = f.file_field :file
+
+    .form-group
+      = f.label :field_list, class: 'col-sm-3 control-label'
+      .col-sm-9
+        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
 
     / .form-group
     /   = f.label :amount_paid, class: 'col-sm-3 control-label'

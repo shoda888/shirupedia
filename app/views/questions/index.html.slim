@@ -5,9 +5,9 @@
         div class="#{@colors[q.id % 6]} darken-2"
           / .card-image.waves-effect.waves-block.waves-light[style='max-height: 250px;']
             / img.activator[src="#{q.file.url}"]
-          .card-content
+          .card-content[data-iziModal-open=".iziModal#{q.id}"]
             span.card-title.activator.white-text
-              h6.activator[style="font-family: season;"]
+              h6.activator
                 | #{q.title}
               i.material-icons.right
                 | more_vert
@@ -16,12 +16,12 @@
               .badge.badge-pill.teal.lighten-3
                 = field
               | &nbsp;
-          .card-action.row
-            a.waves-effect.waves-light.btn-small.teal.lighten-3[href=new_question_answer_path(question_id: q.id)]
-              | 返答する
-            a
-              i.material-icons.right
-                | highlight
+          / .card-action.row
+          /   a.waves-effect.waves-light.btn-small.teal.lighten-3[href=new_question_answer_path(question_id: q.id)]
+          /     | 返答する
+          /   a
+          /     i.material-icons.right
+          /       | highlight
           / .card-reveal
           /   a.waves-effect.waves-light[href="/profiles/#{q.user.profile.id}"]
           /     img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:48px; height:48px; margin-right:10px;"]
@@ -34,3 +34,16 @@
           /     | #{q.content}
           /   span[style='font-size:11px; margin-top:12px; color:#85797c;']
           /     | 作成日：#{q.created_at.to_s(:db)}
+          div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" style="font-family: 'season';"
+            - if q.file?
+              = image_tag q.file.url
+
+            - if q.user == @current_user
+              a.waves-effect.waves-light.btn-small.teal.lighten-3[href=edit_question_path(q)]
+                | 編集する
+            - else
+              a.waves-effect.waves-light.btn-small.teal.lighten-3[href=new_question_answer_path(question_id: q.id)]
+                | 返答する
+            a
+              i.material-icons.right
+                | highlight
