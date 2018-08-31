@@ -2,7 +2,7 @@ section.content-header
 section.content
   .row
     .col-md-12
-      .card.card-info
+      .card.card-default
         .card-header.with-border
           h3.card-title = @user.name
 
@@ -30,7 +30,7 @@ section.content
                       th 興味のある分野
                       td
                         - @profile.interest_list.each do |i|
-                          span.badge.badge-pill.badge-info
+                          .chip.teal.lighten-3
                             = i
                           | &nbsp;
 

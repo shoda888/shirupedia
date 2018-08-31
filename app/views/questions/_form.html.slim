@@ -27,7 +27,7 @@
     .form-group
       = f.label :field_list, class: 'col-sm-3 control-label'
       .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
+        = text_field 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
 
     / .form-group
     /   = f.label :amount_paid, class: 'col-sm-3 control-label'

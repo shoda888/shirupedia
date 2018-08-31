@@ -1,6 +1,6 @@
 .row
   - @questions.each do |q|
-    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+    .col.s12.m6.l4
       .card.sticky-action
         div class="#{@colors[q.id % 6]} darken-2"
           / .card-image.waves-effect.waves-block.waves-light[style='max-height: 250px;']
@@ -13,7 +13,7 @@
                 | more_vert
 
             - q.field_list.each do |field|
-              .badge.badge-pill.teal.lighten-3
+              .chip.teal.lighten-3
                 = field
               | &nbsp;
           / .card-action.row
@@ -39,11 +39,23 @@
               = image_tag q.file.url
 
             - if q.user == @current_user
-              a.waves-effect.waves-light.btn-small.teal.lighten-3[href=edit_question_path(q)]
-                | 編集する
+              - if q.wanted?
+                a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
+                  | 編集する
+                = link_to '質問終了にする',
+                    fire_question_path(q, event: 'finish'), method: :put,
+                    :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
+              - else
+                .btn.btn-block.btn-primary.btn-sm.disabled
+                  | 質問は終了しました
             - else
-              a.waves-effect.waves-light.btn-small.teal.lighten-3[href=new_question_answer_path(question_id: q.id)]
-                | 返答する
+              - if q.wanted?
+                a.waves-effect.waves-light.btn-small.teal.lighten-3[href=new_question_answer_path(question_id: q.id)]
+                  | 返答する
+              - else
+                .btn.btn-block.btn-primary.btn-sm.disabled
+                  | 質問は終了しました
+
 
             / todo:いいね機能
             a
