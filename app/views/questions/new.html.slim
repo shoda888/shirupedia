@@ -4,7 +4,8 @@ section.content
     .col-md-12
       .card.card-info
         .card-header.with-border
-          h3.card-title
+          h3
             | 新規作成
         .form
-          = render 'form'
+          = form_with(url: questions_path, local: true) do |form|
+            = render :partial => 'form', :locals => {:form => form}

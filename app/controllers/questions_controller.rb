@@ -17,7 +17,12 @@ class QuestionsController < ApplicationController
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      redirect_to question_path(@question), notice: '質問を作成しました'
+      @cover = @question.covers.build(photo_message: params[:photo_message])
+      if @cover.save
+        redirect_to question_path(@question), notice: '質問を作成しました'
+      else
+        render :new
+      end
     else
       render :new
     end
@@ -41,7 +46,12 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.attributes = question_params
     if @question.save
-      redirect_to question_path(@question), notice: '質問を編集しました'
+      @cover = @question.covers.build(photo_message: params[:photo_message])
+      if @cover.save
+        redirect_to question_path(@question), notice: '質問を編集しました'
+      else
+        render :edit
+      end
     else
       render :edit
     end
@@ -59,7 +69,7 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :field_list, :file, :file_cache)
+    params.require(:question).permit(:title, :field_list)
   end
 
 end

@@ -17,8 +17,9 @@
                 = field
               | &nbsp;
           div class="iziModal#{q.id}" data-izimodal-title="#{q.title}"
-            - if q.file?
-              = image_tag q.file.url
+            - if q.covers.length >= 1
+              - if q.covers.first.photo_message?
+                = image_tag q.covers.first.photo_message.url
 
             - if q.user == @current_user
               - if q.wanted?
@@ -48,9 +49,9 @@
               img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
 
             .answer-form
-              = form_tag question_answers_path(question_id: q.id), :multipart => true do
-                = label_tag 'ファイル'
-                = file_field :answer, :file, class: 'col s9'
+              / = form_tag question_answers_path(question_id: q.id), :multipart => true do
+              /   = label_tag 'ファイル'
+              /   = file_field :answer, :file, class: 'col s9'
 
                 .card-footer
                   .form-inline.pull-right

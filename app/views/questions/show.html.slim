@@ -23,8 +23,8 @@ section.content
                   /   = @question.content
 
                   .content
-                    - if @question.file?
-                      = image_tag @question.file.url, class: 'col-lg-12'
+                    / - if @question.file?
+                    /   = image_tag @question.file.url, class: 'col-lg-12'
 
               .card-footer
                 .form-inline.pull-left
@@ -63,8 +63,8 @@ section.content
               .col-lg-12
                 .card-body
                   .row
-                    - if answer.file?
-                      = image_tag answer.file.url, class: 'col-lg-12'
+                    / - if answer.file?
+                    /   = image_tag answer.file.url, class: 'col-lg-12'
 
                 .card-footer
                   .form-inline.pull-right

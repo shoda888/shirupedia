@@ -1,45 +1,33 @@
-= form_for @question, html: {class: 'form-horizontal'} do |f|
-  .card-body
-    - if @question.errors.any?
-      .callout.callout-danger
-        h4 入力内容をご確認ください
-        ul
-          - @question.errors.full_messages.each do |error|
-            li
-              = error
+.card-body
+  - if @question.errors.any?
+    .callout.callout-danger
+      h4 入力内容をご確認ください
+      ul
+        - @question.errors.full_messages.each do |error|
+          li
+            = error
 
-    .form-group
-      = f.label :title, class: 'col-sm-3 control-label'
-      .col-sm-9
-        = f.text_field :title, required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
+  .form-group
+    = form.label :title, class: 'col s3 control-label'
+    .col.s9
+      = form.text_field 'question[title]', required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
-    / .form-group
-    /   = f.label :content, class: 'col-sm-3 control-label'
-    /   .col-sm-9
-    /     = f.text_area :content, class: 'form-control', placeholder: '例）通常のレーベンシュタイン距離は文字列1を文字列2に編集する場合の挿入・編集、、、'
+  .form-group
+    = form.label :photo_message, class: 'col s3 control-label'
+    .col.s9
+      = form.file_field :photo_message
 
+  .form-group
+    = form.label :field_list, class: 'col s3 control-label'
+    .col.s9
+      = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
 
-    .form-group
-      = f.label :file, class: 'col-sm-3 control-label'
-      .col-sm-9
-        = f.file_field :file
-
-    .form-group
-      = f.label :field_list, class: 'col-sm-3 control-label'
-      .col-sm-9
-        = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
-
-    / .form-group
-    /   = f.label :amount_paid, class: 'col-sm-3 control-label'
-    /   .col-sm-3
-    /     = f.text_field :amount_paid, class: 'form-control', placeholder: 300
-
-  .card-footer
-    .form-inline.pull-right
-      - if @question.new_record?
-        a.btn.bg-gray href=questions_path() = 'キャンセル'
-      - else
-        a.btn.bg-gray href=question_path(@question) = '戻る'
-      | &nbsp;
-      button.btn.btn-success.pull-right[type="button" onclick="submit();"]
-        | 登録
+.card-footer
+  .form-inline.pull-right
+    - if @question.new_record?
+      a.btn.bg-gray href=questions_path() = 'キャンセル'
+    - else
+      a.btn.bg-gray href=question_path(@question) = '戻る'
+    | &nbsp;
+    button.btn.btn-success.pull-right[type="button" onclick="submit();"]
+      | 登録
