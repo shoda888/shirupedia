@@ -6,3 +6,7 @@
 h6.activator{
   font-family: 'season';
 }
+
+.answer-form{
+  display: none;
+}

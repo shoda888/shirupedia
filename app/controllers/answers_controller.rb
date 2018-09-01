@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(user_id: @current_user.id)
     @answer.attributes = answer_params
     if @answer.save
-      redirect_to question_path(@question), notice: '回答しました'
+      redirect_to questions_path, notice: '回答しました'
     else
       render :new
     end
