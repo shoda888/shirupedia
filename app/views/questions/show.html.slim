@@ -63,8 +63,9 @@ section.content
               .col-lg-12
                 .card-body
                   .row
-                    / - if answer.file?
-                    /   = image_tag answer.file.url, class: 'col-lg-12'
+                    - answer.covers.each do |cover|
+                      - if cover.photo_message?
+                        = image_tag cover.photo_message.url
 
                 .card-footer
                   .form-inline.pull-right

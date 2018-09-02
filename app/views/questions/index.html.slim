@@ -16,45 +16,52 @@
               .chip.teal.lighten-3
                 = field
               | &nbsp;
-          div class="iziModal#{q.id}" data-izimodal-title="#{q.title}"
-            - if q.covers.length >= 1
-              - if q.covers.first.photo_message?
-                = image_tag q.covers.first.photo_message.url
+          - q.covers.each do |cover|
+            div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
+              - if cover.photo_message?
+                = image_tag cover.photo_message.url
 
-            - if q.user == @current_user
-              - if q.wanted?
-                a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
-                  | 編集する
-                = link_to '質問終了にする',
-                    fire_question_path(q, event: 'finish'), method: :put,
-                    :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
+              - if q.user == @current_user
+                - if q.wanted?
+                  a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
+                    | 編集する
+                  = link_to '質問終了にする',
+                      fire_question_path(q, event: 'finish'), method: :put,
+                      :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
+                - else
+                  .btn-small.btn-block.red.lighten-3.disabled
+                    | 質問は終了しました
               - else
-                .btn-small.btn-block.red.lighten-3.disabled
-                  | 質問は終了しました
-            - else
-              - if q.wanted?
-                .answer-btn.btn-small.btn-block.blue.lighten-3
-                  | 返答する
-              - else
-                .btn-small.btn-block.red.lighten-3.disabled
-                  | 質問は終了しました
+                - if q.wanted?
+                  .answer-btn.btn-small.btn-block.blue.lighten-3
+                    | 返答する
+                - else
+                  .btn-small.btn-block.red.lighten-3.disabled
+                    | 質問は終了しました
 
-            / todo:いいね機能
-            a
-              i.material-icons
-                | highlight
+              / todo:いいね機能
+              a
+                i.material-icons
+                  | highlight
 
-            a.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
-              | 質問者
-              img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
+              a.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
+                | 質問者
+                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
 
-            .answer-form
-              / = form_tag question_answers_path(question_id: q.id), :multipart => true do
-              /   = label_tag 'ファイル'
-              /   = file_field :answer, :file, class: 'col s9'
+              - q.answers.each do |answer|
+                - answer.covers.each do |cover|
+                  - if cover.photo_message?
+                    = image_tag cover.photo_message.url
 
-                .card-footer
-                  .form-inline.pull-right
-                    a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
-                    | &nbsp;
-                    = submit_tag '送信', class: 'btn-small blue lighten-3'
+              .answer-form
+                = form_with url: question_answers_path(question_id: q.id), local: true do |form|
+                  .form-group
+                    = form.label :photo_message, class: 'col s3 control-label'
+                    .col.s9
+                      = form.file_field :photo_message
+
+                  .card-footer
+                    .form-inline.pull-right
+                      a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+                      | &nbsp;
+                      = submit_tag '送信', class: 'btn-small blue lighten-3'

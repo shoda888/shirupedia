@@ -10,19 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627015958) do
+ActiveRecord::Schema.define(version: 20180901062631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "aasm_state"
-    t.string "tag"
-    t.string "file"
+    t.string "text_message"
     t.integer "user_id"
     t.integer "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "covers", force: :cascade do |t|
+    t.string "coverable_type"
+    t.bigint "coverable_id"
+    t.string "photo_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coverable_type", "coverable_id"], name: "index_covers_on_coverable_type_and_coverable_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -37,12 +45,10 @@ ActiveRecord::Schema.define(version: 20180627015958) do
 
   create_table "questions", force: :cascade do |t|
     t.string "title"
-    t.string "content"
     t.string "aasm_state"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "file"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
