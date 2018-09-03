@@ -4,24 +4,32 @@ html
     title
       | Shirupedia
     = csrf_meta_tags
-    meta[name="viewport" content="width=device-width, initial-scale=1"]
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"]
+    link[href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"]
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    .wrapper
-      = render 'global_header'
-      = render 'global_main_sidebar'
+    script[src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"]
 
-      .content-wrapper
+    = render 'main_header'
+    .container
+
+      .content
         - if flash[:notice]
-          .alert.alert-warning.alert-dismissible[style="margin-bottom:0px;"]
+          .alert.alert-default.alert-dismissible[style="margin-bottom:0px;"]
             button.close[type="button" data-dismiss="alert" aria-hidden="true"]
               | ×
             h6
               i.icon.fa.fa-info
               = notice
 
-        = yield
+      = yield
 
-      = render 'global_right_sidebar'
-      = render 'global_footer'
+javascript:
+ $(document).ready(function(){
+   $('.sidenav').sidenav();
+ });
+ $(function(){
+	$('div[class^=iziModal]').iziModal();
+  $('.iziModal-header-title').css('font-family','season');
+ })

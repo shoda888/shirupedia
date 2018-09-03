@@ -1,0 +1,12 @@
+@font-face{
+  font-family: 'season';
+  src: url('season.ttf') format('truetype');
+}
+
+h6.activator{
+  font-family: 'season';
+}
+
+.answer-form{
+  display: none;
+}

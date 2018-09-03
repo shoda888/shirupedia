@@ -7,4 +7,5 @@ section.content
           h3.card-title
             | 質問を編集
         .form
-          = render 'form'
+          = form_with url: question_path, local: true, method: :put do |form|
+            = render :partial => 'form', :locals => {:form => form}

@@ -1,10 +1,8 @@
 class Question < ApplicationRecord
-  # carrierwaveとモデルの関連付け
-  mount_uploader :file, FileUploader
-
   acts_as_taggable_on :fields
   belongs_to :user
-  has_many :answers
+  has_many :answers, dependent: :destroy
+  has_many :covers, as: :coverable, dependent: :destroy
   include AASM
 
   aasm do

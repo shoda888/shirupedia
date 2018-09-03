@@ -1,37 +1,67 @@
-.content-header
-.content
-  .row
-    .col-6
-      = form_tag questions_path, :method => 'get' do
-        .input-group.input-group-sm[style="width: 150px;"]
-          = text_field_tag :search, params[:search], placeholder: '自由検索', class: 'form-control float-right'
-          .input-group-append
-            button.btn.btn-default[type="submit"]
-              i.fa.fa-search
-    .col-12
-      .card.card-info
-        .card-header
-          h3.card-title
-            | 今ホットな質問
-          / .card-tools
-          /   = form_tag questions_path, :method => 'get' do
-          /     .input-group.input-group-sm[style="width: 150px;"]
-          /       = text_field_tag :search, params[:search], placeholder: '自由検索', class: 'form-control float-right'
-          /       .input-group-append
-          /         button.btn.btn-default[type="submit"]
-          /           i.fa.fa-search
+.row
+  - @questions.each do |q|
+    .col.s12.m6.l4
+      .card.sticky-action
+        div class="#{@colors[q.id % 6]} darken-2"
+          / .card-image.waves-effect.waves-block.waves-light[style='max-height: 250px;']
+            / img.activator[src="#{q.file.url}"]
+          .card-content[data-iziModal-open=".iziModal#{q.id}"]
+            span.card-title.activator.white-text
+              h6.activator
+                | #{q.title}
+              i.material-icons.right
+                | more_vert
 
-        .card-body[style='padding:10px;']
-          - @questions.each do |q|
-            .border-top[style='padding:5px 0px;']
-              a[href="/profiles/#{q.user.profile.id}"]
-                img.form-inline.pull-left.img-circle[src="#{q.user.profile.avatar.thumb}" style='width:48px; height:48px; margin-right:10px;']
-              = link_to q.title, question_path(q)
-              .content
-                - q.field_list.each do |field|
-                  span.badge.badge-pill.badge-info
-                    = field
-                  | &nbsp;
-                .form-inline.pull-right
-                  span[style='font-size:11px; margin-top:12px; color:#85797c;']
-                    | 作成日：#{q.created_at.to_s(:db)}
+            - q.field_list.each do |field|
+              .chip.teal.lighten-3
+                = field
+              | &nbsp;
+          - q.covers.each do |cover|
+            div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
+              - if cover.photo_message?
+                = image_tag cover.photo_message.url
+
+              - if q.user == @current_user
+                - if q.wanted?
+                  a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
+                    | 編集する
+                  = link_to '質問終了にする',
+                      fire_question_path(q, event: 'finish'), method: :put,
+                      :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
+                - else
+                  .btn-small.btn-block.red.lighten-3.disabled
+                    | 質問は終了しました
+              - else
+                - if q.wanted?
+                  .answer-btn.btn-small.btn-block.blue.lighten-3
+                    | 返答する
+                - else
+                  .btn-small.btn-block.red.lighten-3.disabled
+                    | 質問は終了しました
+
+              / todo:いいね機能
+              a
+                i.material-icons
+                  | highlight
+
+              a.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
+                | 質問者
+                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
+
+              - q.answers.each do |answer|
+                - answer.covers.each do |cover|
+                  - if cover.photo_message?
+                    = image_tag cover.photo_message.url
+
+              .answer-form
+                = form_with url: question_answers_path(question_id: q.id), local: true do |form|
+                  .form-group
+                    = form.label :photo_message, class: 'col s3 control-label'
+                    .col.s9
+                      = form.file_field :photo_message
+
+                  .card-footer
+                    .form-inline.pull-right
+                      a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+                      | &nbsp;
+                      = submit_tag '送信', class: 'btn-small blue lighten-3'
