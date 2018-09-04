@@ -52,16 +52,16 @@
                 - answer.covers.each do |cover|
                   - if cover.photo_message?
                     = image_tag cover.photo_message.url
+              .new-answers
 
-              .answer-form
-                = form_with url: question_answers_path(question_id: q.id), local: true do |form|
-                  .form-group
-                    = form.label :photo_message, class: 'col s3 control-label'
-                    .col.s9
-                      = form.file_field :photo_message
+              = form_with url: question_answers_path(question_id: q.id), html: {class: 'answer-form'}, local: true do |form|
+                .form-group
+                  = form.label :photo_message, class: 'col s3 control-label'
+                  .col.s9
+                    = form.file_field :photo_message, class: 'photo_message_form'
 
-                  .card-footer
-                    .form-inline.pull-right
-                      a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
-                      | &nbsp;
-                      = submit_tag '送信', class: 'btn-small blue lighten-3'
+                .card-footer
+                  .form-inline.pull-right
+                    a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+                    | &nbsp;
+                    = submit_tag '送信', class: 'btn-small blue lighten-3'
