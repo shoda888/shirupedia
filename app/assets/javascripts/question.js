@@ -9,11 +9,9 @@ $(document).ready(function() {
     }
     //submitイベントを使い、フォームが送信された時に処理が実行されるようにイベントを設定。
     $('.answer-form').on('submit', function(e) {
-      console.log(e);
       e.preventDefault(); //フォームが送信された時に、デフォルトだとフォームを送信するための通信がされてしまうので、preventDefault()を使用してデフォルトのイベントを止めます。
       var formdata = new FormData($(this).get(0));  //フォームデータ取得
-      var fileField = $(this).find('.photo_message_form');
-      var url = fileField[0].form.action + '.json'
+      var url = $(this).get(0).action + '.json'
       $.ajax({
         type: 'POST',
         url: url,
