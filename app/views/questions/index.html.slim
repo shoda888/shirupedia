@@ -21,6 +21,22 @@
               - if cover.photo_message?
                 = image_tag cover.photo_message.url
 
+              / todo:いいね機能
+              a
+                i.material-icons
+                  | highlight
+
+              .client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
+                | 質問者
+                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
+
+              - q.answers.each do |answer|
+                - answer.covers.each do |cover|
+                  - if cover.photo_message?
+                    = image_tag cover.photo_message.url
+
+              .new-answers
+
               - if q.user == @current_user
                 - if q.wanted?
                   a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
@@ -38,21 +54,6 @@
                 - else
                   .btn-small.btn-block.red.lighten-3.disabled
                     | 質問は終了しました
-
-              / todo:いいね機能
-              a
-                i.material-icons
-                  | highlight
-
-              a.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
-                | 質問者
-                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
-
-              - q.answers.each do |answer|
-                - answer.covers.each do |cover|
-                  - if cover.photo_message?
-                    = image_tag cover.photo_message.url
-              .new-answers
 
               = form_with url: question_answers_path(question_id: q.id), html: {class: 'answer-form'}, local: true do |form|
                 .form-group
