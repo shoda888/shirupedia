@@ -13,15 +13,7 @@ html
 
     = render 'main_header'
     .container
-
-      .content
-        - if flash[:notice]
-          .alert.alert-default.alert-dismissible[style="margin-bottom:0px;"]
-            button.close[type="button" data-dismiss="alert" aria-hidden="true"]
-              | ×
-            h6
-              i.icon.fa.fa-info
-              = notice
+      = render 'message'
 
       = yield
 
