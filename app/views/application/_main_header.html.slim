@@ -30,9 +30,9 @@ nav
           | ログアウト
 
 ul#mobile-demo.sidenav
-  li[style='height:64px;']
+  li[style='height:43px;']
     = form_tag questions_path, :method => 'get' do
-      .input-field
+      .input-field[style="padding-left:50px;"]
         = search_field_tag("search", nil, placeholder: "Search")
         label.label-icon[for="search"]
           i.material-icons
