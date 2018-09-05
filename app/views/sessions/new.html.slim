@@ -1,37 +1,4 @@
 img.bg[src="/helloquence.jpg" alt=""]
-/ #container
-/   .login-box
-/     .login-logo
-/       b
-/         | Shirupedia for TokyoTech
-/       |  Login
-/     .card
-/       .card-body.login-card-body
-/         p.login-box-msg
-/           | サインインしてください
-/         - if @error_message
-/           .form-error
-/             = @error_message
-/         - if flash[:notice]
-/           .flash
-/             = flash[:notice]
-/         .form-body
-/           = form_tag sessions_path do
-/             .form-group
-/               = label_tag :email, 'mアドレス', class: 'control-label small gray-text'
-/               = text_field :user, :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
-/             .row
-/               .col-8
-/               .col-4
-/                 = submit_tag("ログイン", class: 'btn btn-info')
-/         .social-auth-links.text-center
-/           p
-/             | - OR -
-/           a.btn.btn-block.btn-primary[href="#"]
-/             i.fa.fa-facebook-f.mr-2
-/             |  Sign in using Facebook
-/           = link_to '登録がお済みでない方はこちらから', new_user_path, class: 'btn btn-block btn-default'
-
 .valign-wrapper.row.login-box[style='margin-top: 50px;']
   .col.card.hoverable.s10.pull-s1.m6.pull-m3.l4.pull-l4
     = form_tag sessions_path do
