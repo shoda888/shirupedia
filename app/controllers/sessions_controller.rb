@@ -15,8 +15,8 @@ class SessionsController < ApplicationController
       flash[:notice] = "ログインしました"
       redirect_to questions_path
     else
-      @error_message = "mアドレスが間違っています"
-      render :new, email: params[:email]
+      flash[:notice] = "ログイン情報が間違っています"
+      render :new
     end
   end
 

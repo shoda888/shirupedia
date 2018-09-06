@@ -10,7 +10,7 @@
   .form-group
     = form.label :title, class: 'col s3 control-label'
     .col.s9
-      = form.text_field 'question[title]', required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
+      = form.text_field 'question[title]', value: @question.title, required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
   .form-group
     = form.label :photo_message, class: 'col s3 control-label'
