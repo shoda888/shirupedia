@@ -1,4 +1,8 @@
+= javascript_pack_tag 'hello_vue'
+
 .row
+  #hello
+    hello
   - @questions.each do |q|
     .col.s12.m6.l4
       .card.sticky-action
@@ -66,3 +70,4 @@
                     a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
                     | &nbsp;
                     = submit_tag '送信', class: 'btn-small blue lighten-3'
+
