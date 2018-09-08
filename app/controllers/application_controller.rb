@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    if !@current_user
+    unless @current_user
       flash[:notice] = "ログインが必要です"
       redirect_to new_sessions_path
     end

@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
   layout 'main_table'
-  QuestionColor = ['lime', 'yellow', 'orange', 'red', 'purple', 'blue']
+  QuestionColor = %w(lime yellow orange red purple blue).freeze
   before_action :authenticate_user
-  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
     @questions = Question.search(params[:search]).includes([:fields, user: :profile]).order('created_at desc')
@@ -68,8 +68,8 @@ class QuestionsController < ApplicationController
   end
 
   private
+
   def question_params
     params.require(:question).permit(:title, :field_list)
   end
-
 end
