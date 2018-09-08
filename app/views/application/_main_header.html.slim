@@ -1,0 +1,53 @@
+nav
+  .nav-wrapper.teal.lighten-3
+    a.brand-logo[href=questions_path]
+      | Shirupedia
+    a.sidenav-trigger[href="#" data-target="mobile-demo"]
+      i.material-icons
+        | menu
+    ul.right.hide-on-med-and-down
+
+      li[style='height:64px;']
+        = form_tag questions_path, :method => 'get' do
+          .input-field
+            = search_field_tag("search", nil, placeholder: "Search")
+            label.label-icon[for="search"]
+              i.material-icons
+                | search
+            i.material-icons
+              | close
+      li
+        a[href=new_question_path]
+          | 質問投稿
+      li
+        a[href="#"]
+          | Chats
+      li
+        a[href="/profiles/#{@current_user.profile.id}"]
+          | プロフィール
+      li
+        a[href="/logout"]
+          | ログアウト
+
+ul#mobile-demo.sidenav
+  li[style='height:43px;']
+    = form_tag questions_path, :method => 'get' do
+      .input-field[style="padding-left:50px;"]
+        = search_field_tag("search", nil, placeholder: "Search")
+        label.label-icon[for="search"]
+          i.material-icons
+            | search
+        i.material-icons
+          | close
+  li
+    a[href=new_question_path]
+      | 質問投稿
+  li
+    a[href="#"]
+      | Chats
+  li
+    a[href="/profiles/#{@current_user.profile.id}"]
+      | プロフィール
+  li
+    a[href="/logout"]
+      | ログアウト

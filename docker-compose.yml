@@ -1,0 +1,37 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+      bash -c "if [ -e tmp/pids/server.pid ]; then rm tmp/pids/server.pid ;fi \
+        && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/shirupedia
+      - bundle:/usr/local/bundle
+    environment:
+      - "DATABASE_HOST=db"
+      - "DATABASE_PORT=5432"
+      - "DATABASE_USER=postgres"
+      - "DATABASE_PASSWORD=password"
+    depends_on:
+      - db
+  db:
+    image: postgres:10.1
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=password"
+    restart: always
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+
+volumes:
+  bundle:
+    driver: local
+

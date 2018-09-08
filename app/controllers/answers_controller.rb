@@ -17,11 +17,19 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(user_id: @current_user.id)
-    @answer.attributes = answer_params
+    # @answer.attributes = answer_params
     if @answer.save
-      redirect_to question_path(@question), notice: '回答しました'
+      @cover = @answer.covers.build(photo_message: params[:photo_message])
+      if @cover.save
+        respond_to do |format|
+          # format.html { redirect_to questions_path, notice: '回答しました' }
+          format.json { render json: @cover.photo_message }
+        end
+      else
+        render :index
+      end
     else
-      render :new
+      render :index
     end
   end
 
@@ -40,22 +48,27 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @question = Question.find(params[:question_id])
-    @answer = Answer.find(params[:id])
-    @answer.attributes = answer_params
-    if @answer.save
-      redirect_to question_path(@question), notice: '回答を編集しました'
-    else
-      render :edit
-    end
+    # @question = Question.find(params[:question_id])
+    # @answer = Answer.find(params[:id])
+    # @answer.attributes = answer_params
+    # if @answer.save
+    #   @cover = @answer.covers.build(photo_message: params[:photo_message])
+    #   if @cover.save
+    #     redirect_to questions_path, notice: '回答しました'
+    #   else
+    #     render :new
+    #   end
+    # else
+    #   render :new
+    # end
   end
 
   def destroy
   end
 
   private
-  def answer_params
-    params.require(:answer).permit(:title, :content)
-  end
 
+  def answer_params
+    # params.require(:answer).permit(:file)
+  end
 end

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :forbid_login_user, {only: [:new,:create]}
+  before_action :forbid_login_user, { only: [:new, :create] }
 
   def new
   end
@@ -8,15 +8,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    pp params[:email]
     @user = User.find_by(email: params[:user][:email])
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path
     else
-      @error_message = "mアドレスが間違っています"
-      render :new, email: params[:email]
+      flash[:notice] = "ログイン情報が間違っています"
+      render :new
     end
   end
 
