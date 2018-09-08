@@ -1,3 +1,5 @@
 .form-group
+  = label_tag :name, 'なまえ', class: 'control-label small gray-text'
+  = text_field :user, :name, class: 'form-control', placeholder: 'name'
   = label_tag :email, 'mアドレス', class: 'control-label small gray-text'
   = text_field :user, :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
