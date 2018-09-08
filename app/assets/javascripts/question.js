@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('.answer-form').show();
   });
   $(document).on("click", ".client-avatar", function(){
+    console.log('OKOKOK');
     //ブラウザ戻る対策しないといけない!!
     // e.preventDefault();
     // $('.client-avatar').closest('div[class^=iziModal2]').iziModal('resetContent');

@@ -1,4 +1,4 @@
-= javascript_pack_tag 'hello_vue'
+/ = javascript_pack_tag 'hello_vue'
 
 .row
   #hello
@@ -30,7 +30,7 @@
                 i.material-icons
                   | highlight
 
-              .client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
+              a.client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
                 | 質問者
                 img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
 
@@ -70,4 +70,3 @@
                     a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
                     | &nbsp;
                     = submit_tag '送信', class: 'btn-small blue lighten-3'
-
