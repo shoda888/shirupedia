@@ -27,7 +27,8 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
 WORKDIR /tmp
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install --jobs=4 --retry=3 --path vendor/bundler
+RUN gem install bundler
+RUN bundle install --jobs=4 --retry=3
 
 # 全ファイルコピー
 WORKDIR $ROOT_PATH
@@ -35,3 +36,5 @@ COPY . $ROOT_PATH
 
 # yarn
 RUN yarn install --update-checksums
+
+RUN rake acts_as_taggable_on_engine:install:migrations
