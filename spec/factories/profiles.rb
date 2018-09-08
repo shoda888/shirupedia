@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :profile do
-    grade "MyString"
+    grade 'MyString'
   end
 end

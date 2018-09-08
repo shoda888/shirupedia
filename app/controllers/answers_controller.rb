@@ -22,8 +22,8 @@ class AnswersController < ApplicationController
       @cover = @answer.covers.build(photo_message: params[:photo_message])
       if @cover.save
         respond_to do |format|
-        # format.html { redirect_to questions_path, notice: '回答しました' }
-        format.json { render json: @cover.photo_message}
+          # format.html { redirect_to questions_path, notice: '回答しました' }
+          format.json { render json: @cover.photo_message }
         end
       else
         render :index
@@ -67,8 +67,8 @@ class AnswersController < ApplicationController
   end
 
   private
+
   def answer_params
     # params.require(:answer).permit(:file)
   end
-
 end

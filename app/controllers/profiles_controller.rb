@@ -31,8 +31,9 @@ class ProfilesController < ApplicationController
   def new
     @user = @current_user
     @profile = @user.profile || Profile.new
-    render :layout => 'application'
+    render layout: 'application'
   end
+
   def create
     @user = @current_user
     @user.build_profile if @user.profile.nil?
@@ -51,6 +52,7 @@ class ProfilesController < ApplicationController
       render :new
     end
   end
+
   private
 
   def set_attribute

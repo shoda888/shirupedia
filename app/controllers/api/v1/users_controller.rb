@@ -3,25 +3,22 @@ class Api::V1::UsersController < ApplicationController
     @users = User.all
     @users = @users.map do |user|
       {
-          id: user.id,
-          name: user.name,
-          email: user.email
+        id: user.id,
+        name: user.name,
+        email: user.email
       }
     end
     render json: @users
   end
 
   def create
-    User.new()
+    User.new
     save
-    render json: {staus: 400}
+    render json: { staus: 400 }
     render
   end
 
-  def show
-  end
-
-  end
+  def show; end
 
   # def create
   #   @user = User.new(user_params)
