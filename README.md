@@ -5,20 +5,18 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+## Ruby version
 
-* System dependencies
+2.5.0
 
-* Configuration
+## install
 
-* Database creation
+```
+$ make build
+$ make setup
+$ make up
+```
 
-* Database initialization
+## usage
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Makefile参照
