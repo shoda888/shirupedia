@@ -52,6 +52,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'rubocop'
+  gem 'annotate'
 end
 
 group :development do
