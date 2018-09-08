@@ -17,6 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+vendor
 /public/packs
 /public/packs-test
 /node_modules

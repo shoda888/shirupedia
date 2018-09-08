@@ -11,6 +11,7 @@ services:
       - 3000:3000
     volumes:
       - .:/shirupedia
+      - bundle:/usr/local/bundle
     environment:
       - "DATABASE_HOST=db"
       - "DATABASE_PORT=5432"
