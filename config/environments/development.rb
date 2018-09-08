@@ -48,6 +48,12 @@ config.webpacker.check_yarn_integrity = true
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # dev用メール受信ポート.
+  # make mailで立ち上げ
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.smtp_settings = { address: 'smtp', port: 1025 }
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
