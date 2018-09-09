@@ -49,9 +49,13 @@ ul#mobile-demo.sidenav
   li
     a[href="#"]
       | Chats
-  / li
-  /   a[href="/profiles/#{@current_user.profile.id}"]
-  /     | プロフィール
+  li
+    - if my_profile = @current_user.profile
+      a[href="/profiles/#{my_profile.id}"]
+        | プロフィール
+    - else
+      a[href="/profiles/new"]
+        | プロフィール
   li
     a[href="/logout"]
       | ログアウト
