@@ -1,12 +1,10 @@
-section.content-header
-section.content
+.content
   .row
-    .col-md-12
-      .card.card-info
-        .card-header.with-border
-          h3.card-title
+    .col.s12
+      .card
+        .card-content
+          .card-title
             | プロフィールを編集
-        .form
           = form_tag(profile_path, multipart: true, :method => :put) do
             - if @user.errors.any?
               .alert.alert-danger role="alert"

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "ログインしました"
       redirect_to questions_path
     else
-      flash[:notice] = "ログイン情報が間違っています"
+      flash[:notice] = "ログイン情報が誤っています"
       render :new
     end
   end

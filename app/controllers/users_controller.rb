@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       @user.save(valid: false)
-       session[:user_id] = @user.id
+      session[:user_id] = @user.id
       # http://localhost:1080/でメール確認
       UserMailer.created_with_email(@user).deliver_now
       head :no_content

@@ -2,21 +2,6 @@ $(document).ready(function() {
   $(document).on("click", ".answer-btn", function(){
     $('.answer-form').show();
   });
-  $(document).on("click", ".client-avatar", function(){
-    console.log('OKOKOK');
-    //ブラウザ戻る対策しないといけない!!
-    // e.preventDefault();
-    // $('.client-avatar').closest('div[class^=iziModal2]').iziModal('resetContent');
-    // $('.iziModal').addClass("comingOut");
-    // $('.iziModal').attr('area-hidden', 'true');
-    // $('.iziModal-overlay').addClass("fadeOut");
-    //
-    // $('.iziModal').removeClass("comingOut");
-    // $('.iziModal').attr('area-hidden', 'false');
-    // $('.iziModal-overlay').removeClass("fadeOut");
-    // $('.iziModal-header').attr('area-hidden', 'true');
-    // $('.iziModal-wrap').hide();
-  });
   $(function() {
     function buildHTML(photo) {
       var html = $('<div class="new-answer">').append("<img src=" + photo + "></img>");
