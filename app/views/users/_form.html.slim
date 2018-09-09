@@ -1,5 +1,9 @@
-.form-group
-  = label_tag :name, 'なまえ', class: 'control-label small gray-text'
-  = text_field :user, :name, class: 'form-control', placeholder: 'name'
-  = label_tag :email, 'mアドレス', class: 'control-label small gray-text'
-  = text_field :user, :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
+= form_for @user do |f|
+  .input-field
+    = f.label :name, 'なまえ', class: 'control-label small gray-text'
+    = f.text_field :name, class: 'form-control', placeholder: 'name'
+  .input-field
+    = f.label :email, 'mアドレス', class: 'control-label small gray-text'
+    = f.text_field :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
+  .card-action.right-align
+    = f.submit "新規登録", class: 'btn'
