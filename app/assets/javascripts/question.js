@@ -1,6 +1,11 @@
 $(document).ready(function() {
+  $('div[class^=iziModal]').iziModal();
+  $('.iziModal-header-title').css('font-family','season');
   $(document).on("click", ".answer-btn", function(){
     $('.answer-form').show();
+  });
+  $(document).on('closed', 'div[class^=iziModal]', function () {
+    $('.answer-form').hide();
   });
   $(function() {
     function buildHTML(photo) {
@@ -10,8 +15,9 @@ $(document).ready(function() {
     //submitイベントを使い、フォームが送信された時に処理が実行されるようにイベントを設定。
     $('.answer-form').on('submit', function(e) {
       e.preventDefault(); //フォームが送信された時に、デフォルトだとフォームを送信するための通信がされてしまうので、preventDefault()を使用してデフォルトのイベントを止めます。
-      var formdata = new FormData($(this).get(0));  //フォームデータ取得
-      var url = $(this).get(0).action + '.json'
+      var ans_form = $(this);
+      var formdata = new FormData(ans_form.get(0));  //フォームデータ取得
+      var url = ans_form.get(0).action + '.json'
       $.ajax({
         type: 'POST',
         url: url,
@@ -22,8 +28,7 @@ $(document).ready(function() {
       //↓フォームの送信に成功した場合の処理
       .done(function(data) {
         var html = buildHTML(data.url);
-        $('.new-answers').append(html);
-        fileField.val('');
+        ans_form.siblings('.new-answers').append(html);
       })
       //↓フォームの送信に失敗した場合の処理
       .fail(function() {
