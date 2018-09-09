@@ -1,41 +1,41 @@
-.card-body
-  .form-group
-    = label_tag :avatar, 'アイコン', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = file_field :profile, :avatar
-  .form-group
-    = label_tag :name, '名前', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field :user, :name, required: true, class: 'form-control'
-  .form-group
-    = label_tag :email, 'メールアドレス', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field :user, :email, required: true, class: 'form-control'
-  .form-group
-    = label_tag :grade, '学年', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field :profile, :grade, required: true, class: "form-control", placeholder: '学部４年'
-  .form-group
-    = label_tag :department, '系', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field :profile, :department, required: true, class: "form-control", placeholder: 'システム制御系'
-  .form-group
-    = label_tag :interest_list, '興味のある分野', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field_tag 'profile[interest_list]', @profile.interest_list.join(','), placeholder: '例）programing,ロボット', "data-role" => "tagsinput"
-  .form-group
-    = label_tag :lesson, '受講している講義名', class: 'col-sm-3 control-label small'
-    .col-sm-9
-      = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
+.file-field.form-group
+  .btn
+    i.material-icons.large
+      | portrait
+  input[type="file"]
+  .col-sm-9.file-path-wrapper
+    = file_field :profile, :avatar, class: 'file-path validate', type: 'text', placeholder: 'プロフィール画像を選択してください'
+.form-group
+  = label_tag :name, '名前', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field :user, :name, required: true, class: 'form-control'
+.form-group
+  = label_tag :email, 'メールアドレス', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field :user, :email, required: true, class: 'form-control', disabled: true
+.form-group
+  = label_tag :grade, '学年', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field :profile, :grade, class: "form-control", placeholder: '学部４年'
+.form-group
+  = label_tag :department, '系', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field :profile, :department, class: "form-control", placeholder: 'システム制御系'
+.form-group
+  = label_tag :interest_list, '興味のある分野', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field_tag 'profile[interest_list]', @profile.interest_list.join(','), placeholder: '例）programing,ロボット', "data-role" => "tagsinput"
+.form-group
+  = label_tag :lesson, '受講している講義名', class: 'col-sm-3 control-label small'
+  .col-sm-9
+    = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
 
+.card-action.right-align
+  - if @profile.new_record?
+    a.btn href=questions_path = '後で登録する'
+  - else
+    a.btn href=profile_path(@profile) = '戻る'
+  | &nbsp;
 
-.card-footer
-  .form-inline.pull-right
-    - if @profile.new_record?
-      a.btn.bg-gray href=login_path = 'キャンセル'
-    - else
-      a.btn.bg-gray href=profile_path(@profile) = '戻る'
-    | &nbsp;
-
-    button.btn.btn-success.pull-right[type="button" onclick="submit();"]
-      | 登録
+  button.btn[type="button" onclick="submit();"]
+    | 登録
