@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   layout 'main_table'
-  before_action :authenticate_user
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
@@ -47,6 +47,7 @@ class ProfilesController < ApplicationController
     if profile_valid && user_valid
       @user.save(validate: false)
       @profile.save(validate: false)
+      session[:user_id] = @user.id
       redirect_to questions_path, notice: 'ユーザー情報を登録しました'
     else
       render :new
