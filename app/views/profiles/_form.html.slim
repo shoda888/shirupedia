@@ -21,6 +21,9 @@
 .input-field
   = select :profile, :grade, {"学部1年" => "B1", "学部2年" => "B2", "学部3年" => "B3", "学部4年" => "B4", "修士1年" => "M1", "修士2年" => "M2", "博士1年" => "D1", "博士2年" => "D2"}
   = label_tag 'profile[grade]', '学年'
+.input-field
+  = select :profile, :school, {"理学院" => "理学院", "工学院" => "工学院", "物質理工学院" => "物質理工学院", "情報理工学院" => "情報理工学院", "生命理工学院" => "生命理工学院", "環境・社会理工学院" => "環境・社会理工学院"}
+  = label_tag 'profile[school]', '学院'
 .form-group
   = label_tag :department, '系', class: 'col-sm-3 control-label small'
   .col-sm-9

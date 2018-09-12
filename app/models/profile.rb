@@ -5,6 +5,7 @@
 #  id         :bigint(8)        not null, primary key
 #  avatar     :string
 #  grade      :string
+#  school     :string
 #  department :string
 #  lesson     :string
 #  user_id    :integer

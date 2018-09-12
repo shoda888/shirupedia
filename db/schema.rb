@@ -35,8 +35,9 @@ ActiveRecord::Schema.define(version: 20180901062631) do
 
   create_table "profiles", force: :cascade do |t|
     t.string "avatar"
-    t.string "grade"
-    t.string "department"
+    t.string "grade", comment: "学年"
+    t.string "school", comment: "学院"
+    t.string "department", comment: "系"
     t.string "lesson"
     t.integer "user_id"
     t.datetime "created_at", null: false
