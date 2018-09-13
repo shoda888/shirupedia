@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_action :set_current_user
+  before_action :set_current_user, only: [:authenticate_user, :forbid_login_user, :ensure_correct_user]
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id])
@@ -27,4 +27,9 @@ class ApplicationController < ActionController::Base
       redirect_to questions_path
     end
   end
+
+  def accept_user
+    @current_user = User.find_by(id: session[:requested])
+  end
+
 end
