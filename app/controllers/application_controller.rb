@@ -31,5 +31,4 @@ class ApplicationController < ActionController::Base
   def accept_user
     @current_user = User.find_by(id: session[:requested])
   end
-
 end
