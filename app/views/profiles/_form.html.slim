@@ -7,9 +7,10 @@
   .btn
     i.material-icons.large
       | portrait
-  input[type="file"]
+    input[type="file"]
   .col-sm-9.file-path-wrapper
-    = file_field :profile, :avatar, class: 'file-path validate', type: 'text', placeholder: 'プロフィール画像を選択してください'
+    input[type="text" name="profile[avatar]" class='file-path validate' placeholder='プロフィール画像を選択してください']
+    = file_field :profile, :avatar, class: 'file-path validate', type: 'file'
 .form-group
   = label_tag :name, '名前', class: 'col-sm-3 control-label small'
   .col-sm-9
