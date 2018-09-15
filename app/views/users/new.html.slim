@@ -1,5 +1,5 @@
 img.bg[src="/helloquence.jpg" alt=""]
-.valign-wrapper.row.login-box[style='margin-top: 50px;']
+.valign-wrapper.row.signup-box[style='margin-top: 50px;']
   .col.card.hoverable.s10.pull-s1.m8.pull-m2.l6.pull-l3
     .card-content
       span.card-title
@@ -7,5 +7,17 @@ img.bg[src="/helloquence.jpg" alt=""]
       - @user.errors.full_messages.each do |message|
         .form-error
           = message
-      = render 'form'
-      = link_to 'ログインはこちらから', login_path, class: 'btn btn-block btn-to-login'
+      = form_with model: @user, class: :user_signup_form, local: true do |form|
+        .row[style='margin-bottom: 0px;']
+          .input-field.col.s12
+            label[for="name"]
+              | なまえ
+            = form.text_field :name, required: true, class: 'form-control', placeholder: '知る ペディア'
+          .input-field.col.s12
+            label[for="email"]
+              | mアドレス
+            = form.email_field :email, required: true, class: 'form-control validate', placeholder: 'shiru.p.aa@m.titech.ac.jp'
+        .card-action.right-align
+          = form.submit "新規登録", class: 'btn'
+    .btn-to-login.card-content
+      = link_to 'ログインはこちらから', login_path, class: 'btn btn-block'

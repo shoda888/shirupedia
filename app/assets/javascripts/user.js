@@ -26,7 +26,7 @@ $(document).ready(function() {
       })
       //↓フォームの送信に失敗した場合の処理
       .fail(function() {
-        alert('error');
+        alert('入力項目に誤りがありました。リロードして入力し直してください。');
       });
     });
   });
