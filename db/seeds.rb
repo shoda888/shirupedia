@@ -6,10 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user1 = User.create(:name => "正田孝平", :email => "shoda.k.aa@m.titech.ac.jp")
+user1 = User.create(:name => "正田孝平", :email => "shoda.k.aa@m.titech.ac.jp", :password => 'password')
 Profile.create(grade: 'B4', lesson: '連続体の力学', department: '制御システム系', user_id: user1.id, avatar: File.open("./public/user1-128x128.jpg"))
 
-user2 = User.create(:name => "中山実", :email => "nakayama.m.aa@m.titech.ac.jp")
+user2 = User.create(:name => "中山実", :email => "nakayama.m.aa@m.titech.ac.jp", :password => 'password')
 Profile.create(grade: 'M2', lesson: 'プログラミング演習', department: '情報通信系', user_id: user2.id, avatar: File.open("./public/user2-160x160.jpg"))
 
 question1 = Question.create(:title => "微分方程式(1)の解法が分かりません", :user_id => user1.id, :field_list => ['微分方程式,院試,数学'])

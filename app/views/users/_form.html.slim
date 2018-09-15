@@ -1,9 +1,0 @@
-= form_with model: @user, class: :user_signup_form, local: true do |form|
-  .input-field
-    = form.label :name, 'なまえ', class: 'control-label small gray-text'
-    = form.text_field :name, class: 'form-control', placeholder: 'name'
-  .input-field
-    = form.label :email, 'mアドレス', class: 'control-label small gray-text'
-    = form.text_field :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
-  .card-action.right-align
-    = form.submit "新規登録", class: 'btn'
