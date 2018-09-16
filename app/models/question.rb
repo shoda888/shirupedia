@@ -15,6 +15,9 @@ class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :covers, as: :coverable, dependent: :destroy
+
+  validates :title, presence: true
+
   include AASM
 
   aasm do

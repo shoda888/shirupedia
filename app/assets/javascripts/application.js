@@ -16,4 +16,5 @@
 //= require admin-lte/dist/js/adminlte.min.js
 //= require bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js
 //= require iziModal/js/iziModal.min.js
+//= require dropzone
 //= require_tree .

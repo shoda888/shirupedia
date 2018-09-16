@@ -25,6 +25,7 @@ gem 'webpacker'
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'aasm'
 gem 'carrierwave'
+gem 'dropzonejs-rails'
 gem 'mini_magick'
 # Use slim
 gem 'slim-rails'

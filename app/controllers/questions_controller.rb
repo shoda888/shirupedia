@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  protect_from_forgery :except => [:create]
   layout 'main_table'
   QuestionColor = %w(lime yellow orange red purple blue).freeze
   before_action :authenticate_user
@@ -14,16 +15,21 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    pp '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      @cover = @question.covers.build(photo_message: params[:photo_message])
+      # @cover = @question.covers.build(photo_message: params[:photo_message])
+      @cover = @question.covers.build({'photo_message' => params.require(:photo_message)})
       if @cover.save
-        redirect_to questions_path, notice: '質問を作成しました'
+        render json: {message: 'success', itemId: @cover.id}, status: 200
+        # redirect_to questions_path, notice: '質問を作成しました'
       else
         render :new
       end
     else
+      pp 'ERROR　ERROR'
+      flash[:notice] = "タイトルは必須です"
       render :new
     end
   end
