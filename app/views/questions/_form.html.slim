@@ -17,77 +17,60 @@
         | 分野タグ
       = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'question-fields', "data-role" => "tagsinput"
 
-#question-photo.dropzone
-  .dz-message.needsclick.col.s12
-    h3
-      | Drop file here
-    |  or
-    strong
-      | Click
-    |  to upload
+    .input-field.col.s12
+      .form-inline.pull-right
+        - if @question.new_record?
+          a.btn.bg-gray href=questions_path() = 'キャンセル'
+        - else
+          a.btn.bg-gray href=question_path(@question) = '戻る'
+        | &nbsp;
+        button.btn[type="button" onclick="submit();"]
+          | 内容を保存して質問写真を添付する
 
-  / .input-field.col.s12.fallback
-  /   label[for="photo_message"]
-  /     | 質問写真
-  /   / = render partial="partial_name" form.file_field :photo_message
-  /   = file_field_tag('attach[file]')
+    / #question-photo.dropzone.col.s12
+    /   .dz-message.needsclick
+    /     h3
+    /       | Drop file here
+    /     |  or
+    /     strong
+    /       | Click
+    /     |  to upload
+    /
+    /   .input-field.col.s12.fallback
+    /     label[for="photo_message"]
+    /       | 質問写真
+    /     = form.file_field :photo_message
 
-.card-footer
-  .form-inline.pull-right
-    - if @question.new_record?
-      a.btn.bg-gray href=questions_path() = 'キャンセル'
-    - else
-      a.btn.bg-gray href=question_path(@question) = '戻る'
-    | &nbsp;
-    .btn.btn-submit
-      | 登録
-
-
-javascript:
-  Dropzone.autoDiscover = false;
-  $("#question-photo").dropzone({
-    url: "/questions",
-    maxFilesize: 2,
-    maxFiles: 5,
-    autoProcessQueue: false,
-    addRemoveLinks: true,
-    dictRemoveFile:'削除',
-    parallelUploads: 5,
-    paramName: 'photo_message',
-    init: function() {
-        var dzClosure = this;
-
-        $('.btn-submit').on('click', function(e) {
-            console.log(e);
-            e.preventDefault();
-            e.stopPropagation();
-            dzClosure.processQueue();
-            console.log('pass');
-        });
-        console.log(dzClosure);
-    },
-    sending: function(data, xhr, formData) {
-      console.log('OKOK');
-      formData.append("question[title]", $(".question-title").val());
-      formData.append("question[field_list]", $(".question-fields").val());
-      console.log('!!!!!!!!!!!!!!!!!!!!!OKOKfinish!!!!!!!!!!!!!!!!!!!');
-    },
-    success: function(file, response){
-      console.log('ok');
-      $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
-      $(file.previewElement).addClass('dz-success');
-    },
-    removedfile: function(file){
-      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
-      $.ajax({
-        type: 'DELETE',
-        url: "/items/" + id,
-        success: function(data){
-          console.log('data.message');
-        }
-      });
-
-      var previewElement;
-      return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
-    }
-  });
+// javascript:
+//   Dropzone.autoDiscover = false;
+//   $("#question-photo").dropzone({
+//     url: "/covers",
+//     maxFilesize: 2,
+//     maxFiles: 5,
+//     addRemoveLinks: true,
+//     dictRemoveFile:'削除',
+//     parallelUploads: 5,
+//     paramName: 'photo_message',
+//     init: function() {
+//         var dzClosure = this;
+//         console.log(dzClosure);
+//     },
+//     success: function(file, response){
+//       console.log('ok');
+//       $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
+//       $(file.previewElement).addClass('dz-success');
+//     },
+//     removedfile: function(file){
+//       var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+//       $.ajax({
+//         type: 'DELETE',
+//         url: "/items/" + id,
+//         success: function(data){
+//           console.log('data.message');
+//         }
+//       });
+//
+//       var previewElement;
+//       return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+//     }
+//   });

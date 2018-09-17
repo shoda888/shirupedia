@@ -43,8 +43,8 @@
 
               - if q.user == @current_user
                 - if q.wanted?
-                  a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
-                    | 編集する
+                  a.btn-small.btn-block.teal.lighten-3[href=question_path(q)]
+                    | 詳細
                   = link_to '質問終了にする',
                       fire_question_path(q, event: 'finish'), method: :put,
                       :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
