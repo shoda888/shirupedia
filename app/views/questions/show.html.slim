@@ -39,7 +39,7 @@
           .col.s12
             .carousel
               - @covers.each do |cover|
-                = image_tag cover.photo_message.url, class: 'carousel-item', style: 'height: auto;';
+                = image_tag cover.photo_message.url, class: 'carousel-item', style: 'height: auto;'
 
           .col.s12
             .row
@@ -105,10 +105,6 @@
       /               | &nbsp;
 javascript:
   Dropzone.autoDiscover = false;
-  $('.carousel').carousel({
-    fullWidth: true,
-    indicators: true
-  });
   var posturl = "/covers?id=" + $('#num').val();
   $("#question-photo").dropzone({
     url: posturl,

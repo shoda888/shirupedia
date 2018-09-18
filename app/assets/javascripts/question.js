@@ -1,6 +1,10 @@
 $(function() {
   $('div[class^=iziModal]').iziModal();
   $('.iziModal-header-title').css('font-family','season');
+  $('.carousel').carousel({
+    fullWidth: true,
+    indicators: true
+  });
   $(document).on("click", ".answer-btn", function(){
     $('.answer-form').show();
   });

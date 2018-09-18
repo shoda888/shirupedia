@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  protect_from_forgery :except => [:create]
+  protect_from_forgery except: [:create]
   layout 'main_table'
   QuestionColor = %w(lime yellow orange red purple blue).freeze
   before_action :authenticate_user
