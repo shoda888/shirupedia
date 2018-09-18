@@ -35,6 +35,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @covers = @question.covers
     @answers = @question.answers.includes(:user).order('created_at desc')
     @question_user = @question.user
     @avatar = @question_user.profile.avatar.thumb
