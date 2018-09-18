@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  protect_from_forgery except: [:create]
   layout 'main_table'
   QuestionColor = %w(lime yellow orange red purple blue).freeze
   before_action :authenticate_user
@@ -17,19 +18,24 @@ class QuestionsController < ApplicationController
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      @cover = @question.covers.build(photo_message: params[:photo_message])
-      if @cover.save
-        redirect_to questions_path, notice: '質問を作成しました'
-      else
-        render :new
-      end
+      # # @cover = @question.covers.build(photo_message: params[:photo_message])
+      # @cover = @question.covers.build({'photo_message' => params.require(:photo_message)})
+      # if @cover.save
+      #   render json: {message: 'success', itemId: @cover.id}, status: 200
+      #   # redirect_to questions_path, notice: '質問を作成しました'
+      # else
+      #   render :new
+      # end
+      redirect_to question_path(@question), notice: '質問を登録しました'
     else
+      flash[:notice] = "タイトルは必須です"
       render :new
     end
   end
 
   def show
     @question = Question.find(params[:id])
+    @covers = @question.covers
     @answers = @question.answers.includes(:user).order('created_at desc')
     @question_user = @question.user
     @avatar = @question_user.profile.avatar.thumb
@@ -48,7 +54,7 @@ class QuestionsController < ApplicationController
     if @question.save
       @cover = @question.covers.build(photo_message: params[:photo_message])
       if @cover.save
-        redirect_to questions_path, notice: '質問を編集しました'
+        redirect_to question_path(@question), notice: '質問を編集しました'
       else
         render :edit
       end
@@ -64,7 +70,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.aasm.fire!(params[:event].to_sym)
     @question.save
-    redirect_to questions_path, notice: '質問を終了しました'
+    redirect_to question_path(@question), notice: '質問を終了しました'
   end
 
   private

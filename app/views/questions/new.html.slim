@@ -1,11 +1,14 @@
-section.content-header
-section.content
+.content
   .row
-    .col-md-12
-      .card.card-info
-        .card-header.with-border
-          h3
-            | 新規作成
-        .form
-          = form_with(url: questions_path, local: true) do |form|
-            = render :partial => 'form', :locals => {:form => form}
+    .col.s12
+      .card
+        .card-content
+          .card-title
+            | 質問を投稿
+          - @question.errors.full_messages.each do |message|
+            .form-error
+              = message
+
+          .form
+            = form_with url: questions_path, local: true, class: 'question-form' do |form|
+              = render :partial => 'form', :locals => {:form => form}

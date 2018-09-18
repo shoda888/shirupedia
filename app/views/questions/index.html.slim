@@ -22,8 +22,7 @@
               | &nbsp;
           - q.covers.each do |cover|
             div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
-              - if cover.photo_message?
-                = image_tag cover.photo_message.url
+              = image_tag cover.photo_message.url
 
               / todo:いいね機能
               a
@@ -36,21 +35,13 @@
 
               - q.answers.each do |answer|
                 - answer.covers.each do |cover|
-                  - if cover.photo_message?
-                    = image_tag cover.photo_message.url
+                  = image_tag cover.photo_message.url
 
               .new-answers
 
               - if q.user == @current_user
-                - if q.wanted?
-                  a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
-                    | 編集する
-                  = link_to '質問終了にする',
-                      fire_question_path(q, event: 'finish'), method: :put,
-                      :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
-                - else
-                  .btn-small.btn-block.red.lighten-3.disabled
-                    | 質問は終了しました
+                a.btn-small.btn-block.teal.lighten-3[href=question_path(q)]
+                  | 詳細
               - else
                 - if q.wanted?
                   .answer-btn.btn-small.btn-block.blue.lighten-3
