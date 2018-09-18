@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
     if @question.save
       @cover = @question.covers.build(photo_message: params[:photo_message])
       if @cover.save
-        redirect_to questions_path, notice: '質問を編集しました'
+        redirect_to question_path(@question), notice: '質問を編集しました'
       else
         render :edit
       end
@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.aasm.fire!(params[:event].to_sym)
     @question.save
-    redirect_to questions_path, notice: '質問を終了しました'
+    redirect_to question_path(@question), notice: '質問を終了しました'
   end
 
   private
