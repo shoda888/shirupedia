@@ -1,6 +1,7 @@
 $(function() {
-  $('div[class^=iziModal]').iziModal();
-  $('.iziModal-header-title').css('font-family','season');
+  $('.materialboxed').materialbox();
+  $('.modal').modal();
+  $('.modal-title').css('font-family','season');
   $('.carousel').carousel({
     fullWidth: true,
     indicators: true
@@ -8,10 +9,6 @@ $(function() {
   $(document).on("click", ".answer-btn", function(){
     $('.answer-form').show();
   });
-  $(document).on('closed', 'div[class^=iziModal]', function () {
-    $('.answer-form').hide();
-  });
-  // $(function() {
   //submitイベントを使い、フォームが送信された時に処理が実行されるようにイベントを設定。
   $('.answer-form').on('submit', function(e) {
     e.preventDefault(); //フォームが送信された時に、デフォルトだとフォームを送信するための通信がされてしまうので、preventDefault()を使用してデフォルトのイベントを止めます。

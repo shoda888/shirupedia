@@ -18,14 +18,6 @@ class QuestionsController < ApplicationController
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      # # @cover = @question.covers.build(photo_message: params[:photo_message])
-      # @cover = @question.covers.build({'photo_message' => params.require(:photo_message)})
-      # if @cover.save
-      #   render json: {message: 'success', itemId: @cover.id}, status: 200
-      #   # redirect_to questions_path, notice: '質問を作成しました'
-      # else
-      #   render :new
-      # end
       redirect_to question_path(@question), notice: '質問を登録しました'
     else
       flash[:notice] = "タイトルは必須です"
@@ -52,13 +44,9 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.attributes = question_params
     if @question.save
-      @cover = @question.covers.build(photo_message: params[:photo_message])
-      if @cover.save
-        redirect_to question_path(@question), notice: '質問を編集しました'
-      else
-        render :edit
-      end
+      redirect_to question_path(@question), notice: '質問を編集しました'
     else
+      flash[:notice] = "タイトルは必須です"
       render :edit
     end
   end

@@ -7,9 +7,7 @@
     .col.s12.m6.l4
       .card.sticky-action
         div class="#{@colors[q.id % 6]} darken-2"
-          / .card-image.waves-effect.waves-block.waves-light[style='max-height: 250px;']
-            / img.activator[src="#{q.file.url}"]
-          .card-content[data-iziModal-open=".iziModal#{q.id}"]
+          .card-content.modal-trigger[data-target="modal#{q.id}"]
             span.card-title.activator.white-text
               h6.activator
                 | #{q.title}
@@ -20,44 +18,55 @@
               .chip.teal.lighten-3
                 = field
               | &nbsp;
-          - q.covers.each do |cover|
-            div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
-              = image_tag cover.photo_message.url
 
-              / todo:いいね機能
-              a
-                i.material-icons
-                  | highlight
+          div class='modal modal-fixed-footer' id="modal#{q.id}"
+            .modal-content
+              h4.modal-title
+                | #{q.title}
+              - q.covers.each do |cover|
+                = image_tag cover.photo_message.url, class: 'materialboxed'
 
-              a.client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
-                | 質問者
-                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
-
-              - q.answers.each do |answer|
-                - answer.covers.each do |cover|
-                  = image_tag cover.photo_message.url
-
-              .new-answers
-
-              - if q.user == @current_user
-                a.btn-small.btn-block.teal.lighten-3[href=question_path(q)]
-                  | 詳細
-              - else
-                - if q.wanted?
-                  .answer-btn.btn-small.btn-block.blue.lighten-3
-                    | 返答する
-                - else
-                  .btn-small.btn-block.red.lighten-3.disabled
-                    | 質問は終了しました
-
-              = form_with url: question_answers_path(question_id: q.id), html: {class: 'answer-form'}, local: true do |form|
-                .form-group
-                  = form.label :photo_message, class: 'col s3 control-label'
-                  .col.s9
-                    = form.file_field :photo_message, class: 'photo_message_form'
-
-                .card-footer
-                  .form-inline.pull-right
-                    a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
-                    | &nbsp;
-                    = submit_tag '送信', class: 'btn-small blue lighten-3'
+            .modal-footer
+              a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
+                | Reply
+          / - q.covers.each do |cover|
+          /   div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
+          /     = image_tag cover.photo_message.url
+          /
+          /     / todo:いいね機能
+          /     a
+          /       i.material-icons
+          /         | highlight
+          /
+          /     a.client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
+          /       | 質問者
+          /       img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
+          /
+          /     - q.answers.each do |answer|
+          /       - answer.covers.each do |cover|
+          /         = image_tag cover.photo_message.url
+          /
+          /     .new-answers
+          /
+          /     - if q.user == @current_user
+          /       a.btn-small.btn-block.teal.lighten-3[href=question_path(q)]
+          /         | 詳細
+          /     - else
+          /       - if q.wanted?
+          /         .answer-btn.btn-small.btn-block.blue.lighten-3
+          /           | 返答する
+          /       - else
+          /         .btn-small.btn-block.red.lighten-3.disabled
+          /           | 質問は終了しました
+          /
+          /     = form_with url: question_answers_path(question_id: q.id), html: {class: 'answer-form'}, local: true do |form|
+          /       .form-group
+          /         = form.label :photo_message, class: 'col s3 control-label'
+          /         .col.s9
+          /           = form.file_field :photo_message, class: 'photo_message_form'
+          /
+          /       .card-footer
+          /         .form-inline.pull-right
+          /           a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+          /           | &nbsp;
+          /           = submit_tag '送信', class: 'btn-small blue lighten-3'
