@@ -19,3 +19,8 @@ Cover.create(:photo_message => File.open("./public/sample_a1.jpg"), coverable_id
 
 question2 = Question.create(:title => "なぜ以下のように仮定して解くのですか？", :user_id => user2.id, :field_list => ['力学,運動方程式,解析'])
 Cover.create(:photo_message => File.open("./public/sample_q2.jpg"), coverable_id: question2.id, coverable_type: 'Question')
+
+question3 = Question.create(:title => "この写真の中のデシベルは何を基準にしてますか？意図は、相対単位の基準点というか、デシベルで表そうとしている単位もしくは、0dBのときに何を表しているかというか(例えば0dB=どこかで観測した音量,1eV,or1V)です。何らかのエネルギー値ぽいですね。", :user_id => user1.id, :field_list => ['計測,デシベル,波形,周波数,解析'])
+Cover.create(:photo_message => File.open("./public/sample_q3.jpg"), coverable_id: question3.id, coverable_type: 'Question')
+answer3 = Answer.create(question_id: question3.id, user_id: user2.id)
+Cover.create(:photo_message => File.open("./public/sample_a3.jpg"), coverable_id: answer3.id, coverable_type: 'Answer')
