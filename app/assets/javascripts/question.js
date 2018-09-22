@@ -1,6 +1,14 @@
 $(function() {
   $('.materialboxed').materialbox();
-  $('.modal').modal();
+  $('.modal').modal({
+    onOpenEnd: function() {
+      $('.photo-grid').masonry({
+            itemSelector: '.photo-grid-item',
+            columnWidth: '.photo-grid-sizer',
+            percentPosition: true
+      });
+    }
+  });
   $('.modal-title').css('font-family','season');
   $('.carousel').carousel({
     fullWidth: true,
