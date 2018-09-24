@@ -1,5 +1,5 @@
 class CoversController < ApplicationController
-  protect_from_forgery except: [:create]
+  protect_from_forgery except: [:create, :destroy]
   layout 'main_table'
   before_action :authenticate_user
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
@@ -15,10 +15,25 @@ class CoversController < ApplicationController
       render :new
     end
   end
+  def destroy
+    @cover = Cover.find(params[:id])
+    @cover.destroy
+    respond_to do |format|
+      format.json { render :json =>  true }
+    end
+  end
 
   private
 
   def cover_params
     params.permit(:photo_message)
+  end
+
+  def ensure_correct_user
+    @cover = Cover.find(params[:id])
+    if @cover.coverable.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to questions_path
+    end
   end
 end

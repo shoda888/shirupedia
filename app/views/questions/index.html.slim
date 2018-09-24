@@ -25,31 +25,16 @@
               .row.photo-grid
                 - q.covers.each do |cover|
                   .photo-grid-sizer.col.s12.m6
-                  .photo-grid-item.col.s12.m6
-                    = image_tag cover.photo_message.url, class: 'materialboxed', width: '100%'
-
-              - q.answers.each do |answer|
-                - answer.covers.each do |cover|
-                  = image_tag cover.photo_message.url
+                  .photo-grid-item.col.s12.m6.card
+                    = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
 
               .new-answers
-
-              - if q.user == @current_user
-                a.btn-small.btn-block.teal.lighten-3[href=question_path(q)]
-                  | 詳細
-              - else
-                - if q.wanted?
-                  .answer-btn.btn-small.btn-block.blue.lighten-3
-                    | 返答する
-                - else
-                  .btn-small.btn-block.red.lighten-3.disabled
-                    | 質問は終了しました
 
               = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
                 .col.s12
                   .dz-message.needsclick
                     p
-                      | 質問写真をドラッグまたはクリックして選択してください
+                      | フォトメッセージをドラッグまたはクリックして選択してください
                     strong
                       | 画像は自動で登録されます
                 .fallback
@@ -64,9 +49,26 @@
                       | &nbsp;
                       = submit_tag '送信', class: 'btn-small blue lighten-3'
 
+              - q.answers.each do |answer|
+                hr.hr-text[data-content="PhotoReply"]
+                  .row.photo-grid
+                    - answer.covers.each do |cover|
+                      .answers_field
+                        .photo-grid-sizer.col.s12.m6
+                        .photo-grid-item.col.s12.m6
+                          = image_tag cover.photo_message.url, class: 'materialboxed', width: '100%'
+
             .modal-footer
-              a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
-                | Reply
+              - if q.user == @current_user
+                a.btn-flat[href=question_path(q)]
+                  | 詳細
+              - else
+                - if q.wanted?
+                  a.answer-btn.btn-flat
+                    | 返答する
+                - else
+                  a.btn-flat
+                    | 質問は終了しました
               a.btn-flat
                 i.material-icons
                   | favorite_border
@@ -95,20 +97,19 @@ javascript:
     init: function() {
     },
     success: function(file, response){
-      $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
+      console.log(file);
+      console.log(response);
+      $(file.previewElement).find('.dz-remove').attr('id',response.id);
       $(file.previewElement).addClass('dz-success');
+    },
+    removedfile: function(file){
+      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+      $.ajax({
+        type: 'DELETE',
+        url: "/covers/" + id
+      });
+
+      var previewElement;
+      return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
     }
-    // removedfile: function(file){
-    //   var id = $(file.previewTemplate).find('.dz-remove').attr('id');
-    //   $.ajax({
-    //     type: 'DELETE',
-    //     url: "/items/" + id,
-    //     success: function(data){
-    //       console.log('data.message');
-    //     }
-    //   });
-    //
-    //   var previewElement;
-    //   return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
-    // }
   });

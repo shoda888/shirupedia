@@ -26,7 +26,7 @@ class AnswersController < ApplicationController
       if @cover.save
         respond_to do |format|
           # format.html { redirect_to questions_path, notice: '回答しました' }
-          format.json { render json: @cover.photo_message }
+          format.json { render json: @cover }
         end
       else
         render :index

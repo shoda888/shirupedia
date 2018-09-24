@@ -66,4 +66,6 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :field_list)
   end
+  def ensure_correct_user
+  end
 end

@@ -127,10 +127,7 @@ javascript:
       var id = $(file.previewTemplate).find('.dz-remove').attr('id');
       $.ajax({
         type: 'DELETE',
-        url: "/items/" + id,
-        success: function(data){
-          console.log('data.message');
-        }
+        url: "/covers/" + id
       });
 
       var previewElement;
