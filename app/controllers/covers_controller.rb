@@ -15,11 +15,12 @@ class CoversController < ApplicationController
       render :new
     end
   end
+
   def destroy
     @cover = Cover.find(params[:id])
     @cover.destroy
     respond_to do |format|
-      format.json { render :json =>  true }
+      format.json { render json: true }
     end
   end
 

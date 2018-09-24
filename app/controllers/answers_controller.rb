@@ -29,10 +29,10 @@ class AnswersController < ApplicationController
           format.json { render json: @cover }
         end
       else
-        render :index
+        head: no_content
       end
     else
-      render :index
+      redirect_to questions_path
     end
   end
 
@@ -74,6 +74,7 @@ class AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:text_message)
   end
+
   def cover_params
     params.permit(:photo_message)
   end
