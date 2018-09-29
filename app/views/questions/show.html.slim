@@ -37,9 +37,18 @@
               | &nbsp;
 
           .col.s12
-            .carousel
-              - @covers.each do |cover|
-                = image_tag cover.photo_message.url, class: 'carousel-item', style: 'height: auto;'
+            .row.photo-grid
+              - @question.covers.each do |cover|
+                div id="cover_#{cover.id}"
+                  .photo-grid-sizer.col.s12.m6
+                  .photo-grid-item.col.s12.m6.card
+                    = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                    - if @question.user == @current_user
+                      = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
+
+            / .carousel
+            /   - @covers.each do |cover|
+            /     = image_tag cover.photo_message.url, class: 'carousel-item', style: 'height: auto;'
 
           .col.s12
             .row
@@ -106,6 +115,11 @@
 javascript:
   Dropzone.autoDiscover = false;
   var posturl = "/covers?id=" + $('#num').val();
+  $('.photo-grid').masonry({
+        itemSelector: '.photo-grid-item',
+        columnWidth: '.photo-grid-sizer',
+        percentPosition: true
+  });
   $("#question-photo").dropzone({
     url: posturl,
     maxFilesize: 2,
