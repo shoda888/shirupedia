@@ -53,10 +53,14 @@
                 hr.hr-text[data-content="PhotoReply"]
                   .row.photo-grid
                     - answer.covers.each do |cover|
-                      .answers_field
-                        .photo-grid-sizer.col.s12.m6
-                        .photo-grid-item.col.s12.m6
-                          = image_tag cover.photo_message.url, class: 'materialboxed', width: '100%'
+                      div id="cover_#{cover.id}"
+                        .answers_field
+                          .photo-grid-sizer.col.s12.m6
+                          .photo-grid-item.col.s12.m6.card
+                            = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                            a[href="/profiles/#{answer.user.profile.id}"]
+                              img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
+                            = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
 
             .modal-footer
               - if q.user == @current_user
@@ -86,6 +90,10 @@ javascript:
     onCloseStart: function() {
       $('.answer-form').hide();
     }
+  });
+  $(document).on("ajax:complete", '.delete_button', function(e){
+    result = JSON.parse(e.originalEvent.detail[0].response);
+    $('#cover_'+ result.id).fadeOut();
   });
   $(".answer-photo").dropzone({
     maxFilesize: 2,

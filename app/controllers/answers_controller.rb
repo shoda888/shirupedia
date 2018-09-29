@@ -29,7 +29,7 @@ class AnswersController < ApplicationController
           format.json { render json: @cover }
         end
       else
-        head: no_content
+        head :no_content
       end
     else
       redirect_to questions_path

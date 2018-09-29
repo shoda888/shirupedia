@@ -11,6 +11,19 @@ h6.activator{
   display: none;
 }
 
+.img-circle{
+  border-radius: 20px;
+  position: absolute !important;
+  top: 0px;
+  left: 10px;
+}
+.close_btn{
+  position: absolute;
+  color: #009688;
+  top: 0px;
+  right: 10px;
+}
+
 .hr-text {
 	line-height: 1em;
 	position: relative;
