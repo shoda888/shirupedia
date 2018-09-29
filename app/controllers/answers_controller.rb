@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.find_by(user_id: @current_user.id) || @question.answers.new(user_id: @current_user.id)
+    @answer = @question.answers.find_or_create_by(user_id: @current_user.id)
     # @answer.attributes = answer_params
     # @answer.save if @answer.new_record? || @answer.changed? #text_messageが有効になったときのchanged?メソッド
     if !@answer.changed? || @answer.save

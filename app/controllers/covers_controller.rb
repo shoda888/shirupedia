@@ -20,9 +20,9 @@ class CoversController < ApplicationController
     @cover = Cover.find(params[:id])
     @cover.destroy
     respond_to do |format|
-      format.json {
-        render :json => {id: @cover.id}
-      }
+      format.json do
+        render json: { id: @cover.id }
+      end
     end
   end
 
