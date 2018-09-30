@@ -51,19 +51,6 @@ class AnswersController < ApplicationController
   end
 
   def update
-    # @question = Question.find(params[:question_id])
-    # @answer = Answer.find(params[:id])
-    # @answer.attributes = answer_params
-    # if @answer.save
-    #   @cover = @answer.covers.build(photo_message: params[:photo_message])
-    #   if @cover.save
-    #     redirect_to questions_path, notice: '回答しました'
-    #   else
-    #     render :new
-    #   end
-    # else
-    #   render :new
-    # end
   end
 
   def destroy
