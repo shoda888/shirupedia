@@ -1,14 +1,14 @@
 .content
   .row
-    .col.s12
+    .col.m7.s12
       .card
         .card-content.row
-          .col.s1
+          .col.s12
             a[href="/profiles/#{@question_user.profile.id}"]
               img[src="#{@avatar}" style='width:32px; height:32px;']
-          .col.s5
+          .col.s6
             - if @question_user == @current_user
-              = link_to '編集', edit_question_path(@question), class: 'btn btn-small btn-block'
+              = link_to '編集', edit_question_path(@question), class: 'btn btn-small'
             - elsif @question.wanted? && !@answered_by_me
               = link_to '回答する', new_question_answer_path(question_id: @question.id), class: 'btn'
 
@@ -39,15 +39,11 @@
             .row.photo-grid
               - @question.covers.each do |cover|
                 div id="cover_#{cover.id}"
-                  .photo-grid-sizer.col.s12.m6.l4
-                  .photo-grid-item.col.s12.m6.l4.card
+                  .photo-grid-sizer.col.s12.m6
+                  .photo-grid-item.col.s12.m6.card
                     = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
                     - if @question.user == @current_user
                       = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
-
-            / .carousel
-            /   - @covers.each do |cover|
-            /     = image_tag cover.photo_message.url, class: 'carousel-item', style: 'height: auto;'
 
           .col.s12
             .row
@@ -61,56 +57,34 @@
                       strong
                         | 画像は自動で登録されます
 
-                    / .input-field.col.s12.fallback
-                    /   label[for="photo_message"]
-                    /     | 質問写真
-                    /   = form.file_field :photo_message
-                  / .row
-                    / .content
-                    /   = @question.content
+    .col.m5.s12
+      .card
+        .card-content.row
+          - @answers.each do |answer|
+            .col.s12
+              a[href="/profiles/#{answer.user.profile.id}"]
+                img[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}" style='']
+            .col.s12
+              .row.photo-grid
+                - answer.covers.each do |cover|
+                  div id="cover_#{cover.id}"
+                    .photo-grid-sizer.col.s12
+                    .photo-grid-item.col.s12.card
+                      = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
 
-                    .content
-                      / - if @question.file?
-                      /   = image_tag @question.file.url, class: 'col-lg-12'
-
-
-      /   - @answers.each do |answer|
-      /     .card.card-danger
-      /       .card-header.with-border
-      /         .form-inline.pull-left
-      /           a[href="/profiles/#{answer.user.profile.id}"]
-      /             img.img-size-32.img-circle[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}" style='margin-right:10px;']
-      /           / h3.card-title = answer.title
-      /
-      /       .form
-      /         .row
-      /           .col-lg-12
-      /             .card-body
-      /               .row
-      /                 - answer.covers.each do |cover|
-      /                   - if cover.photo_message?
-      /                     = image_tag cover.photo_message.url
-      /
-      /             .card-footer
-      /               .form-inline.pull-right
-      /                 - if answer.user == @current_user
-      /                   = link_to '編集', edit_question_answer_path(question_id: @question.id, id: answer.id), class: 'btn btn-danger pull-right'
-      /
-      / .col-md-4
-      /   .card.border-info.mb-3
-      /     .card-header
-      /       | 類似した質問
-      /     .card-body.text-info[style="padding:10px;"]
-      /       - @related_questions.each do |q|
-      /         .border-top[style='padding:5px 0px;']
-      /           a[href="/profiles/#{q.user.profile.id}"]
-      /             img.form-inline.pull-left.img-circle[src="#{q.user.profile.avatar.thumb}" style='width:48px; height:48px; margin-right:10px;']
-      /           = link_to q.title, question_path(q)
-      /           .content
-      /             - q.field_list.each do |field|
-      /               span.badge.badge-pill.badge-info
-      /                 = field
-      /               | &nbsp;
+    .col.s12
+      .collection.with-header
+        .collection-header
+          p
+            | 類似した質問
+        - @related_questions.each do |q|
+          a.collection-item[href="/questions/#{q.id}"]
+            = q.title
+            .right
+              - q.field_list.each do |field|
+                .chip.teal.lighten-3
+                  = field
+                | &nbsp;
 javascript:
   Dropzone.autoDiscover = false;
   var posturl = "/covers?id=" + $('#num').val();
