@@ -11,6 +11,9 @@ h6.activator{
   display: none;
 }
 
+.pagination{
+  background-color: #80cbc4;
+}
 .img-circle{
   border-radius: 20px;
   position: absolute !important;

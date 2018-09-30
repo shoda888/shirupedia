@@ -3,10 +3,10 @@
     .col.s12
       .card
         .card-content.row
-          .col.s12
+          .col.s1
             a[href="/profiles/#{@question_user.profile.id}"]
-              img.img-size-32.img-circle[alt="User Avatar" src="#{@avatar}" style='margin-right:10px;']
-          .col.s6
+              img[src="#{@avatar}" style='width:32px; height:32px;']
+          .col.s5
             - if @question_user == @current_user
               = link_to '編集', edit_question_path(@question), class: 'btn btn-small btn-block'
             - elsif @question.wanted? && !@answered_by_me
@@ -14,19 +14,18 @@
 
           .col.s6
             - if @question_user == @current_user
-              - if @question.wanted?
-                = link_to '質問終了にする',
-                    fire_question_path(@question, event: 'finish'), method: :put,
-                    :class => 'btn btn-block btn-small', data: { confirm: '質問を終了してよろしいですか？'}
+              - if @question.covers.present?
+                .btn.btn-block.btn-primary.btn-small.disabled
+                  | リプライ募集中
               - else
-                .btn.btn-block.btn-primary.btn-sm.disabled
-                  | 質問は終了しました
+                .btn.publish-notice.btn-block.btn-primary.btn-small.disabled
+                  | 画像を添付すると公開されます
             - else
               - if @question.wanted?
-                .btn.btn-block.btn-danger.btn-sm.active
-                  | 回答募集中
+                .btn.btn-block.btn-danger.btn-small.active
+                  | リプライ募集中
               - else
-                .btn.btn-block.btn-primary.btn-sm.disabled
+                .btn.btn-block.btn-primary.btn-small.disabled
                   | 質問は終了しました
 
           .col.s12
@@ -40,8 +39,8 @@
             .row.photo-grid
               - @question.covers.each do |cover|
                 div id="cover_#{cover.id}"
-                  .photo-grid-sizer.col.s12.m6
-                  .photo-grid-item.col.s12.m6.card
+                  .photo-grid-sizer.col.s12.m6.l4
+                  .photo-grid-item.col.s12.m6.l4.card
                     = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
                     - if @question.user == @current_user
                       = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
@@ -136,6 +135,7 @@ javascript:
       console.log('ok');
       $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
       $(file.previewElement).addClass('dz-success');
+      $('.publish-notice').html('リプライ募集中');
     },
     removedfile: function(file){
       var id = $(file.previewTemplate).find('.dz-remove').attr('id');

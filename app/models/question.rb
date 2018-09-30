@@ -21,9 +21,13 @@ class Question < ApplicationRecord
   include AASM
 
   aasm do
-    state :wanted, initial: true
+    state :non_published, initial: true
+    state :wanted
     state :completed
 
+    event :publish do
+      transitions from: :non_published, to: :wanted
+    end
     event :finish do
       transitions from: :wanted, to: :completed
     end

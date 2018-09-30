@@ -9,6 +9,8 @@ class CoversController < ApplicationController
     @cover = Cover.new(coverable_type: 'Question', coverable_id: params[:id])
     @cover.attributes = cover_params
     if @cover.save
+      @question = @cover.question
+      @question.publish! if @question.non_published?
       render json: { message: 'success', itemId: @cover.id }, status: 200
       # redirect_to questions_path, notice: '質問を作成しました'
     else

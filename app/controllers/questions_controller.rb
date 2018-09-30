@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
-    @questions = Question.search(params[:search]).includes([:fields, user: :profile]).order('created_at desc')
+    @questions = Question.search(params[:search]).where.not(aasm_state: 'non_published').includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     @colors = QuestionColor
   end
 
