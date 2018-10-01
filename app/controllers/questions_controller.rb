@@ -32,7 +32,6 @@ class QuestionsController < ApplicationController
     @question_user = @question.user
     @avatar = @question_user.profile.avatar.thumb
     @answered_by_me = @answers.find_by(user_id: @current_user.id)
-
     @related_questions = @question.find_related_fields
   end
 
