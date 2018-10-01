@@ -6,9 +6,6 @@
           .col.s12
             a[href="/profiles/#{@question_user.profile.id}"]
               img[src="#{@avatar}" style='width:32px; height:32px;']
-          .col.s6
-            - if @question_user == @current_user
-              = link_to '編集', edit_question_path(@question), class: 'btn btn-small'
 
           .col.s6
             - if @question_user == @current_user
@@ -25,6 +22,11 @@
               - else
                 .btn.btn-block.btn-primary.btn-small.disabled
                   | 質問は終了しました
+
+          .col.s6
+            - if @question_user == @current_user
+              a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/edit" style='color: #80cbc4;' data-position="left" data-tooltip="質問のタイトル・タグを編集する"]
+                | edit
 
           .col.s12
             h3.card-title = @question.title
@@ -105,6 +107,7 @@
                 | &nbsp;
 javascript:
   Dropzone.autoDiscover = false;
+  $('.tooltipped').tooltip();
   var posturl = "/covers?id=" + $('#num').val();
   $('.photo-grid').masonry({
         itemSelector: '.photo-grid-item',
