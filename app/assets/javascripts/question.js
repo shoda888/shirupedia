@@ -17,31 +17,28 @@ $(function() {
     result = JSON.parse(e.originalEvent.detail[0].response);
     $('#cover_'+ result.id).fadeOut();
   });
-  //submitイベントを使い、フォームが送信された時に処理が実行されるようにイベントを設定。
-  $('.answer-form').on('submit', function(e) {
-    e.preventDefault(); //フォームが送信された時に、デフォルトだとフォームを送信するための通信がされてしまうので、preventDefault()を使用してデフォルトのイベントを止めます。
-    var ans_form = $(this);
-    var formdata = new FormData(ans_form.get(0));  //フォームデータ取得
-    var url = ans_form.get(0).action + '.json'
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: formdata,
-      processData: false,
-      contentType: false
-    })
-    //↓フォームの送信に成功した場合の処理
-    .done(function(data) {
-      var html = buildHTML(data.url);
-      ans_form.siblings('.new-answers').append(html);
-    })
-    //↓フォームの送信に失敗した場合の処理
-    .fail(function() {
-      alert('error');
-    });
+  $(".answer-photo").dropzone({
+    maxFilesize: 2,
+    maxFiles: 5,
+    addRemoveLinks: true,
+    dictRemoveFile:'削除',
+    parallelUploads: 5,
+    paramName: 'photo_message',
+    init: function() {
+    },
+    success: function(file, response){
+      $(file.previewElement).find('.dz-remove').attr('id',response.id);
+      $(file.previewElement).addClass('dz-success');
+    },
+    removedfile: function(file){
+      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+      $.ajax({
+        type: 'DELETE',
+        url: "/covers/" + id
+      });
+
+      var previewElement;
+      return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+    }
   });
-  function buildHTML(photo) {
-    var html = $('<div class="new-answer">').append("<img src=" + photo + "></img>");
-    return html;
-  }
 });
