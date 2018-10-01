@@ -1,28 +1,23 @@
 img.bg[src="/helloquence.jpg" alt=""]
-#container
-  .login-box
-    .login-logo
-      b
-        | Shirupedia
-    .card
-      .card-body.login-card-body
-        p.login-box-msg
-          | ユーザー登録をしてください
-        .form-body
-          - @user.errors.full_messages.each do |message|
-            .form-error
-              = message
-          = form_for(@user, url: users_path) do |f|
-            = render partial: 'form' , locals: {f: f}
-            .row
-              .col-8
-
-              .col-4
-                = submit_tag("新規登録", class: 'btn btn-primary')
-        .social-auth-links.text-center.mb-3
-          p
-            | - OR -
-          a.btn.btn-block.btn-primary[href="#"]
-            i.fa.fa-facebook-f.mr-2
-            |  Sign in using Facebook
-          = link_to 'ログインはこちらから', new_sessions_path, class: 'btn btn-block btn-info'
+.valign-wrapper.row.signup-box[style='margin-top: 50px;']
+  .col.card.hoverable.s10.pull-s1.m8.pull-m2.l6.pull-l3
+    .card-content
+      span.card-title
+        | アカウントを作成
+      - @user.errors.full_messages.each do |message|
+        .form-error
+          = message
+      = form_with model: @user, class: :user_signup_form, local: true do |form|
+        .row[style='margin-bottom: 0px;']
+          .input-field.col.s12
+            label[for="name"]
+              | なまえ
+            = form.text_field :name, required: true, class: 'form-control', placeholder: '知る ペディア'
+          .input-field.col.s12
+            label[for="email"]
+              | mアドレス
+            = form.email_field :email, required: true, class: 'form-control validate', placeholder: 'shiru.p.aa@m.titech.ac.jp'
+        .card-action.right-align
+          = form.submit "新規登録", class: 'btn'
+    .btn-to-login.card-content
+      = link_to 'ログインはこちらから', login_path, class: 'btn btn-block'

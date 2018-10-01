@@ -1,6 +1,6 @@
 img.bg[src="/helloquence.jpg" alt=""]
 .valign-wrapper.row.login-box[style='margin-top: 50px;']
-  .col.card.hoverable.s10.pull-s1.m6.pull-m3.l4.pull-l4
+  .col.card.hoverable.s10.pull-s1.m8.pull-m2.l6.pull-l3
     = form_tag sessions_path do
       .card-content
         span.card-title
@@ -9,11 +9,11 @@ img.bg[src="/helloquence.jpg" alt=""]
           .input-field.col.s12
             label[for="email"]
               | mアドレス
-            = text_field :user, :email, class: 'form-control', placeholder: 'shiru.p.aa@m.titech.ac.jp'
-          / .input-field.col.s12
-          /   label[for="password"]
-          /     | Password
-          /   input#password.validate[type="password" name="password"]
+            = email_field :user, :email, class: 'form-control validate', placeholder: 'shiru.p.aa@m.titech.ac.jp'
+          .input-field.col.s12
+            label[for="email"]
+              | パスワード
+            = password_field :user, :password, required: true, class: 'form-control', placeholder: ''
       .card-action.right-align
         = submit_tag("ログイン", class: 'btn')
       .card-content

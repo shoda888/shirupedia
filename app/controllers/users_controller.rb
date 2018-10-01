@@ -5,10 +5,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "ユーザーが登録されました"
-      redirect_to new_profile_path
+    if @user.valid?
+      @user.save
+      # http://localhost:1080/でメール確認
+      UserMailer.created_with_email(@user).deliver_now
+      session[:requested] = @user.id
+      head :no_content
     else
       render :new
     end
@@ -17,6 +19,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:email, :name)
   end
 end

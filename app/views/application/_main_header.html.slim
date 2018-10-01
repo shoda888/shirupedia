@@ -23,8 +23,12 @@ nav
         a[href="#"]
           | Chats
       li
-        a[href="/profiles/#{@current_user.profile.id}"]
-          | プロフィール
+        - if my_profile = @current_user.profile
+          a[href="/profiles/#{my_profile.id}"]
+            | プロフィール
+        - else
+          a[href="/profiles/new"]
+            | プロフィール
       li
         a[href="/logout"]
           | ログアウト
@@ -46,8 +50,12 @@ ul#mobile-demo.sidenav
     a[href="#"]
       | Chats
   li
-    a[href="/profiles/#{@current_user.profile.id}"]
-      | プロフィール
+    - if my_profile = @current_user.profile
+      a[href="/profiles/#{my_profile.id}"]
+        | プロフィール
+    - else
+      a[href="/profiles/new"]
+        | プロフィール
   li
     a[href="/logout"]
       | ログアウト

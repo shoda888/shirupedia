@@ -1,16 +1,13 @@
-.container#main
-  .content-header
-  .content
-    .row
-      .col-12
-        .card.card-info
-          .card-header.with-border
-            h3.card-title
-              | プロフィールを登録しましょう
-          .card-body
-            = form_tag(profiles_path, multipart: true) do
-              - if @user.errors.any?
-                .alert.alert-danger role="alert"
-                  - @user.errors.full_messages.each do |message|
-                    = message
-              = render 'form'
+.content
+  .row
+    .col.s12
+      .card
+        .card-content
+          .card-title
+            | プロフィールを登録しましょう
+          = form_tag(profiles_path, multipart: true) do
+            - if @user.errors.any?
+              .alert.alert-danger role="alert"
+                - @user.errors.full_messages.each do |message|
+                  = message
+            = render 'form'

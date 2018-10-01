@@ -1,16 +1,13 @@
-= javascript_pack_tag 'hello_vue'
+= javascript_include_tag 'footerFixed.js'
 
-.row
-  #hello
-    hello
+.row.grid
   - @questions.each do |q|
-    .col.s12.m6.l4
+    .grid-sizer.col.s12.m6.l4
+    .grid-item.col.s12.m6.l4
       .card.sticky-action
-        div class="#{@colors[q.id % 6]} darken-2"
-          / .card-image.waves-effect.waves-block.waves-light[style='max-height: 250px;']
-            / img.activator[src="#{q.file.url}"]
-          .card-content[data-iziModal-open=".iziModal#{q.id}"]
-            span.card-title.activator.white-text
+        div class="#{@colors[q.id % 6]} lighten-1"
+          .card-content.modal-trigger[data-target="modal#{q.id}"]
+            span.card-title.activator
               h6.activator
                 | #{q.title}
               i.material-icons.right
@@ -20,54 +17,94 @@
               .chip.teal.lighten-3
                 = field
               | &nbsp;
-          - q.covers.each do |cover|
-            div class="iziModal#{q.id}" data-izimodal-title="#{q.title}" data-izimodal-group="group#{q.id}"
-              - if cover.photo_message?
-                = image_tag cover.photo_message.url
 
-              / todo:いいね機能
-              a
-                i.material-icons
-                  | highlight
+          div class='modal modal-fixed-footer' id="modal#{q.id}"
+            .modal-content
+              h4.modal-title
+                a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.id}"]
+                  img[src="#{q.user.profile.avatar.thumb}" style="width:40px; height:40px; margin-right:10px;"]
+                | #{q.title}
+              .row.photo-grid
+                - q.covers.each do |cover|
+                  .photo-grid-sizer.col.s12.m6
+                  .photo-grid-item.col.s12.m6.card
+                    = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
 
-              .client-avatar.waves-effect.waves-light.right[href="/profiles/#{q.user.profile.id}"]
-                | 質問者
-                img.img-circle[src="#{q.user.profile.avatar.thumb}" style="width:30px; height:30px; margin-right:10px;"]
+              = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
+                .col.s12
+                  .dz-message.needsclick
+                    p
+                      | フォトメッセージをドラッグまたはクリックして選択してください
+                    strong
+                      | 画像は自動で登録されます
+                .fallback
+                  .form-group
+                    = form.label :photo_message, class: 'col s3 control-label'
+                    .col.s9
+                      = form.file_field :photo_message, multiple: true, class: 'photo_message_form'
+
+                  .card-footer
+                    .form-inline.pull-right
+                      a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+                      | &nbsp;
+                      = submit_tag '送信', class: 'btn-small blue lighten-3'
 
               - q.answers.each do |answer|
-                - answer.covers.each do |cover|
-                  - if cover.photo_message?
-                    = image_tag cover.photo_message.url
-
-              .new-answers
-
-              - if q.user == @current_user
-                - if q.wanted?
-                  a.btn-small.btn-block.teal.lighten-3[href=edit_question_path(q)]
-                    | 編集する
-                  = link_to '質問終了にする',
-                      fire_question_path(q, event: 'finish'), method: :put,
-                      :class => 'btn-small btn-block red lighten-3', data: { confirm: '質問を終了してよろしいですか？'}
+                - if answer.normal?
+                  hr.hr-text[data-content="PhotoReply by #{answer.user.name}"]
+                  - if q.wanted?
+                    = link_to 'ベストショットにする', fire_question_path(id: q.id), method: :put, data: { confirm: "質問を終了してもよろしいですか？" }, class: 'btn btn-block btn-small'
+                  .row.photo-grid
+                    - answer.covers.each do |cover|
+                      div id="cover_#{cover.id}"
+                        .answers_field
+                          .photo-grid-sizer.col.s12.m6
+                          .photo-grid-item.col.s12.m6.card
+                            = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                            a[href="/profiles/#{answer.user.profile.id}"]
+                              img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
+                            - if answer.user == @current_user
+                              = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
                 - else
-                  .btn-small.btn-block.red.lighten-3.disabled
-                    | 質問は終了しました
+                  hr.hr-text[data-content="BestShot by #{answer.user.name}"]
+                  .row.photo-grid
+                    - answer.covers.each do |cover|
+                      div id="cover_#{cover.id}"
+                        .answers_field
+                          .photo-grid-sizer.col.s12.m6
+                          .photo-grid-item.col.s12.m6.card.red
+                            = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                            a[href="/profiles/#{answer.user.profile.id}"]
+                              img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
+                            - if answer.user == @current_user
+                              = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
+
+            .modal-footer
+              a.btn-flat[href=question_path(q)]
+                | 詳細
+              - if q.wanted?
+                a.answer-btn.btn-flat
+                  | 返答する
               - else
-                - if q.wanted?
-                  .answer-btn.btn-small.btn-block.blue.lighten-3
-                    | 返答する
-                - else
-                  .btn-small.btn-block.red.lighten-3.disabled
-                    | 質問は終了しました
+                a.btn-flat
+                  | 質問は終了しました
+              a.btn-flat
+                i.material-icons
+                  | favorite_border
+  #footer
+    = paginate @questions, class: 'teal'
 
-              = form_with url: question_answers_path(question_id: q.id), html: {class: 'answer-form'}, local: true do |form|
-                .form-group
-                  = form.label :photo_message, class: 'col s3 control-label'
-                  .col.s9
-                    = form.file_field :photo_message, class: 'photo_message_form'
-
-                .card-footer
-                  .form-inline.pull-right
-                    a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
-                    | &nbsp;
-                    = submit_tag '送信', class: 'btn-small blue lighten-3'
-
+javascript:
+  Dropzone.autoDiscover = false;
+  $('.modal').modal({
+    onOpenEnd: function() {
+      $('.photo-grid').masonry({
+            itemSelector: '.photo-grid-item',
+            columnWidth: '.photo-grid-sizer',
+            percentPosition: true
+      });
+    },
+    onCloseStart: function() {
+      $('.answer-form').hide();
+    }
+  });

@@ -4,24 +4,25 @@ html
     title
       | Shirupedia
     = csrf_meta_tags
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all'
     link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"]
     link[href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"]
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application'
   body
     script[src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"]
+    script[src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"]
 
     = render 'main_header'
     .container
       = render 'message'
 
       = yield
+      .fixed-action-btn
+        a.btn-floating.btn-large.red[href=new_question_path]
+          i.large.material-icons
+            | mode_edit
 
 javascript:
  $(document).ready(function(){
    $('.sidenav').sidenav();
  });
- $(function(){
-	$('div[class^=iziModal]').iziModal();
-  $('.iziModal-header-title').css('font-family','season');
- })

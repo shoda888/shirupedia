@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resource :sessions
   resources :users
   resources :profiles
-  resources :communities
+  resources :covers
   resources :questions do
     resources :answers
     member do

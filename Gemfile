@@ -24,14 +24,16 @@ gem 'webpacker'
 # gem 'jquery-ui-rails'
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'aasm'
+gem 'kaminari'
 gem 'carrierwave'
+gem 'dropzonejs-rails'
 gem 'mini_magick'
 # Use slim
 gem 'slim-rails'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -52,6 +54,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'rubocop'
+  gem 'annotate'
 end
 
 group :development do

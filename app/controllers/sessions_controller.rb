@@ -8,13 +8,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email])
+    @user = User.find_by(user_params)
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path
     else
-      flash[:notice] = "ログイン情報が間違っています"
+      flash[:notice] = "ログイン情報が誤っています"
       render :new
     end
   end
@@ -23,5 +23,11 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
     redirect_to login_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
 end

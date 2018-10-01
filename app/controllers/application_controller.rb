@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_action :set_current_user
+  before_action :set_current_user, except: :accept_user
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id])
@@ -20,11 +20,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def ensure_correct_user
-    @question = Question.find(params[:id])
-    if @question.user_id != @current_user.id
-      flash[:notice] = "権限がありません"
-      redirect_to questions_path
-    end
+  # def ensure_correct_user
+  #   @question = Question.find(params[:id])
+  #   if @question.user_id != @current_user.id
+  #     flash[:notice] = "権限がありません"
+  #     redirect_to questions_path
+  #   end
+  # end
+
+  def accept_user
+    @current_user = User.find_by(id: session[:requested])
   end
 end

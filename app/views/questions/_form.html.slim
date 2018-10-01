@@ -6,28 +6,71 @@
         - @question.errors.full_messages.each do |error|
           li
             = error
+  .row
+    .input-field.col.s12
+      label[for="title"]
+        | タイトル
+      = form.text_field 'question[title]', value: @question.title, required: true, class: 'question-title', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
-  .form-group
-    = form.label :title, class: 'col s3 control-label'
-    .col.s9
-      = form.text_field 'question[title]', value: @question.title, required: true, class: 'form-control', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
+    .input-field.col.s12
+      label[for="field_list"]
+        | 分野タグ
+      = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'question-fields', "data-role" => "tagsinput"
 
-  .form-group
-    = form.label :photo_message, class: 'col s3 control-label'
-    .col.s9
-      = form.file_field :photo_message
+    .input-field.col.s12
+      .form-inline.pull-right
+        - if @question.new_record?
+          a.btn.bg-gray href=questions_path() = 'キャンセル'
+        - else
+          a.btn.bg-gray href=question_path(@question) = '戻る'
+        | &nbsp;
+        button.btn[type="button" onclick="submit();"]
+          | 内容を保存して質問写真を添付する
 
-  .form-group
-    = form.label :field_list, class: 'col s3 control-label'
-    .col.s9
-      = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'form-control', "data-role" => "tagsinput"
+    / #question-photo.dropzone.col.s12
+    /   .dz-message.needsclick
+    /     h3
+    /       | Drop file here
+    /     |  or
+    /     strong
+    /       | Click
+    /     |  to upload
+    /
+    /   .input-field.col.s12.fallback
+    /     label[for="photo_message"]
+    /       | 質問写真
+    /     = form.file_field :photo_message
 
-.card-footer
-  .form-inline.pull-right
-    - if @question.new_record?
-      a.btn.bg-gray href=questions_path() = 'キャンセル'
-    - else
-      a.btn.bg-gray href=question_path(@question) = '戻る'
-    | &nbsp;
-    button.btn.btn-success.pull-right[type="button" onclick="submit();"]
-      | 登録
+// javascript:
+//   Dropzone.autoDiscover = false;
+//   $("#question-photo").dropzone({
+//     url: "/covers",
+//     maxFilesize: 2,
+//     maxFiles: 5,
+//     addRemoveLinks: true,
+//     dictRemoveFile:'削除',
+//     parallelUploads: 5,
+//     paramName: 'photo_message',
+//     init: function() {
+//         var dzClosure = this;
+//         console.log(dzClosure);
+//     },
+//     success: function(file, response){
+//       console.log('ok');
+//       $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
+//       $(file.previewElement).addClass('dz-success');
+//     },
+//     removedfile: function(file){
+//       var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+//       $.ajax({
+//         type: 'DELETE',
+//         url: "/items/" + id,
+//         success: function(data){
+//           console.log('data.message');
+//         }
+//       });
+//
+//       var previewElement;
+//       return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+//     }
+//   });
