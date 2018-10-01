@@ -19,3 +19,7 @@
  @import 'bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css';
  @import 'dropzone/basic';
  @import 'dropzone/dropzone';
+
+body{
+  background-color: #e0f7fa;
+}

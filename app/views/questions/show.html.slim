@@ -84,9 +84,11 @@
                           | 画像は自動で登録されます
 
     .col.m5.s12
-      .card
-        .card-content.row
-          - @answers.each do |answer|
+      .card-panel
+        | リプライ
+      - @answers.each do |answer|
+        .card
+          .card-content.row
             .col.s12.user-field
               a[href="/profiles/#{answer.user.profile.id}"]
                 img[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}"]
@@ -104,7 +106,7 @@
 
 
     .col.s12
-      .collection.with-header
+      .collection.with-header[style='background-color:white;']
         .collection-header
           p
             | 類似した質問
