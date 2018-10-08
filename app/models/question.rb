@@ -38,7 +38,7 @@ class Question < ApplicationRecord
   def iine?(user)
     iine_users.include?(user)
   end
-  
+
   def good(user)
     likes.create(user_id: user.id)
   end

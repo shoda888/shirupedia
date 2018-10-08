@@ -28,7 +28,7 @@ class PhotoMessageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  process :tags => ['photo_message']
+  process tags: ['photo_message']
 
   process resize_to_fit: [500, 500]
   # Create different versions of your uploaded files:
@@ -37,7 +37,7 @@ class PhotoMessageUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    return model.id
+    model.id
   end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
