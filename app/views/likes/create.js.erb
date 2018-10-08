@@ -1,0 +1,1 @@
+$("#modal<%= @question.id %>").find('.favo-field').html("<%= escape_javascript(render "likes/like", q: @question) %>");
