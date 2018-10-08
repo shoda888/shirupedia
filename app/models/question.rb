@@ -15,6 +15,8 @@ class Question < ApplicationRecord
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :covers, as: :coverable, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :iine_users, through: :likes, source: :user
 
   validates :title, presence: true
 
@@ -31,6 +33,18 @@ class Question < ApplicationRecord
     event :finish do
       transitions from: :wanted, to: :completed
     end
+  end
+
+  def iine?(user)
+    iine_users.include?(user)
+  end
+
+  def good(user)
+    likes.create(user_id: user.id)
+  end
+
+  def good_cancel(user)
+    likes.find_by(user_id: user.id).destroy
   end
 
   def self.search(search) # self.でクラスメソッドとしている

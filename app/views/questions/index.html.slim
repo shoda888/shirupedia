@@ -22,13 +22,13 @@
             .modal-content
               h4.modal-title
                 a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.id}"]
-                  img[src="#{q.user.profile.avatar.thumb}" style="width:40px; height:40px; margin-right:10px;"]
+                  = cl_image_tag(q.user.profile.avatar.file.filename, :width=>40, :height=>40, :background=>"white", :crop=>"pad" )
                 | #{q.title}
               .row.photo-grid
                 - q.covers.each do |cover|
                   .photo-grid-sizer.col.s12.m6
                   .photo-grid-item.col.s12.m6.card
-                    = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                    = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
 
               = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
                 .col.s12
@@ -60,7 +60,7 @@
                         .answers_field
                           .photo-grid-sizer.col.s12.m6
                           .photo-grid-item.col.s12.m6.card
-                            = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
                             a[href="/profiles/#{answer.user.profile.id}"]
                               img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
                             - if answer.user == @current_user
@@ -73,7 +73,7 @@
                         .answers_field
                           .photo-grid-sizer.col.s12.m6
                           .photo-grid-item.col.s12.m6.card.red
-                            = image_tag cover.photo_message.url, class: 'card-image materialboxed', width: '100%'
+                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
                             a[href="/profiles/#{answer.user.profile.id}"]
                               img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
                             - if answer.user == @current_user
@@ -88,9 +88,8 @@
               - else
                 a.btn-flat
                   | 質問は終了しました
-              a.btn-flat
-                i.material-icons
-                  | favorite_border
+              .btn-flat.favo-field[style='cursor: default;']
+                = render "likes/like", q: q
   #footer
     = paginate @questions, class: 'teal'
 

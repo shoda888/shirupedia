@@ -17,8 +17,8 @@
  @import 'font-awesome/css/font-awesome.min.css';
  /* @import 'admin-lte/dist/css/adminlte.min.css'; */
  @import 'bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css';
- @import 'dropzone/basic';
- @import 'dropzone/dropzone';
+ @import 'dropzone/basic.css';
+ @import 'dropzone/dropzone.css';
 
 body{
   background-color: #e0f7fa;
