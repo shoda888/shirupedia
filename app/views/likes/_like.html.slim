@@ -1,0 +1,6 @@
+- if q.iine?(@current_user)
+  .favorite
+    = link_to content_tag(:i, 'favorite', class: 'material-icons'), like_path(q.likes.find_by(user_id: @current_user.id)), method: :delete, class: 'like waves-effect waves-red', remote: true
+- else
+  .cancel-favorite
+    = link_to content_tag(:i, 'favorite_border', class: 'material-icons'), likes_path(question_id: q.id), method: :post, class: 'uniine waves-effect waves-red', remote: true

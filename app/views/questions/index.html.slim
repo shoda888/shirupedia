@@ -88,9 +88,8 @@
               - else
                 a.btn-flat
                   | 質問は終了しました
-              a.btn-flat
-                i.material-icons
-                  | favorite_border
+              .btn-flat.favo-field[style='cursor: default;']
+                = render "likes/like", q: q
   #footer
     = paginate @questions, class: 'teal'
 
