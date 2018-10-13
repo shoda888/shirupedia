@@ -85,15 +85,26 @@ Rails.application.configure do
 
   # mail
   config.action_mailer.default_url_options = { host: 'titech-shirupedia.herokuapp.com' }
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    address: 'smtp.gmail.com',
-    domain: 'gmail.com',
-    port: 587,
-    user_name: 'shirupedia@gmail.com',
-    password: 'shirupedia98',
-    authentication: 'plain',
-    enable_starttls_auto: true
+  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   address: 'smtp.gmail.com',
+  #   domain: 'gmail.com',
+  #   port: 587,
+  #   user_name: 'shirupedia@gmail.com',
+  #   password: 'shirupedia98',
+  #   authentication: 'plain',
+  #   enable_starttls_auto: true
+  # }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+  :user_name => ENV['SENDGRID_USERNAME'],
+  :password => ENV['SENDGRID_PASSWORD'],
+  :domain => 'herokuapp.com',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
   }
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
