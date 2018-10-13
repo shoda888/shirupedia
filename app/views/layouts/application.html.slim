@@ -14,5 +14,10 @@ html
 
     .container
       = render 'message'
-
+      - if Rails.env.development?
+        | DEVELOP
+      - elsif Rails.env.production?
+        | PRODUCTION
+      - elsif Rails.env.staging?
+        | STAGING
       = yield
