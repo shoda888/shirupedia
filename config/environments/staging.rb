@@ -84,7 +84,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # mail
-  config.action_mailer.default_url_options = { host: 'titech-shirupedia.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'titech-shirupedia-stg.herokuapp.com' }
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     address: 'smtp.gmail.com',
