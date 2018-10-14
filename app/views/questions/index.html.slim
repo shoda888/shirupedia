@@ -82,10 +82,10 @@
             .modal-footer
               a.btn-flat[href=question_path(q)]
                 | 詳細
-              - if q.wanted?
+              - if q.wanted? && q.user != @current_user
                 a.answer-btn.btn-flat
                   | 返答する
-              - else
+              - elsif q.completed?
                 a.btn-flat
                   | 質問は終了しました
               .btn-flat.favo-field[style='cursor: default;']
