@@ -55,14 +55,9 @@ class QuestionsController < ApplicationController
 
   def fire
     @answer = Answer.find(params[:id])
-    @answer.selected!
     @question = @answer.question
     @question.finish!
     redirect_to question_path(@question), notice: '質問が終了しました'
-  rescue AASM::InvalidTransition
-    respond_to do |format|
-      format.html { redirect_to questions_path, notice: '状態の変更に失敗しました' }
-    end
   end
 
   private

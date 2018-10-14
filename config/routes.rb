@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy'
   resources :likes, only: [:create, :destroy]
+  resources :nices, only: [:create, :destroy]
   resource :sessions
   resources :users
   resources :profiles
