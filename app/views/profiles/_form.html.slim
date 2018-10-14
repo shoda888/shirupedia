@@ -46,9 +46,7 @@
     = text_field :profile, :lesson, class: "form-control", placeholder: '熱力学基礎'
 
 .card-action.right-align
-  - if @profile.new_record?
-    a.btn href=questions_path = '後で登録する'
-  - else
+  - unless @profile.new_record?
     a.btn href=profile_path(@profile) = '戻る'
   | &nbsp;
 
