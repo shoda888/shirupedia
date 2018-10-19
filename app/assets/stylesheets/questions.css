@@ -17,8 +17,11 @@ h6.activator{
   color: #009688;
 }
 
-.answer-form{
+.comment-form, .answer-form{
   display: none;
+}
+.nice-field, .reply-field{
+  display: inline-block;
 }
 
 .pagination{

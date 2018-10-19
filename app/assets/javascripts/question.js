@@ -11,7 +11,10 @@ $(function() {
         percentPosition: true
   });
   $(document).on("click", ".answer-btn", function(){
-    $('.answer-form').show();
+    $('.answer-form').toggle();
+  });
+  $(document).on("click", ".comment-btn", function(){
+    $('.comment-form').toggle();
   });
   $(document).on("ajax:complete", '.delete_button', function(e){
     result = JSON.parse(e.originalEvent.detail[0].response);

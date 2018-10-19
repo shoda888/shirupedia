@@ -14,6 +14,7 @@ class Cover < ApplicationRecord
   mount_uploader :photo_message, PhotoMessageUploader
   belongs_to :coverable, polymorphic: true
   has_many :nices, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :nice_users, through: :nices, source: :user
 
   def nice?(user)
