@@ -1,2 +1,2 @@
-$(".comments_field").html("<%= j(render 'index', { comments: @cover.comments }) %>")
+$("#comments_field<%= @cover.id %>").html("<%= j(render 'index', { comments: @cover.comments }) %>")
 $("textarea").val('')

@@ -14,7 +14,12 @@ $(function() {
     $('.answer-form').toggle();
   });
   $(document).on("click", ".comment-btn", function(){
-    $('.comment-form').toggle();
+    $(this).parent().siblings('.comment-form').toggle();
+    $('.photo-grid').masonry({
+          itemSelector: '.photo-grid-item',
+          columnWidth: '.photo-grid-sizer',
+          percentPosition: true
+    });
   });
   $(document).on("ajax:complete", '.delete_button', function(e){
     result = JSON.parse(e.originalEvent.detail[0].response);
