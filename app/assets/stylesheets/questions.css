@@ -17,8 +17,15 @@ h6.activator{
   color: #009688;
 }
 
-.answer-form{
+.comment-form, .answer-form{
   display: none;
+}
+.nice-field, .reply-field{
+  display: inline-block;
+  margin-right: 8px;
+}
+.comment-btn{
+  color: #cfd8dc;
 }
 
 .pagination{
@@ -26,7 +33,7 @@ h6.activator{
 }
 .img-circle{
   border-radius: 20px;
-  position: absolute !important;
+  position: absolute;
   top: 0px;
   left: 10px;
 }

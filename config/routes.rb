@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resource :sessions
   resources :users
   resources :profiles
-  resources :covers
+  resources :covers do
+    resources :comments, only: [:create, :destroy, :update]
+  end
   resources :questions do
     resources :answers
     member do
