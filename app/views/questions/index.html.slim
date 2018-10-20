@@ -26,8 +26,8 @@
                 | #{q.title}
               .row.photo-grid
                 - q.covers.each do |cover|
-                  .photo-grid-sizer.col.s12.m6
-                  .photo-grid-item.col.s12.m6.card
+                  .photo-grid-sizer.col.s12.m4
+                  .photo-grid-item.col.s12.m4.card
                     = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
 
               = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
@@ -55,8 +55,8 @@
                   - answer.covers.each do |cover|
                     div id="cover_#{cover.id}"
                       .answers_field
-                        .photo-grid-sizer.col.s12.m6
-                        .photo-grid-item.col.s12.m6.card
+                        .photo-grid-sizer.col.s12.m4
+                        .photo-grid-item.col.s12.m4.card
                           = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
                           a[href="/profiles/#{answer.user.profile.id}"]
                             img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
@@ -65,14 +65,14 @@
                             .nice-field[style='vertical-align: bottom;']
                               = render "nices/nice", c: cover
                           .reply-field[style='cursor: pointer;']
-                            a.comment-btn
+                            a.tooltipped.comment-btn[data-position="right" data-tooltip="コメントする"]
                               i.material-icons
                                 | reply
 
                           - if answer.user == @current_user
                             = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
 
-                          div id="comments_field#{cover.id}"
+                          div id="comments_field#{cover.id}" class="line-bc"
                             = render 'comments/index', comments: cover.comments
 
                           = render 'comments/form', cover: cover
@@ -92,6 +92,7 @@
     = paginate @questions, class: 'teal'
 
 javascript:
+  $('.tooltipped').tooltip();
   Dropzone.autoDiscover = false;
   $('.modal').modal({
     onOpenEnd: function() {
