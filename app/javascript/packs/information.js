@@ -3,7 +3,7 @@ import Information from '../information.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    new Vue({
+    const app = new Vue({
         el: '#information',
         components: { Information }
     })
