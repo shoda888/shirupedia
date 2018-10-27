@@ -12,7 +12,7 @@
       </select>
       <label for="profile_school">学院</label>
     </div>
-    <div class="input-field" v-show='departmentBool'>
+    <div class="input-field" name="profile[department]" v-show='departmentBool'>
       <select id="profile_department" name="profile[department]" v-model='selected_department'>
         <option v-for="(value, key) in departmentLists" v-bind:value="value">{{key}}</option>
       </select>
@@ -77,7 +77,7 @@
             // this.$set(this.departmentLists, tmp_departmentLists);
             // this.departmentLists = Object.assign({}, this.departmentLists, tmp_departmentLists);
             console.log(this.departmentLists);
-            this.$forceUpdate();
+            // this.$forceUpdate();
           }
         }
     }
