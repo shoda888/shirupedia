@@ -9,9 +9,7 @@ class CommentsController < ApplicationController
     @comment = @cover.comments.build(comment_params)
     @comment.user_id = @current_user.id
     # @comment.attributes = comment_params
-    if @comment.save
-      render :index
-    end
+    render :index if @comment.save
   end
 
   def update

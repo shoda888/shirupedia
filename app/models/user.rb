@@ -18,7 +18,6 @@ class User < ApplicationRecord
   has_many :nices, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-
   # validates :email, format: { with: /.+@m.titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
