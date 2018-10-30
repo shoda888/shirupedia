@@ -5,6 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     new Vue({
         el: '#profile',
-        components: {information: Profile},
+        components: { Profile },
     })
 })

@@ -26,8 +26,8 @@
                 | #{q.title}
               .row.photo-grid
                 - q.covers.each do |cover|
-                  .photo-grid-sizer.col.s12.m6
-                  .photo-grid-item.col.s12.m6.card
+                  .photo-grid-sizer.col.s12.m4
+                  .photo-grid-item.col.s12.m4.card
                     = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
 
               = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
@@ -49,40 +49,8 @@
                       | &nbsp;
                       = submit_tag '送信', class: 'btn-small blue lighten-3'
 
-              - q.answers.each do |answer|
-                - if answer.normal?
-                  hr.hr-text[data-content="PhotoReply by #{answer.user.name}"]
-                  - if q.wanted?
-                    = link_to 'ベストショットにする', fire_question_path(id: q.id), method: :put, data: { confirm: "質問を終了してもよろしいですか？" }, class: 'btn btn-block btn-small'
-                  .row.photo-grid
-                    - answer.covers.each do |cover|
-                      div id="cover_#{cover.id}"
-                        .answers_field
-                          .photo-grid-sizer.col.s12.m6
-                          .photo-grid-item.col.s12.m6.card
-                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
-                            a[href="/profiles/#{answer.user.profile.id}"]
-                              img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
-                            i.material-icons.right
-                              | reply
-                            - if answer.user == @current_user
-                              = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
-                            - if q.user == @current_user
-                              = render "nices/nice", a: answer
-
-                - else
-                  hr.hr-text[data-content="BestShot by #{answer.user.name}"]
-                  .row.photo-grid
-                    - answer.covers.each do |cover|
-                      div id="cover_#{cover.id}"
-                        .answers_field
-                          .photo-grid-sizer.col.s12.m6
-                          .photo-grid-item.col.s12.m6.card.red
-                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
-                            a[href="/profiles/#{answer.user.profile.id}"]
-                              img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
-                            - if answer.user == @current_user
-                              = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
+              div id="answers_field#{q.id}"
+                = render "answers/index", q: q
 
             .modal-footer
               a.btn-flat[href=question_path(q)]
@@ -99,6 +67,7 @@
     = paginate @questions, class: 'teal'
 
 javascript:
+  $('.tooltipped').tooltip();
   Dropzone.autoDiscover = false;
   $('.modal').modal({
     onOpenEnd: function() {
@@ -110,5 +79,6 @@ javascript:
     },
     onCloseStart: function() {
       $('.answer-form').hide();
+      $('.comment-form').hide();
     }
   });

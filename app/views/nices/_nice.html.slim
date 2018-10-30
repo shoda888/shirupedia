@@ -1,8 +1,6 @@
-i.material-icons.unice
-  | thumb_up
-
-  / = content_tag(:i, 'thumb_up', class: 'material-icons'), class: 'nice waves-effect waves-red'
-/ .favorite
-/   = link_to content_tag(:i, 'thumb_up', class: 'material-icons'), like_path(q.likes.find_by(user_id: @current_user.id)), method: :delete, class: 'like waves-effect waves-red', remote: true
-/ .cancel-favorite
-/   = link_to content_tag(:i, 'favorite_border', class: 'material-icons'), likes_path(question_id: q.id), method: :post, class: 'uniine waves-effect waves-red', remote: true
+- if c.nice?(@current_user)
+  .unice-able
+    = link_to content_tag(:i, 'thumb_up', class: 'material-icons'), nice_path(c.nices.find_by(user_id: @current_user.id)), method: :delete, class: 'nice waves-effect waves-blue', remote: true
+- else
+  .nice-able
+    = link_to content_tag(:i, 'thumb_up', class: 'material-icons'), nices_path(cover_id: c.id), method: :post, class: 'unice waves-effect waves-blue', remote: true
