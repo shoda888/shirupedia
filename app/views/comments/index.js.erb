@@ -1,0 +1,7 @@
+$("#comments_field<%= @cover.id %>").html("<%= j(render 'index', { comments: @cover.comments }) %>")
+$("textarea").val('')
+$('.photo-grid').masonry({
+      itemSelector: '.photo-grid-item',
+      columnWidth: '.photo-grid-sizer',
+      percentPosition: true
+});

@@ -3,6 +3,12 @@
   src: url('season.ttf') format('truetype');
 }
 
+.modal{
+  width: 90% !important;
+  max-height: 100% !important;
+  height: 90% !important;
+  top: 5% !important;
+}
 h6.activator{
   font-family: 'season';
 }
@@ -17,8 +23,15 @@ h6.activator{
   color: #009688;
 }
 
-.answer-form{
+.comment-form, .answer-form{
   display: none;
+}
+.nice-field, .reply-field{
+  display: inline-block;
+  margin-right: 8px;
+}
+.comment-btn{
+  color: #cfd8dc;
 }
 
 .pagination{
@@ -26,7 +39,7 @@ h6.activator{
 }
 .img-circle{
   border-radius: 20px;
-  position: absolute !important;
+  position: absolute;
   top: 0px;
   left: 10px;
 }

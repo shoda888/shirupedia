@@ -1,0 +1,6 @@
+= form_with url: cover_comments_path(cover_id: cover.id), html: {class: 'comment-form'} do |form|
+  / .form-group
+  /   = form.label :content, class: 'col s3 control-label'
+  .col.s9
+    = form.text_area 'comment[content]', required: true, class: 'comment_message_form'
+  = submit_tag '送信', class: 'btn-small blue lighten-3'
