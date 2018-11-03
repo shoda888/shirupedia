@@ -1,4 +1,6 @@
 class Api::QuestionsController < Api::ApplicationController
+  before_action :auth
+
   def index
     @questions = Question.all
     render json: @questions, include: [:user, :answers, :likes, :covers]
