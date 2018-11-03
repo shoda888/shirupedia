@@ -11,8 +11,7 @@
 #  token      :string
 #
 
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+class UserSerializer < ActiveModel::Serializer
+  attributes :id, :name, :email
+  has_one :profile,  serializer: ProfileSerializer
 end

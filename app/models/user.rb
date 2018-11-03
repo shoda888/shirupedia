@@ -8,9 +8,11 @@
 #  password   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  token      :string
 #
 
 class User < ApplicationRecord
+  has_secure_token
   has_one :profile
   has_many :questions
   has_many :answers
