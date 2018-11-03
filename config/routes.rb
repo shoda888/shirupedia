@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
   namespace :api, { format: 'json' } do
+    post '/users/signup', to: 'users#signup'
+    post '/users/signin', to: 'users#signin'
     resources :users
     resources :questions
   end

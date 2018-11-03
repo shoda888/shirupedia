@@ -1,11 +1,15 @@
 class Api::ApplicationController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
-  before_action :authenticate
+  def auth
+    ## 認証に失敗したらエラーレスポンスを返す
+    authenticate_token || response_unauthorized
+  end
+
   def authenticate
-    authenticate_or_request_with_http_token do |token,options|
+    authenticate_or_request_with_http_token do |token, _options|
       auth_user = User.find_by(token: token)
-      auth_user != nil ? true : false
+      !auth_user.nil? ? true : false
     end
   end
 

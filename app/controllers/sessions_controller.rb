@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(user_params)
-    if @user
+    if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path
@@ -28,6 +28,6 @@ class SessionsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email)
   end
 end

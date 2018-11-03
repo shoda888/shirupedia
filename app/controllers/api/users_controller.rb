@@ -1,4 +1,6 @@
 class Api::UsersController < Api::ApplicationController
+  before_action :auth, except: [:signin, :signup]
+
   def index
     @users = User.all
     # @users = @users.map do |user|
@@ -9,6 +11,14 @@ class Api::UsersController < Api::ApplicationController
     #   }
     # end
     render json: @users
+  end
+
+  ## サインアップ
+  def signup
+  end
+
+  ## サインイン
+  def signin
   end
 
   def create
@@ -42,6 +52,6 @@ class Api::UsersController < Api::ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name)
+    params.require(:user).permit(:email, :name, :password, :password_confirmation)
   end
 end

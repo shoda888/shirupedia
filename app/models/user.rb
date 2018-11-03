@@ -2,16 +2,17 @@
 #
 # Table name: users
 #
-#  id         :bigint(8)        not null, primary key
-#  name       :string
-#  email      :string
-#  password   :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  token      :string
+#  id              :bigint(8)        not null, primary key
+#  name            :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  token           :string
 #
 
 class User < ApplicationRecord
+  has_secure_password
   has_secure_token
   has_one :profile
   has_many :questions
