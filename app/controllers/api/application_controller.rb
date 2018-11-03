@@ -1,4 +1,14 @@
 class Api::ApplicationController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
+  before_action :authenticate
+  def authenticate
+    authenticate_or_request_with_http_token do |token,options|
+      auth_user = User.find_by(token: token)
+      auth_user != nil ? true : false
+    end
+  end
+
   # 200 Success
   def response_success(class_name, action_name)
     render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}" }
