@@ -29,6 +29,6 @@ class User < ApplicationRecord
     record.errors.add(:password, :blank) unless record.password_digest.present?
   end
 
-  validates :password, length: { in: 1..ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED }, on: :update
+  validates :password, length: { maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED }, on: :update
   validates :password, confirmation: true, allow_blank: true, on: :update
 end

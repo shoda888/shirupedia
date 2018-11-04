@@ -1,6 +1,8 @@
 class Api::ApplicationController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
+  protect_from_forgery with: :null_session
+
   def auth
     ## 認証に失敗したらエラーレスポンスを返す
     authenticate || response_unauthorized
@@ -14,8 +16,8 @@ class Api::ApplicationController < ApplicationController
   end
 
   # 200 Success
-  def response_success(class_name, action_name)
-    render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}" }
+  def response_success(class_name, action_name, data = nil)
+    render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}", token: data }
   end
 
   # 400 Bad Request
