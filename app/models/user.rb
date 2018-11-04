@@ -12,7 +12,7 @@
 #
 
 class User < ApplicationRecord
-  has_secure_password
+  has_secure_password validations: false
   has_secure_token
   has_one :profile
   has_many :questions
@@ -24,5 +24,11 @@ class User < ApplicationRecord
   # validates :email, format: { with: /.+@m.titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
-  validates :password, presence: true, length: { in: 1..30 }, on: :update
+  # validates :password, presence: true, length: { in: 1..30 }, on: :update
+  validate(on: :update) do |record|
+    record.errors.add(:password, :blank) unless record.password_digest.present?
+  end
+
+  validates :password, length: { in: 1..ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED }, on: :update
+  validates :password, confirmation: true, allow_blank: true, on: :update
 end

@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(user_params)
     if @user && @user.authenticate(params[:user][:password])
+      @user.token = SecureRandom.hex(12)
+      @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path

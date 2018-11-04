@@ -21,7 +21,7 @@ $(document).ready(function() {
       .done(function(data) {
         user_form.hide();
         $('.btn-to-login').hide();
-        var html = '<div class="success-msg">ご入力されたmアドレスにメールを送信しました。メール内のリンクからユーザー登録を完了させてください。</div>';
+        var html = '<div class="success-msg">ご入力されたmアドレスにメールを送信しました。メール内のリンクからユーザー登録を完了させてください。メールの受信には1,2分程度かかる場合があります。</div>';
         $('.card-content').append(html);
       })
       //↓フォームの送信に失敗した場合の処理
