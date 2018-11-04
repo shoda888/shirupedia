@@ -1,9 +1,6 @@
 class Api::ProfilesController < Api::ApplicationController
-
   def create
   end
-
-
 
   private
 

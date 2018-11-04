@@ -10,4 +10,5 @@
               .alert.alert-danger role="alert"
                 - @user.errors.full_messages.each do |message|
                   = message
+            = hidden_field :user, :token, :value => @token
             = render 'form'

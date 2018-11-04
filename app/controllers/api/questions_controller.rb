@@ -1,12 +1,16 @@
 class Api::QuestionsController < Api::ApplicationController
+  before_action :auth
+
   def index
     @questions = Question.all
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
+
   def show
     @question = Question.find(params[:id])
     render json: @question, include: [:user, :answers, :likes, :covers]
   end
+
   private
 
   def question_params
