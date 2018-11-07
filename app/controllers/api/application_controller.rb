@@ -11,7 +11,12 @@ class Api::ApplicationController < ApplicationController
   def authenticate
     authenticate_with_http_token do |token, _options|
       auth_user = User.find_by(token: token)
-      !auth_user.nil? ? true : false
+      if !auth_user.nil?
+        @current_user = auth_user
+        true
+      else
+        false
+      end
     end
   end
 
