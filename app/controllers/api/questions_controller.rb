@@ -11,9 +11,29 @@ class Api::QuestionsController < Api::ApplicationController
     render json: @question, include: [:user, :answers, :likes, :covers]
   end
 
+  def create
+    @question = Question.new(user_id: @current_user.id)
+    @question.attributes = question_params
+    if @question.save
+      response_success('question', 'create')
+    else
+      response_bad_request
+    end
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    @question.attributes = question_params
+    if @question.save
+      response_success('question', 'update')
+    else
+      response_bad_request
+    end
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title)
+    params.permit(:title, :field_list)
   end
 end

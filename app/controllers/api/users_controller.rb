@@ -3,35 +3,32 @@ class Api::UsersController < Api::ApplicationController
 
   def index
     @users = User.all
-    # @users = @users.map do |user|
-    #   {
-    #     id: user.id,
-    #     name: user.name,
-    #     email: user.email
-    #   }
-    # end
     render json: @users
   end
 
   ## サインアップ
   def signup
+    @user = User.new(name: params[:name], email: params[:email])
+    if @user.valid?
+      @user.save
+      # http://localhost:1080/でメール確認
+      UserMailer.created_with_email(@user, @user.token).deliver_now
+      response_success('user', 'signup')
+    else
+      response_internal_server_error
+    end
   end
 
   ## サインイン
   def signin
-  end
-
-  def create
-    # @user = User.new(user_params)
-    # if @user.valid?
-    #   @user.save
-    #   # http://localhost:1080/でメール確認
-    #   UserMailer.created_with_email(@user).deliver_now
-    #   session[:requested] = @user.id
-    #   head :no_content
-    # else
-    #   render :new
-    # end
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      @user.token = SecureRandom.hex(12)
+      @user.save
+      response_success('user', 'signin', @user.token)
+    else
+      response_internal_server_error
+    end
   end
 
   def show
@@ -39,16 +36,6 @@ class Api::UsersController < Api::ApplicationController
     render json: @user
   end
 
-  # def create
-  #   @user = User.new(user_params)
-  #   if @user.save
-  #     session[:user_id] = @user.id
-  #     flash[:notice] = "ユーザーが登録されました"
-  #     redirect_to new_profile_path
-  #   else
-  #     render :new
-  #   end
-  # end
   private
 
   def user_params
