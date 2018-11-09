@@ -30,6 +30,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'dropzonejs-rails'
 gem 'mini_magick'
+gem 'active_model_serializers'
 # Use slim
 gem 'slim-rails'
 # Use CoffeeScript for .coffee assets and views
@@ -44,6 +45,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'foreman'
 gem 'cloudinary'
+gem 'bcrypt'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
