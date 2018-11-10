@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     post '/users/signin', to: 'users#signin'
     resources :users
     resources :questions
+    resources :profiles
+    resources :covers
   end
 end
