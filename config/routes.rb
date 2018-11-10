@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     post '/users/signup', to: 'users#signup'
     post '/users/signin', to: 'users#signin'
     resources :users
-    resources :questions
+    resources :questions do
+      resources :answers
+    end
     resources :profiles
     resources :covers
   end
