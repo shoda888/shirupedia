@@ -25,7 +25,7 @@ class Api::UsersController < Api::ApplicationController
     if @user && @user.authenticate(params[:password])
       @user.token = SecureRandom.hex(12)
       @user.save
-      response_success('user', 'signin', @user.token)
+      signin_success('user', 'signin', @user.token, @user.id)
     else
       response_internal_server_error
     end

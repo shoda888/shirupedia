@@ -21,8 +21,12 @@ class Api::ApplicationController < ApplicationController
   end
 
   # 200 Success
-  def response_success(class_name, action_name, data = nil)
-    render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}", token: data }
+  def response_success(class_name, action_name)
+    render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}"}
+  end
+
+  def signin_success(class_name, action_name, data = nil, id = nil )
+    render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}", token: data, id: id }
   end
 
   # 400 Bad Request
