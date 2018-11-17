@@ -11,5 +11,9 @@
 #
 
 class CoverSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :url
+
+  def url
+    object.photo_message.url
+  end
 end

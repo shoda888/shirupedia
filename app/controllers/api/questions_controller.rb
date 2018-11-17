@@ -8,7 +8,7 @@ class Api::QuestionsController < Api::ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    render json: @question, include: [:user, :answers, :likes, :covers]
+    render json: @question, include: [:user, :likes, :covers, answers: [:covers]]
   end
 
   def create
