@@ -27,5 +27,4 @@ class Api::CoversController < Api::ApplicationController
   def cover_params
     params.permit(:photo_message)
   end
-
 end

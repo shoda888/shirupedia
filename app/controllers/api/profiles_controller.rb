@@ -29,7 +29,6 @@ class Api::ProfilesController < Api::ApplicationController
 
     user_valid = @user.valid?
     profile_valid = @profile.valid?
-    pp profile_valid
 
     if profile_valid && user_valid
       @user.save(validate: false)
@@ -41,6 +40,7 @@ class Api::ProfilesController < Api::ApplicationController
   end
 
   private
+
   def set_attribute
     user_params = params.permit(:name, :email, :password, :password_confirmation)
     @user.attributes = user_params
