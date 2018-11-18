@@ -16,15 +16,16 @@
   = label_tag :email, 'メールアドレス', class: 'col-sm-3 control-label small'
   .col-sm-9
     = text_field :user, :email, required: true, class: 'form-control', disabled: true
-.form-group
-  = label_tag :password, 'パスワード(ログイン時に使用します)', class: 'col-sm-3 control-label small'
-  .col-sm-9
-    = password_field :user, :password, required: true, class: 'form-control'
+- if @path.is('profiles#new')
+  .form-group
+    = label_tag :password, 'パスワード(ログイン時に使用します)', class: 'col-sm-3 control-label small'
+    .col-sm-9
+      = password_field :user, :password, required: true, class: 'form-control'
 
-.form-group
-  = label_tag :password_confirmation, 'パスワード(再確認用)', class: 'col-sm-3 control-label small'
-  .col-sm-9
-    = password_field :user, :password_confirmation, required: true, class: 'form-control'
+  .form-group
+    = label_tag :password_confirmation, 'パスワード(再確認用)', class: 'col-sm-3 control-label small'
+    .col-sm-9
+      = password_field :user, :password_confirmation, required: true, class: 'form-control'
 
 #information
   information grade=@profile.grade school=@profile.school department=@profile.department

@@ -1,43 +1,28 @@
-section.content-header
-section.content
-  .row
-    .col-md-12
-      .card.card-default
-        .card-header.with-border
-          h3.card-title = @user.name
+.cms-cover style="background-image: url('https://res.cloudinary.com/hnj7qqu7w/image/upload/v1539445716/helloquence.jpg')"
+  .cms-cover__content
+    .profile-banner
+      .avatar-left
+        / img.img-circle[src="#{@profile.avatar.thumb}" style='width:48px; height:48px;']
+        = cl_image_tag(@profile.avatar.file.filename, :width=>80, :height=>80, :background=>"white", :crop=>"pad" )
+        / = image_tag current_photographer.avatar, class: "avatar-img"
+      .description
+        .profile-name
+          = @user.name
+          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.id) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
+            | edit
+        .profile-main
+          = @profile.grade
+          | &nbsp;&nbsp;&nbsp;
+          = @profile.school
+          | &nbsp;&nbsp;&nbsp;
+          = @profile.department
+        .profile-detail
+          = @profile.lesson
+        .profile-detail
+          - @profile.interest_list.each do |i|
+            .chip.teal.lighten-3
+              = i
+            | &nbsp;
 
-        .form
-          .row
-            .col-lg-12
-              .card-body
-                table.table
-                  tbody
-                    tr
-                      td
-                        img.img-circle[src="#{@profile.avatar.thumb}" style='width:48px; height:48px;']
-                    tr
-                      th 学年
-                      td = @profile.grade
-                    tr
-                      th 学院
-                      td = @profile.school
-                    tr
-                      th 系
-                      td = @profile.department
-
-                    tr
-                      th 受講講義
-                      td = @profile.lesson
-
-                    tr
-                      th 興味のある分野
-                      td
-                        - @profile.interest_list.each do |i|
-                          .chip.teal.lighten-3
-                            = i
-                          | &nbsp;
-
-              .card-footer
-                .form-inline.pull-right
-                  - if @user == @current_user
-                    = link_to '編集', edit_profile_path(@profile), class: 'btn btn-info pull-right'
+javascript:
+  $('.tooltipped').tooltip();

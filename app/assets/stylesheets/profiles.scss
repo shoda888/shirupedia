@@ -1,0 +1,118 @@
+.cms-cover {
+  align-items: flex-end;
+  background: { position: center top; repeat: no-repeat; size: cover; }
+  color: white;
+  display: flex;
+  height: 480px;
+  justify-content: flex-start;
+  padding: 40px 30px 40px;
+  position: relative;
+  &:before {
+    content: '';
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.4);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: block;
+  }
+
+  // @include onSpScreen {
+  //   height: 550px;
+  //   padding: 20px 25px;
+  // }
+
+  &__content {
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    max-width: 1160px;
+    width: 100%;
+  }
+  &__group-title {
+    // @include fontsize(14);
+    display: block;
+    margin-bottom: 10px;
+  }
+  &__sub-txt {
+    // @include fontsize(18);
+    display: block;
+    margin-top: 20px;
+  }
+  &__control {
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+    max-width: 1160px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    // @include onSpScreen {
+    //   max-width: 100%;
+    //   width: auto;
+    //   left: 20px;
+    //   right: 20px;
+    // }
+  }
+  &__btn-action {
+    // @extend %btn01;
+    border-radius: 50%;
+    bottom: -25px;
+    height: 50px;
+    line-height: 44px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 50px;
+    &--edit {
+    }
+  }
+  &__button {
+    margin-top: 30px;
+    .cms-btn01 {
+      line-height: 36px;
+    }
+  }
+
+  &--ticket {
+    .cms-page-title {
+      // @include fontsize(32);
+    }
+    // @include onSpScreen {
+    //   .cms-page-title {
+    //     line-height: #{(42/32)};
+    //   }
+    // }
+  }
+}
+.profile-banner {
+  display: table;
+  margin-top: 74px;
+  .avatar-left {
+    float: left;
+    margin-right: 30px;
+  }
+  .avatar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  .description {
+    width: 350px;
+    float: left;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 10px;
+    .profile-name {
+      font-size: 24px;
+    }
+    .profile-main, .profile-detail {
+      margin-bottom: 20px;
+    }
+  }
+}
