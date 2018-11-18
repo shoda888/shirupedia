@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(user_params)
     if @user && @user.authenticate(params[:user][:password])
-      @user.token = SecureRandom.hex(12)
+      @user.token = SecureRandom.hex(12) #新しくtoken生成する必要はなさそう
       @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"

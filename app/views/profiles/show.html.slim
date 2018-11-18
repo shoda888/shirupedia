@@ -1,31 +1,32 @@
-.cms-cover style="background-image: url('https://res.cloudinary.com/hnj7qqu7w/image/upload/v1539445716/helloquence.jpg')"
-  .cms-cover__content
-    .profile-banner
-      .avatar-left
-        / img.img-circle[src="#{@profile.avatar.thumb}" style='width:48px; height:48px;']
-        = cl_image_tag(@profile.avatar.file.filename, :width=>80, :height=>80, :background=>"white", :crop=>"pad" )
-        / = image_tag current_photographer.avatar, class: "avatar-img"
-      .description
-        .profile-name
-          = @user.name
-          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.id) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
-            | edit
-        .profile-main
-          = @profile.grade
-          | &nbsp;&nbsp;&nbsp;
-          = @profile.school
-          | &nbsp;&nbsp;&nbsp;
-          = @profile.department
-        .profile-main
-          - @profile.interest_list.each do |i|
-            .chip.teal.lighten-3
-              = i
-            | &nbsp;
-        .profile-main
-          - @profile.lesson_list.each do |i|
-            .chip.cyan.lighten-3
-              = i
-            | &nbsp;
+= render 'cover_profile'
+
+.cms-container
+  .cms-container__content
+    .cms-content-header
+      .cms-tab01
+        ul.cms-tab01__ul
+          li.cms-tab01__li.cms-tab01__li--active
+            a[href="#"]
+              | ギャラリー
+          li.cms-tab01__li
+            a[href="#"]
+              | 返答した質問
+          li.cms-tab01__li
+            a[href="#"]
+              | 自分の質問
+          li.cms-tab01__li
+            a[href="#"]
+              | 関連する質問
+  .row.photo-grid
+    - @covers.each do |cover|
+      .photo-grid-sizer.col.s12.m4
+      .photo-grid-item.col.s12.m4.card
+        = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
 
 javascript:
   $('.tooltipped').tooltip();
+  $('.photo-grid').masonry({
+        itemSelector: '.photo-grid-item',
+        columnWidth: '.photo-grid-sizer',
+        percentPosition: true
+  });

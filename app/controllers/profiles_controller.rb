@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    find_all_covers
     render layout: 'cms_table'
   end
 
@@ -72,5 +73,21 @@ class ProfilesController < ApplicationController
     @user.attributes = user_params
     profile_params = params.require(:profile).permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
+  end
+  def find_all_covers
+    @covers = []
+    @user.questions.each do |q|
+      q.covers.each do |c|
+        @covers << c
+      end
+    end
+    @user.answers.each do |a|
+      a.covers.each do |c|
+        @covers << c
+      end
+    end
+    @covers.sort! { |a, b|
+      a.created_at <=> b.created_at
+    }
   end
 end
