@@ -44,7 +44,7 @@ class Api::ProfilesController < Api::ApplicationController
   def set_attribute
     user_params = params.permit(:name, :email, :password, :password_confirmation)
     @user.attributes = user_params
-    profile_params = params.permit(:grade, :school, :department, :lesson, :avatar, :interest_list)
+    profile_params = params.permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
   end
 end

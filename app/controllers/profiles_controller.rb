@@ -2,9 +2,15 @@ class ProfilesController < ApplicationController
   layout 'main_table'
   before_action :set_current_user, except: [:new, :create]
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  before_action :request_path
+  def request_path
+    @path = controller_path + '#' + action_name
+  end
+
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    render layout: 'cms_table'
   end
 
   def edit
@@ -64,7 +70,7 @@ class ProfilesController < ApplicationController
   def set_attribute
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
     @user.attributes = user_params
-    profile_params = params.require(:profile).permit(:grade, :school, :department, :lesson, :avatar, :interest_list)
+    profile_params = params.require(:profile).permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
   end
 end

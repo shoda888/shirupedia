@@ -14,7 +14,7 @@
 #
 
 class Profile < ApplicationRecord
-  acts_as_taggable_on :interests
+  acts_as_taggable_on :interests, :lessons
   # carrierwaveとモデルの関連付け
   mount_uploader :avatar, AvatarUploader
 
