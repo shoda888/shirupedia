@@ -16,7 +16,7 @@
   = label_tag :email, 'メールアドレス', class: 'col-sm-3 control-label small'
   .col-sm-9
     = text_field :user, :email, required: true, class: 'form-control', disabled: true
-- if @path.is('profiles#new')
+- if @path == 'profiles#new'
   .form-group
     = label_tag :password, 'パスワード(ログイン時に使用します)', class: 'col-sm-3 control-label small'
     .col-sm-9
