@@ -16,11 +16,14 @@
           = @profile.school
           | &nbsp;&nbsp;&nbsp;
           = @profile.department
-        .profile-detail
-          = @profile.lesson
-        .profile-detail
+        .profile-main
           - @profile.interest_list.each do |i|
             .chip.teal.lighten-3
+              = i
+            | &nbsp;
+        .profile-main
+          - @profile.lesson_list.each do |i|
+            .chip.cyan.lighten-3
               = i
             | &nbsp;
 

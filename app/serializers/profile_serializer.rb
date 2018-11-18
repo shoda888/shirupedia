@@ -14,5 +14,5 @@
 #
 
 class ProfileSerializer < ActiveModel::Serializer
-  attributes :id, :avatar, :grade, :school, :department, :lesson
+  attributes :id, :avatar, :grade, :school, :department, :lesson_list, :interest_list
 end
