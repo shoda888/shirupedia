@@ -1,1 +1,16 @@
 = render 'cover_profile'
+
+.cms-container
+  .cms-container__content
+    .cms-content-header
+      .cms-tab01
+        ul.cms-tab01__ul
+          li.cms-tab01__li
+            = link_to 'ギャラリー', profile_path(@profile.id)
+          li.cms-tab01__li.cms-tab01__li--active
+            = link_to '返答した質問', answered_profile_path(@profile.id)
+          li.cms-tab01__li
+            = link_to '自分の質問', questioned_profile_path(@profile.id)
+          li.cms-tab01__li
+            a[href="#"]
+              | 関連する質問

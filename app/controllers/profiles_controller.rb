@@ -1,10 +1,22 @@
 class ProfilesController < ApplicationController
   layout 'main_table'
   before_action :set_current_user, except: [:new, :create]
-  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy, :answered, :questioned]
   before_action :request_path
   def request_path
     @path = controller_path + '#' + action_name
+  end
+
+  def answered
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+    render layout: 'cms_table'
+  end
+
+  def questioned
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+    render layout: 'cms_table'
   end
 
   def show
