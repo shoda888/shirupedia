@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   resources :nices, only: [:create, :destroy]
   resource :sessions
   resources :users
-  resources :profiles
+  resources :profiles do
+    member do
+      get 'answered', to: 'profiles#answered'
+      get 'questioned', to: 'profiles#questioned'
+    end
+  end
   resources :covers do
     resources :comments, only: [:create, :destroy, :update]
   end

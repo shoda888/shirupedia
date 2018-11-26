@@ -90,6 +90,7 @@
     // }
   }
 }
+
 .profile-banner {
   display: table;
   margin-top: 74px;
@@ -103,10 +104,11 @@
     border-radius: 50%;
   }
   .description {
-    width: 350px;
+    width: 500px;
     float: left;
     color: #fff;
     font-size: 16px;
+
     margin-top: 10px;
     .profile-name {
       font-size: 24px;
@@ -115,4 +117,81 @@
       margin-bottom: 20px;
     }
   }
+}
+
+.cms-container {
+  margin: auto;
+  padding: 30px 0 100px;
+  &__content {
+    max-width: 1230px; //1170 + 30 * 2
+    margin: auto;
+    padding: 0 30px;
+    // @include onSpScreen {
+    //   max-width: 100%;
+    //   padding: 0 20px;
+    // }
+  }
+  &--gray {
+    background: #F9F9F9;
+  }
+}
+
+.cms-content-header {
+  position: relative;
+  margin: 0 0 50px;
+  &__r-shouldar {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+.cms-tab01 {
+  $this: &;
+  &__ul,
+  &__li {
+  }
+  &__ul {
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+  }
+  &__li {
+    float: left;
+    margin-left: 40px;
+    &:first-child {
+      margin-left: 0;
+    }
+
+    > a,
+    > span {
+      color: black;
+      opacity: .3;
+
+    }
+    > a:hover {
+      text-decoration: none;
+    }
+    &--active {
+      > a,
+      > span {
+        opacity: 1;
+        cursor: default;
+      }
+    }
+  }
+
+  &--small {
+    #{$this}__li {
+    }
+  }
+  &--em {
+    #{$this}__li--active {
+      >a,>span {
+        color: #C7B082;
+      }
+    }
+  }
+
 }

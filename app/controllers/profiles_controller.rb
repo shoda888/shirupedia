@@ -1,15 +1,32 @@
 class ProfilesController < ApplicationController
   layout 'main_table'
   before_action :set_current_user, except: [:new, :create]
-  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy, :answered, :questioned]
   before_action :request_path
   def request_path
     @path = controller_path + '#' + action_name
   end
 
+  def answered
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+    @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @colors = QuestionColor
+    render layout: 'cms_table'
+  end
+
+  def questioned
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @colors = QuestionColor
+    render layout: 'cms_table'
+  end
+
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    find_all_covers
     render layout: 'cms_table'
   end
 
@@ -72,5 +89,22 @@ class ProfilesController < ApplicationController
     @user.attributes = user_params
     profile_params = params.require(:profile).permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
+  end
+
+  def find_all_covers
+    @covers = []
+    @user.questions.each do |q|
+      q.covers.each do |c|
+        @covers << c
+      end
+    end
+    @user.answers.each do |a|
+      a.covers.each do |c|
+        @covers << c
+      end
+    end
+    @covers.sort! do |a, b|
+      a.created_at <=> b.created_at
+    end
   end
 end
