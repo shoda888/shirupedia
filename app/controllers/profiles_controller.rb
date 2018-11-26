@@ -90,6 +90,7 @@ class ProfilesController < ApplicationController
     profile_params = params.require(:profile).permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
   end
+
   def find_all_covers
     @covers = []
     @user.questions.each do |q|
@@ -102,8 +103,8 @@ class ProfilesController < ApplicationController
         @covers << c
       end
     end
-    @covers.sort! { |a, b|
+    @covers.sort! do |a, b|
       a.created_at <=> b.created_at
-    }
+    end
   end
 end
