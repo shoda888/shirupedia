@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_one :profile
   has_many :questions
   has_many :answers
+  has_many :answeredquestions, through: :answers, source: :question
   has_many :likes, dependent: :destroy
   has_many :nices, dependent: :destroy
   has_many :comments, dependent: :destroy

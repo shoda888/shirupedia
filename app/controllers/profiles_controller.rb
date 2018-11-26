@@ -10,12 +10,16 @@ class ProfilesController < ApplicationController
   def answered
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @colors = QuestionColor
     render layout: 'cms_table'
   end
 
   def questioned
     @profile = Profile.find(params[:id])
     @user = @profile.user
+    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @colors = QuestionColor
     render layout: 'cms_table'
   end
 

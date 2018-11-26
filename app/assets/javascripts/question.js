@@ -1,4 +1,5 @@
 $(function() {
+  $('.tooltipped').tooltip();
   $('.materialboxed').materialbox();
   $('.modal-title').css('font-family','season');
   $('.carousel').carousel({
