@@ -11,7 +11,6 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @user = @profile.user
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    @colors = QuestionColor
     render layout: 'cms_table'
   end
 
@@ -19,15 +18,13 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @user = @profile.user
     @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    @colors = QuestionColor
     render layout: 'cms_table'
   end
 
   def recommended
     @profile = Profile.find(params[:id])
     @user = @profile.user
-    @questions = Question.searched_by_same_school_person(@profile.school, @profile.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    @colors = QuestionColor
+    @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     render layout: 'cms_table'
   end
 

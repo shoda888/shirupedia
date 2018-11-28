@@ -3,64 +3,67 @@
     .grid-sizer.col.s12.m6.l4
     .grid-item.col.s12.m6.l4
       .card.sticky-action
-        div class="#{@colors[q.id % 6]} lighten-1"
-          .card-content.modal-trigger[data-target="modal#{q.id}"]
-            span.card-title.activator
-              h6.activator
-                | #{q.title}
-              i.material-icons.right
-                | more_vert
+        .modal-trigger[data-target="modal#{q.id}"]
+          .card-image
+            = cl_image_tag q.covers.first.photo_message.file.filename
+          .white
+            .card-content
+              span.card-title.activator
+                h6.activator
+                  | #{q.title}
+                i.material-icons.right
+                  | more_vert
 
-            - q.field_list.each do |field|
-              .chip.teal.lighten-3
-                = field
-              | &nbsp;
+              - q.field_list.each do |field|
+                .chip.teal.lighten-3
+                  = field
+                | &nbsp;
 
-          div class='modal modal-fixed-footer' id="modal#{q.id}"
-            .modal-content
-              h4.modal-title
-                a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.id}"]
-                  = cl_image_tag(q.user.profile.avatar.file.filename, :width=>40, :height=>40, :background=>"white", :crop=>"pad" )
-                | #{q.title}
-              .row.photo-grid
-                - q.covers.each do |cover|
-                  .photo-grid-sizer.col.s12.m4
-                  .photo-grid-item.col.s12.m4.card
-                    = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
+        div class='modal modal-fixed-footer' id="modal#{q.id}"
+          .modal-content
+            h4.modal-title
+              a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.id}"]
+                = cl_image_tag(q.user.profile.avatar.file.filename, :width=>40, :height=>40, :background=>"white", :crop=>"pad" )
+              | #{q.title}
+            .row.photo-grid
+              - q.covers.each do |cover|
+                .photo-grid-sizer.col.s12.m4
+                .photo-grid-item.col.s12.m4.card
+                  = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
 
-              = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
-                .col.s12
-                  .dz-message.needsclick
-                    p
-                      | フォトメッセージをドラッグまたはクリックして選択してください
-                    strong
-                      | 画像は自動で登録されます
-                .fallback
-                  .form-group
-                    = form.label :photo_message, class: 'col s3 control-label'
-                    .col.s9
-                      = form.file_field :photo_message, multiple: true, class: 'photo_message_form'
+            = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
+              .col.s12
+                .dz-message.needsclick
+                  p
+                    | フォトメッセージをドラッグまたはクリックして選択してください
+                  strong
+                    | 画像は自動で登録されます
+              .fallback
+                .form-group
+                  = form.label :photo_message, class: 'col s3 control-label'
+                  .col.s9
+                    = form.file_field :photo_message, multiple: true, class: 'photo_message_form'
 
-                  .card-footer
-                    .form-inline.pull-right
-                      a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
-                      | &nbsp;
-                      = submit_tag '送信', class: 'btn-small blue lighten-3'
+                .card-footer
+                  .form-inline.pull-right
+                    a.btn-small.blue.lighten-3 href=questions_path = 'キャンセル'
+                    | &nbsp;
+                    = submit_tag '送信', class: 'btn-small blue lighten-3'
 
-              div id="answers_field#{q.id}"
-                = render "answers/index", q: q
+            div id="answers_field#{q.id}"
+              = render "answers/index", q: q
 
-            .modal-footer
-              a.btn-flat[href=question_path(q)]
-                | 詳細
-              - if q.wanted? && q.user != @current_user
-                a.answer-btn.btn-flat
-                  | 返答する
-              - elsif q.completed?
-                a.btn-flat
-                  | 質問は終了しました
-              .btn-flat.favo-field[style='cursor: default;']
-                = render "likes/like", q: q
+          .modal-footer
+            a.btn-flat[href=question_path(q)]
+              | 詳細
+            - if q.wanted? && q.user != @current_user
+              a.answer-btn.btn-flat
+                | 返答する
+            - elsif q.completed?
+              a.btn-flat
+                | 質問は終了しました
+            .btn-flat.favo-field[style='cursor: default;']
+              = render "likes/like", q: q
   #footer
     = paginate @questions, class: 'teal'
 
