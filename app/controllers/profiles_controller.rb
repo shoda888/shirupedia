@@ -23,6 +23,14 @@ class ProfilesController < ApplicationController
     render layout: 'cms_table'
   end
 
+  def recommended
+    @profile = Profile.find(params[:id])
+    @user = @profile.user
+    @questions = Question.searched_by_same_school_person(@profile.school, @profile.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @colors = QuestionColor
+    render layout: 'cms_table'
+  end
+
   def show
     @profile = Profile.find(params[:id])
     @user = @profile.user

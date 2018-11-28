@@ -22,6 +22,8 @@ class User < ApplicationRecord
   has_many :nices, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  scope :searched_by_same_school, -> school, id { joins(:profile).merge(Profile.searched_by_school school,id ) }
+
   # validates :email, format: { with: /.+@m.titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true

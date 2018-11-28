@@ -18,6 +18,8 @@ class Profile < ApplicationRecord
   # carrierwaveとモデルの関連付け
   mount_uploader :avatar, AvatarUploader
 
+  scope :searched_by_school, -> (school, id) { where(school: school).where.not(id: id) }
+
   belongs_to :user
   # validates :grade, presence: true
   # validates :department, presence: true

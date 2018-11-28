@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       get 'answered', to: 'profiles#answered'
       get 'questioned', to: 'profiles#questioned'
+      get 'recommended', to: 'profiles#recommended'
     end
   end
   resources :covers do

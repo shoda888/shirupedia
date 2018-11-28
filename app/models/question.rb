@@ -19,6 +19,8 @@ class Question < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :iine_users, through: :likes, source: :user
 
+  scope :searched_by_same_school_person, -> school, id { joins(:user).merge(User.searched_by_same_school school, id) }
+
   validates :title, presence: true
 
   include AASM
