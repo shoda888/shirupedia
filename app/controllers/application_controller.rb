@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
   protect_from_forgery with: :exception
-  QuestionColor = %w(lime light-green green teal cyan light-blue ).freeze
+  # QuestionColor = %w(lime light-green green teal cyan light-blue ).freeze
   before_action :set_current_user
 
   def set_current_user

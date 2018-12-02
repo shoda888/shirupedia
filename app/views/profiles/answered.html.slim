@@ -12,7 +12,6 @@
           li.cms-tab01__li
             = link_to '自分の質問', questioned_profile_path(@profile.id)
           li.cms-tab01__li
-            a[href="#"]
-              | 関連する質問
+            = link_to 'おすすめの質問', recommended_profile_path(@profile.id)
 
   = render 'questions/questions_list'

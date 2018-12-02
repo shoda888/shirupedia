@@ -1,3 +1,5 @@
+= javascript_include_tag 'footerFixed.js'
+
 = render 'cover_profile'
 
 .cms-container
@@ -5,24 +7,13 @@
     .cms-content-header
       .cms-tab01
         ul.cms-tab01__ul
-          li.cms-tab01__li.cms-tab01__li--active
+          li.cms-tab01__li
             = link_to 'ギャラリー', profile_path(@profile.id)
           li.cms-tab01__li
             = link_to '返答した質問', answered_profile_path(@profile.id)
           li.cms-tab01__li
             = link_to '自分の質問', questioned_profile_path(@profile.id)
-          li.cms-tab01__li
+          li.cms-tab01__li.cms-tab01__li--active
             = link_to 'おすすめの質問', recommended_profile_path(@profile.id)
 
-  .row.photo-grid
-    - @covers.each do |cover|
-      .photo-grid-sizer.col.s12.m4
-      .photo-grid-item.col.s12.m4.card
-        = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
-
-javascript:
-  $('.photo-grid').masonry({
-        itemSelector: '.photo-grid-item',
-        columnWidth: '.photo-grid-sizer',
-        percentPosition: true
-  });
+  = render 'questions/questions_list'
