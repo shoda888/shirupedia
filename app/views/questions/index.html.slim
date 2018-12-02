@@ -1,5 +1,22 @@
 = javascript_include_tag 'footerFixed.js'
 
+.search-field
+  = form_tag(questions_path, :method => 'get') do
+    ul
+      li.search-list
+        label
+          input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.school}"]
+          span
+            | 同じ学院の人の質問
+      li.search-list
+        label
+          input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.department}"]
+          span
+            | 同じ系の人の質問
+      li.search-list
+        button.btn.btn-small.waves-effect[type="submit" name="action"]
+          i.material-icons
+            | search
 = render 'questions_list'
 
 javascript:

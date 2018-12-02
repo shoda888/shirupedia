@@ -5,8 +5,14 @@ class QuestionsController < ApplicationController
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
-    @questions = Question.search(params[:search]).where.not(aasm_state: 'non_published').includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    # @colors = QuestionColor
+    if params[:department]
+      questions = Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id)
+    elsif params[:school]
+      questions = Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id)
+    else
+      questions = Question.all
+    end
+    @questions = questions.search(params[:search]).where.not(aasm_state: 'non_published').includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
 
   def new

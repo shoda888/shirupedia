@@ -55,6 +55,9 @@ class Question < ApplicationRecord
   def self.find_same_school_questions_exclude_mine(school, user_id)
     searched_by_same_school_person(school).exclude_my_questions(user_id)
   end
+  def self.find_same_department_questions_exclude_mine(school, user_id)
+    searched_by_same_department_person(school).exclude_my_questions(user_id)
+  end
 
   def self.search(search) # self.でクラスメソッドとしている
     if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索

@@ -2,7 +2,10 @@
   font-family: 'season';
   src: url('season.ttf') format('truetype');
 }
-
+li.search-list{
+  display: inline-block;
+  padding-right: 14px;
+}
 .modal{
   width: 90% !important;
   max-height: 100% !important;
