@@ -8,7 +8,7 @@
       .card.sticky-action
         .modal-trigger[data-target="modal#{q.id}"]
           .card-image
-            = cl_image_tag q.covers.first.photo_message.file.filename
+            = cl_image_tag q.covers.first&.photo_message&.file&.filename
           .white
             .card-content
               span.card-title.activator
