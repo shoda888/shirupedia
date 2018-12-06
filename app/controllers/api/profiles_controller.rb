@@ -15,8 +15,7 @@ class Api::ProfilesController < Api::ApplicationController
       @user.token = SecureRandom.hex(12)
       @user.save(validate: false)
       @profile.save(validate: false)
-      session[:user_id] = @user.id
-      response_success('profile', 'create')
+      signin_success('profile', 'create', @user.token, @user.id)
     else
       response_bad_request
     end
