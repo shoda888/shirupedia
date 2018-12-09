@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy, :update]
   end
   resources :questions do
+    collection do
+      get 'newpost', to: 'questions#newpost'
+      # get 'post/:id', to: 'questions#detail'
+      post 'post', to: 'questions#post'
+    end
     resources :answers
     member do
       put :fire

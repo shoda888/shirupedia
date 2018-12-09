@@ -1,0 +1,51 @@
+.content
+  .row
+    .col.s12
+      .card
+        .card-content
+          .card-title
+            | 質問を投稿
+          - @question.errors.full_messages.each do |message|
+            .form-error
+              = message
+
+          .form
+            = form_with url: post_questions_path, html: {class: 'question-form', onsubmit: "return false;"} do |form|
+              / = render :partial => 'form', :locals => {:form => form}
+              .card-body
+                - if @question.errors.any?
+                  .callout.callout-danger
+                    h4 入力内容をご確認ください
+                    ul
+                      - @question.errors.full_messages.each do |error|
+                        li
+                          = error
+                .row
+                  .input-field.col.s12
+                    label[for="title"]
+                      | タイトル
+                    = form.text_field 'question[title]', value: @question.title, required: true, class: 'question-title', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
+
+                  .input-field.col.s12
+                    label[for="field_list"]
+                      | 分野タグ(カンマ区切りでタグとして登録できます)
+                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'question-fields', "data-role" => "tagsinput"
+
+                  .next-btn.input-field.col.s12
+                    .form-inline.center
+                      button.btn.submit-btn[type="submit"]
+                        span.msg[style='vertical-align: middle;']
+                          i.material-icons.left
+                            | add_a_photo
+                          | 次へ
+
+                  .photos_field
+
+javascript:
+  $(".input-field").on("keydown", function(e) {
+      if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+          return false;
+      } else {
+          return true;
+      }
+  });

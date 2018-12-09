@@ -65,6 +65,16 @@ class QuestionsController < ApplicationController
     redirect_to question_path(@question), notice: '質問が終了しました'
   end
 
+  def newpost
+    @question = Question.new
+  end
+
+  def post
+    @question = Question.new(user_id: 1)
+    @question.attributes = question_params
+    render :imgpost if @question.save
+  end
+
   private
 
   def question_params
