@@ -1,0 +1,28 @@
+.titech-info{
+  align-items: flex-end;
+  height: 480px;
+  justify-content: flex-start;
+  padding: 40px 30px 40px;
+  &__content{
+    margin: auto;
+    max-width: 1160px;
+    width: 100%;
+    h5, p{
+      color: #263238;
+    }
+    .twitter-icon{
+      display: inline-block;
+      width: 100px;
+      a {
+        color: #00aced;
+      }
+    }
+    .facebook-icon{
+      display: inline-block;
+      width: 100px;
+      a {
+        color: #305097;
+      }
+    }
+  }
+}
