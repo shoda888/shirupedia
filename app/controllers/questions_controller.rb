@@ -67,6 +67,7 @@ class QuestionsController < ApplicationController
 
   def newpost
     @question = Question.new
+    render layout: 'home'
   end
 
   def post
