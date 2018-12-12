@@ -34,29 +34,29 @@
           a[href="/logout"]
             | ログアウト
 
-  ul#mobile-demo.sidenav
-    li[style='height:43px;']
-      = form_tag questions_path, :method => 'get' do
-        .input-field[style="padding-left:50px;"]
-          = search_field_tag("search", nil, placeholder: "Search", id: 'search-side')
-          label.label-icon[for="search"]
-            i.material-icons
-              | search
+ul#mobile-demo.sidenav
+  li[style='height:43px;']
+    = form_tag questions_path, :method => 'get' do
+      .input-field[style="padding-left:50px;"]
+        = search_field_tag("search", nil, placeholder: "Search", id: 'search-side')
+        label.label-icon[for="search"]
           i.material-icons
-            | close
-    li
-      a[href=new_question_path]
-        | 質問投稿
-    li
-      a[href="#"]
-        | Chats
-    li
-      - if my_profile = @current_user.profile
-        a[href="/profiles/#{my_profile.id}"]
-          | プロフィール
-      - else
-        a[href="/profiles/new"]
-          | プロフィール
-    li
-      a[href="/logout"]
-        | ログアウト
+            | search
+        i.material-icons
+          | close
+  li
+    a[href=new_question_path]
+      | 質問投稿
+  li
+    a[href="#"]
+      | Chats
+  li
+    - if my_profile = @current_user.profile
+      a[href="/profiles/#{my_profile.id}"]
+        | プロフィール
+    - else
+      a[href="/profiles/new"]
+        | プロフィール
+  li
+    a[href="/logout"]
+      | ログアウト
