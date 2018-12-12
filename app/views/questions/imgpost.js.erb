@@ -2,7 +2,7 @@ $(".photos_field").html("<%= j(render 'imgpost') %>")
 $(".next-btn").hide()
 
 Dropzone.autoDiscover = false;
-var posturl = "/covers?id=" + <%=@question.id%>;
+var posturl = "/covers/post?id=" + <%=@question.id%>;
 $('.photo-grid').masonry({
       itemSelector: '.photo-grid-item',
       columnWidth: '.photo-grid-sizer',
@@ -30,7 +30,7 @@ $("#question-photo").dropzone({
     var id = $(file.previewTemplate).find('.dz-remove').attr('id');
     $.ajax({
       type: 'DELETE',
-      url: "/covers/" + id
+      url: '/covers/' + id + '/remove'
     });
 
     var previewElement;

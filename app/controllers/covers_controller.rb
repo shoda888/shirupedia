@@ -1,10 +1,32 @@
 class CoversController < ApplicationController
-  protect_from_forgery except: [:create, :destroy]
+  protect_from_forgery except: [:create, :destroy, :post, :remove]
   layout 'main_table'
-  before_action :authenticate_user
+  before_action :authenticate_user, { only: [:create, :destroy] }
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def create
+    set_on
+  end
+
+  def destroy
+    get_out
+  end
+
+  def post
+    set_on
+  end
+
+  def remove
+    get_out
+  end
+
+  private
+
+  def cover_params
+    params.permit(:photo_message)
+  end
+
+  def set_on
     # @cover = @question.covers.build(photo_message: params[:photo_message])
     @cover = Cover.new(coverable_type: 'Question', coverable_id: params[:id])
     @cover.attributes = cover_params
@@ -18,7 +40,7 @@ class CoversController < ApplicationController
     end
   end
 
-  def destroy
+  def get_out
     @cover = Cover.find(params[:id])
     @cover.destroy
     respond_to do |format|
@@ -26,12 +48,6 @@ class CoversController < ApplicationController
         render json: { id: @cover.id }
       end
     end
-  end
-
-  private
-
-  def cover_params
-    params.permit(:photo_message)
   end
 
   def ensure_correct_user

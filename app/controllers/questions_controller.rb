@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   # protect_from_forgery except: [:create]
   layout 'main_table'
-  before_action :authenticate_user
+  before_action :authenticate_user, {except: [:newpost, :post]}
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index

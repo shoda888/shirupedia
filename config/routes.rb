@@ -15,6 +15,12 @@ Rails.application.routes.draw do
     end
   end
   resources :covers do
+    collection do
+      post 'post', to: 'covers#post'
+    end
+    member do
+      delete 'remove', to: 'covers#remove'
+    end
     resources :comments, only: [:create, :destroy, :update]
   end
   resources :questions do
