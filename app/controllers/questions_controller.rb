@@ -12,7 +12,10 @@ class QuestionsController < ApplicationController
     else
       questions = Question.all
     end
-    @questions = questions.search(params[:search]).where.not(aasm_state: 'non_published').includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    if params[:fields]
+      questions = questions.tagged_with(params[:fields].split, any: true)
+    end
+    @questions = questions.search(params[:search]).includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
 
   def new

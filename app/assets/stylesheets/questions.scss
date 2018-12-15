@@ -2,6 +2,18 @@
   font-family: 'season';
   src: url('season.ttf') format('truetype');
 }
+.search-field{
+  position: relative;
+  margin-top: 12px;
+  border-radius: 5px;
+  border: thin solid #bdbdbd;
+  .btn-search{
+    position: absolute;
+    top: 5px;
+    right: 3px;
+  }
+}
+
 li.search-list{
   display: inline-block;
   padding-right: 14px;
