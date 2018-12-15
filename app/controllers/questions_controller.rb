@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
+    @fields = params[:fields]
     if params[:department]
       questions = Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id)
     elsif params[:school]
@@ -12,8 +13,8 @@ class QuestionsController < ApplicationController
     else
       questions = Question.all
     end
-    if params[:fields]
-      questions = questions.tagged_with(params[:fields].split, any: true)
+    if @fields.present?
+      questions = questions.tagged_with(@fields.split, any: true)
     end
     @questions = questions.search(params[:search]).includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
