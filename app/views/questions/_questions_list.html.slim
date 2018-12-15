@@ -1,3 +1,5 @@
+= javascript_include_tag 'footerFixed.js'
+
 .row.grid
   - if @questions.blank?
     h6.center-align
@@ -67,8 +69,8 @@
                 | 質問は終了しました
             .btn-flat.favo-field[style='cursor: default;']
               = render "likes/like", q: q
-  #footer
-    = paginate @questions, class: 'teal'
+#footer
+  = paginate @questions
 
 javascript:
   Dropzone.autoDiscover = false;
