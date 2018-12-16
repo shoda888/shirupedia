@@ -7,7 +7,7 @@
           .photo-grid-sizer.col.s12.m4
           .photo-grid-item.col.s12.m4.card
             = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
-            a[href="/profiles/#{answer.user.profile.id}"]
+            a[href="/profiles/#{answer.user.profile.token}"]
               img.img-circle[src="#{answer.user.profile.avatar.thumb}" style='width:40px; height:40px;']
 
             - if q.user == @current_user

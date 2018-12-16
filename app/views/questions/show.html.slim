@@ -4,7 +4,7 @@
       .card
         .card-content.row
           .col.s12.user-field
-            a[href="/profiles/#{@question_user.profile.id}"]
+            a[href="/profiles/#{@question_user.profile.token}"]
               img[src="#{@avatar}"]
               .user-name
                 = @question_user.name
@@ -90,7 +90,7 @@
         .card
           .card-content.row
             .col.s12.user-field
-              a[href="/profiles/#{answer.user.profile.id}"]
+              a[href="/profiles/#{answer.user.profile.token}"]
                 img[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}"]
                 .user-name
                   = answer.user.name

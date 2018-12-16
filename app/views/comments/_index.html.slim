@@ -2,7 +2,7 @@
   - if comment.user != @current_user
     .balloon6
       .faceicon
-        a.client-avatar.waves-effect.waves-light[href="/profiles/#{comment.user.profile.id}"]
+        a.client-avatar.waves-effect.waves-light[href="/profiles/#{comment.user.profile.token}"]
           img[src="#{comment.user.profile.avatar.thumb}" style='width:40px; height:40px;']
       .chatting
         .says

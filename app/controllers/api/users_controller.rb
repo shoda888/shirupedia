@@ -1,7 +1,7 @@
 class Api::UsersController < Api::ApplicationController
   before_action :auth, except: [:signin, :signup]
 
-  def index
+  def index  #いらないかな
     @users = User.all
     render json: @users
   end

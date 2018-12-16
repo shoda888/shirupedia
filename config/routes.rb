@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :nices, only: [:create, :destroy]
   resource :sessions
   resources :users
-  resources :profiles do
+  resources :profiles, param: :token do
     member do
       get 'answered', to: 'profiles#answered'
       get 'questioned', to: 'profiles#questioned'

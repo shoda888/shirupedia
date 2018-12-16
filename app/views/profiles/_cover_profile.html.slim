@@ -6,7 +6,7 @@
       .description
         .profile-name
           = @user.name
-          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.id) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
+          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
             | edit
         .profile-main
           = @profile.grade

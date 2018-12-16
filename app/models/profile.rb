@@ -10,9 +10,11 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  token      :string
 #
 
 class Profile < ApplicationRecord
+  before_create :generate_token
   acts_as_taggable_on :interests, :lessons
   # carrierwaveとモデルの関連付け
   mount_uploader :avatar, AvatarUploader
@@ -23,4 +25,9 @@ class Profile < ApplicationRecord
   belongs_to :user
   # validates :grade, presence: true
   # validates :department, presence: true
+  private
+
+  def generate_token
+    self.token = SecureRandom.hex(12)
+  end
 end
