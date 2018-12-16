@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   # protect_from_forgery except: [:create]
   layout 'main_table'
-  before_action :authenticate_user
+  before_action :authenticate_user, {except: [:newpost, :post]}
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
+    @fields = params[:fields]
     if params[:department]
       questions = Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id)
     elsif params[:school]
@@ -12,7 +13,10 @@ class QuestionsController < ApplicationController
     else
       questions = Question.all
     end
-    @questions = questions.search(params[:search]).where.not(aasm_state: 'non_published').includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    if @fields.present?
+      questions = questions.tagged_with(@fields.split, any: true)
+    end
+    @questions = questions.search(params[:search]).includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
 
   def new
@@ -65,10 +69,21 @@ class QuestionsController < ApplicationController
     redirect_to question_path(@question), notice: '質問が終了しました'
   end
 
+  def newpost
+    @question = Question.new
+    render layout: 'home'
+  end
+
+  def post
+    @question = Question.new(user_id: 1)
+    @question.attributes = question_params
+    render :imgpost if @question.save
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title, :field_list)
+    params.require(:question).permit(:title, :text_message, :field_list)
   end
 
   def ensure_correct_user

@@ -3,46 +3,36 @@ class ProfilesController < ApplicationController
   before_action :set_current_user, except: [:new, :create]
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy, :answered, :questioned]
   before_action :request_path
+  before_action :find_profile, only: [:answered, :questioned, :recommended, :show, :edit, :update]
+
   def request_path
     @path = controller_path + '#' + action_name
   end
 
   def answered
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     render layout: 'cms_table'
   end
 
   def questioned
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     render layout: 'cms_table'
   end
 
   def recommended
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     render layout: 'cms_table'
   end
 
   def show
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     find_all_covers
     render layout: 'cms_table'
   end
 
   def edit
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
   end
 
   def update
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     set_attribute
 
     user_valid = @user.valid?
@@ -88,6 +78,11 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def find_profile
+    @profile = Profile.find_by(token: params[:token])
+    @user = @profile.user
+  end
 
   def set_attribute
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)

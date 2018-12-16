@@ -1,12 +1,12 @@
-.cms-cover style="background-image: url('https://res.cloudinary.com/hnj7qqu7w/image/upload/v1539445716/helloquence.jpg')"
-  .cms-cover__content
+.titech-cover style="background-image: url('https://res.cloudinary.com/hnj7qqu7w/image/upload/v1539445716/helloquence.jpg')"
+  .titech-cover__content
     .profile-banner
       .avatar-left
         = cl_image_tag(@profile.avatar.file.filename, :width=>80, :height=>80, :background=>"white", :crop=>"pad" )
       .description
         .profile-name
           = @user.name
-          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.id) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
+          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
             | edit
         .profile-main
           = @profile.grade

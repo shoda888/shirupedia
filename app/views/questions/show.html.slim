@@ -4,7 +4,7 @@
       .card
         .card-content.row
           .col.s12.user-field
-            a[href="/profiles/#{@question_user.profile.id}"]
+            a[href="/profiles/#{@question_user.profile.token}"]
               img[src="#{@avatar}"]
               .user-name
                 = @question_user.name
@@ -60,7 +60,7 @@
                       p
                         | フォトメッセージをドラッグまたはクリックして選択してください
                       strong
-                        | 画像は自動で登録されます
+                        | ドラッグまたはクリックで自動で画像が登録されます
                   .fallback
                     .form-group
                       = form.label :photo_message, class: 'col s3 control-label'
@@ -79,9 +79,9 @@
                     #question-photo.dropzone.col.s12[style='border-style: dotted;']
                       .dz-message.needsclick
                         p
-                          | 質問写真をドラッグまたはクリックして選択してください
+                          | 質問に関連する写真があれば自由に選択してください
                         strong
-                          | 画像は自動で登録されます
+                          | ドラッグまたはクリックで自動で画像が登録されます
 
     .col.m5.s12
       .card-panel
@@ -90,7 +90,7 @@
         .card
           .card-content.row
             .col.s12.user-field
-              a[href="/profiles/#{answer.user.profile.id}"]
+              a[href="/profiles/#{answer.user.profile.token}"]
                 img[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}"]
                 .user-name
                   = answer.user.name

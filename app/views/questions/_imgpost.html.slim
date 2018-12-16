@@ -1,0 +1,11 @@
+.row.col.s12
+  = hidden_field_tag :id, @question.id, id: 'num'
+  #question-photo.dropzone.col.s12[style='border-style: dotted;']
+    .dz-message.needsclick
+      p
+        | 質問に関連する写真があれば自由に選択してください
+      strong
+        | ドラッグまたはクリックで自動で画像が登録されます
+  .input-field.col.s12
+    .form-inline.pull-right
+      = link_to '送信', root_path, class: 'btn btn-block'

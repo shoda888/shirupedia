@@ -1,0 +1,39 @@
+$(".photos_field").html("<%= j(render 'imgpost') %>")
+$(".next-btn").hide()
+
+Dropzone.autoDiscover = false;
+var posturl = "/covers/post?id=" + <%=@question.id%>;
+$('.photo-grid').masonry({
+      itemSelector: '.photo-grid-item',
+      columnWidth: '.photo-grid-sizer',
+      percentPosition: true
+});
+$("#question-photo").dropzone({
+  url: posturl,
+  maxFilesize: 2,
+  maxFiles: 5,
+  addRemoveLinks: true,
+  dictRemoveFile:'削除',
+  parallelUploads: 5,
+  paramName: 'photo_message',
+  init: function() {
+      var dzClosure = this;
+      console.log(dzClosure);
+  },
+  success: function(file, response){
+    console.log('ok');
+    $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
+    $(file.previewElement).addClass('dz-success');
+    // $('.publish-notice').html('リプライ募集中');
+  },
+  removedfile: function(file){
+    var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+    $.ajax({
+      type: 'DELETE',
+      url: '/covers/' + id + '/remove'
+    });
+
+    var previewElement;
+    return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+  }
+});
