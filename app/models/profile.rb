@@ -25,9 +25,4 @@ class Profile < ApplicationRecord
   belongs_to :user
   # validates :grade, presence: true
   # validates :department, presence: true
-  private
-
-  def generate_token
-    self.token = SecureRandom.hex(12)
-  end
 end

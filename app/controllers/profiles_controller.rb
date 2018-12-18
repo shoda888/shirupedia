@@ -69,6 +69,7 @@ class ProfilesController < ApplicationController
     if profile_valid && user_valid
       @user.token = SecureRandom.hex(12)
       @user.save(validate: false)
+      @profile.token = SecureRandom.hex(12)
       @profile.save(validate: false)
       session[:user_id] = @user.id
       redirect_to questions_path, notice: 'ユーザー情報を登録しました'
