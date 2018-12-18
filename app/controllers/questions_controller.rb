@@ -1,22 +1,13 @@
 class QuestionsController < ApplicationController
   # protect_from_forgery except: [:create]
   layout 'main_table'
-  before_action :authenticate_user, {except: [:newpost, :post]}
+  before_action :authenticate_user, { except: [:newpost, :post] }
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
-    @fields = params[:fields]
-    if params[:department]
-      questions = Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id)
-    elsif params[:school]
-      questions = Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id)
-    else
-      questions = Question.all
-    end
-    if @fields.present?
-      questions = questions.tagged_with(@fields.split, any: true)
-    end
-    @questions = questions.search(params[:search]).includes([:covers, :taggings, answers: {user: :profile, covers: [comments: :user]}, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    specialized_by_belongs
+    specialized_by_tag
+    @questions = @questions.includes([:covers, :taggings, answers: { user: :profile, covers: [comments: :user] }, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
 
   def new
@@ -81,6 +72,25 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def specialized_by_tag
+    @fields = params[:fields]
+    if @fields.present?
+      @questions = @questions.tagged_with(@fields.split, any: true)
+    end
+  end
+
+  def specialized_by_belongs
+    @school = params[:school]
+    @department = params[:department]
+    @questions = if @department
+                   Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id).search(params[:search])
+                 elsif @school
+                   Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id).search(params[:search])
+                 else
+                   Question.search(params[:search])
+                 end
+  end
 
   def question_params
     params.require(:question).permit(:title, :text_message, :field_list)

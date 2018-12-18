@@ -14,13 +14,12 @@
 #
 
 class Profile < ApplicationRecord
-  before_create :generate_token
   acts_as_taggable_on :interests, :lessons
   # carrierwaveとモデルの関連付け
   mount_uploader :avatar, AvatarUploader
 
-  scope :searched_by_school, -> school { where(school: school) }
-  scope :searched_by_department, -> department { where(department: department) }
+  scope :searched_by_school, -> (school) { where(school: school) }
+  scope :searched_by_department, -> (department) { where(department: department) }
 
   belongs_to :user
   # validates :grade, presence: true

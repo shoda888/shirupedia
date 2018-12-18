@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
 
   def basic
     authenticate_or_request_with_http_basic do |name, password|
-      name == "admin" && password == "098098"
+      name == 'admin' && password == '098098'
     end
   end
 

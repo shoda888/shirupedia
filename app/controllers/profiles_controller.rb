@@ -63,10 +63,7 @@ class ProfilesController < ApplicationController
 
     set_attribute
 
-    user_valid = @user.valid?
-    profile_valid = @profile.valid?
-
-    if profile_valid && user_valid
+    if @user.valid? && @profile.valid?
       @user.token = SecureRandom.hex(12)
       @user.save(validate: false)
       @profile.token = SecureRandom.hex(12)

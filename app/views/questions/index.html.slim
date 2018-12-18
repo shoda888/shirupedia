@@ -4,7 +4,10 @@
       li.search-list.col.s12
         - if @current_user.profile.school.present?
           label
-            input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.school}"]
+            - if @school
+              input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.school}" checked="checked"]
+            - else
+              input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.school}"]
             span
               | 同じ学院の人の質問
         - else
@@ -15,7 +18,10 @@
       li.search-list.col.s12
         - if @current_user.profile.department.present?
           label
-            input.filled-in[type="checkbox" name="school" value="#{@current_user.profile.department}"]
+            - if @department
+              input.filled-in[type="checkbox" name="department" value="#{@current_user.profile.department}" checked="checked"]
+            - else
+              input.filled-in[type="checkbox" name="department" value="#{@current_user.profile.department}"]
             span
               | 同じ系の人の質問
         - else

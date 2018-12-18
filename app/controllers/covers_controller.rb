@@ -9,7 +9,7 @@ class CoversController < ApplicationController
   end
 
   def destroy
-    get_out
+    set_off
   end
 
   def post
@@ -17,7 +17,7 @@ class CoversController < ApplicationController
   end
 
   def remove
-    get_out
+    set_off
   end
 
   private
@@ -40,7 +40,7 @@ class CoversController < ApplicationController
     end
   end
 
-  def get_out
+  def set_off
     @cover = Cover.find(params[:id])
     @cover.destroy
     respond_to do |format|
