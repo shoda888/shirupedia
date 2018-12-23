@@ -71,7 +71,13 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
       @question.attributes = question_params
       if @question.save
-        flash[:notice] = '質問を投稿しました'
+        @rooms = []
+        @question.field_list.each do |list|
+          @rooms << list if /相談室/ === list
+        end
+        str = @rooms.join("・")
+        str = str + 'へ' if str.present?
+        flash[:notice] = str + "質問を投稿しました"
         respond_to do |format|
           format.js { render ajax_redirect_to(root_path) }
         end

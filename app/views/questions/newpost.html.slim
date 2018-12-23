@@ -28,12 +28,16 @@
 
                   .input-field.col.s12.invalid-enter
                     label[for="field_list"]
-                      | 分野タグ (カンマ区切りでタグとして登録できます)
-                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'question-fields', "data-role" => "tagsinput"
+                      | 分野タグ
+                    small.sublabel
+                      | 東工大にある相談室をタグ付けすることでその相談室に質問を投稿することができます (カンマ区切りでタグとして登録できます)
+                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）物理相談室, 数学相談室, プログラミング, 機械', class: 'question-fields', "data-role" => "tagsinput"
 
                   .input-field.col.s12
                     label[for="text_message"]
-                      | テキストメッセージ (数式や化学式を用いる場合はフォトメッセージを推奨しています)
+                      | テキストメッセージ
+                    small.sublabel
+                      | 数式や化学式を用いる場合はフォトメッセージを推奨しています
                     = form.text_area 'question[text_message]', value: @question.text_message, class: 'materialize-textarea', placeholder: '例）重み付きレーベンシュタイン距離のアルゴリズムとしては次のどちらの解釈が多数派なのでしょうか？'
 
                   .next-btn.input-field.col.s12
