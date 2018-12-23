@@ -26,15 +26,15 @@
                       | タイトル
                     = form.text_field 'question[title]', value: @question.title, required: true, class: 'question-title', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
 
-                  .input-field.col.s12
-                    label[for="text_message"]
-                      | テキストメッセージ
-                    = form.text_area 'question[text_message]', value: @question.text_message, class: 'materialize-textarea', placeholder: '例）重み付きレーベンシュタイン距離のアルゴリズムとしては次のどちらの解釈が多数派なのでしょうか？'
-
                   .input-field.col.s12.invalid-enter
                     label[for="field_list"]
-                      | 分野タグ(カンマ区切りでタグとして登録できます)
+                      | 分野タグ (カンマ区切りでタグとして登録できます)
                     = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）programing,機械', class: 'question-fields', "data-role" => "tagsinput"
+
+                  .input-field.col.s12
+                    label[for="text_message"]
+                      | テキストメッセージ (数式や化学式を用いる場合はフォトメッセージを推奨しています)
+                    = form.text_area 'question[text_message]', value: @question.text_message, class: 'materialize-textarea', placeholder: '例）重み付きレーベンシュタイン距離のアルゴリズムとしては次のどちらの解釈が多数派なのでしょうか？'
 
                   .next-btn.input-field.col.s12
                     .form-inline.center
@@ -42,7 +42,7 @@
                         span.msg[style='vertical-align: middle;']
                           i.material-icons.left
                             | add_a_photo
-                          | 次へ
+                          | フォトメッセージ
 
                   .photos_field
 

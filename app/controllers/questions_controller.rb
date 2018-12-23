@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include AjaxHelper
   # protect_from_forgery except: [:create]
   layout 'main_table'
   before_action :authenticate_user, { except: [:newpost, :post] }
@@ -66,9 +67,20 @@ class QuestionsController < ApplicationController
   end
 
   def post
-    @question = Question.new(user_id: 1)
-    @question.attributes = question_params
-    render :imgpost if @question.save
+    if params[:final_button]
+      @question = Question.find(params[:id])
+      @question.attributes = question_params
+      if @question.save
+        flash[:notice] = '質問を投稿しました'
+        respond_to do |format|
+          format.js { render ajax_redirect_to(root_path) }
+        end
+      end
+    else
+      @question = Question.new(user_id: 1)
+      @question.attributes = question_params
+      render :imgpost if @question.save
+    end
   end
 
   private

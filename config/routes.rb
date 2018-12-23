@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get 'newpost', to: 'questions#newpost'
       # get 'post/:id', to: 'questions#detail'
       post 'post', to: 'questions#post'
+      post 'content_post', to: 'questions#content_post'
     end
     resources :answers
     member do
