@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
     if profile_valid && user_valid
       @user.save(validate: false)
       @profile.save(validate: false)
-      redirect_to profile_path(@profile), notice: 'ユーザー情報を編集しました'
+      redirect_to profile_path(@profile.token), notice: 'ユーザー情報を編集しました'
     else
       render :edit
     end
@@ -69,7 +69,7 @@ class ProfilesController < ApplicationController
       @profile.token = SecureRandom.hex(12)
       @profile.save(validate: false)
       session[:user_id] = @user.id
-      redirect_to questions_path, notice: 'ユーザー情報を登録しました'
+      redirect_to profile_path(@profile.token), notice: 'ユーザー情報を登録しました'
     else
       render :new, layout: 'application'
     end

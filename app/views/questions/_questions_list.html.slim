@@ -26,10 +26,17 @@
 
         div class='modal modal-fixed-footer' id="modal#{q.id}"
           .modal-content
-            h4.modal-title
+            i.material-icons.modal-close[style='float:right;']
+              | close
+            h6.modal-title
               a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.token}"]
-                = cl_image_tag(q.user.profile.avatar.file&.filename, :width=>40, :height=>40, :background=>"white", :crop=>"pad" )
+                = cl_image_tag(q.user.profile.avatar.file&.filename, :width=>25, :height=>25, :background=>"white", :crop=>"pad" )
+              a.modal-title-context[href="/profiles/#{q.user.profile.token}"]
+                = "#{q.user.name}"
+            h5
               | #{q.title}
+            p
+              | #{q.text_message}
             .row.photo-grid
               - q.covers.each do |cover|
                 .photo-grid-sizer.col.s12.m4

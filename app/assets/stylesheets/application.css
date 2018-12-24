@@ -20,6 +20,7 @@
  @import 'dropzone/basic.css';
  @import 'dropzone/dropzone.css';
 
-body{
+body {
   background-color: #e0f7fa;
+  color: #424242;
 }

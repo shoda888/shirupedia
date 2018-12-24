@@ -9,8 +9,8 @@
   border: thin solid #bdbdbd;
   .btn-search{
     position: absolute;
-    top: 5px;
-    right: 3px;
+    right: -56px;
+    bottom: 10px;
   }
 }
 .sublabel{
@@ -27,8 +27,9 @@ li.search-list{
   height: 90% !important;
   top: 5% !important;
 }
-h6.activator{
-  font-family: 'season';
+.modal-title-context{
+  margin-left: 12px;
+  color: #424242 !important;
 }
 .user-field{
   position: relative;
