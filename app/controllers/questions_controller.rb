@@ -16,13 +16,25 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(user_id: @current_user.id)
-    @question.attributes = question_params
-    if @question.save
-      redirect_to question_path(@question), notice: '質問を登録しました'
+    if params[:final_button]
+      @question = Question.find(params[:id])
+      @question.attributes = question_params
+      if @question.save
+        @rooms = []
+        @question.field_list.each do |list|
+          @rooms << list if /相談室/ === list
+        end
+        str = @rooms.join("・")
+        str = str + 'へ' if str.present?
+        flash[:notice] = str + "質問を投稿しました"
+        respond_to do |format|
+          format.js { render ajax_redirect_to(question_path(@question)) }
+        end
+      end
     else
-      flash[:notice] = "タイトルは必須です"
-      render :new
+      @question = Question.new(user_id: @current_user.id)
+      @question.attributes = question_params
+      render :imgpost if @question.save
     end
   end
 
