@@ -30,7 +30,7 @@ class PhotoMessageUploader < CarrierWave::Uploader::Base
   # end
   process tags: ['photo_message']
 
-  process resize_to_fit: [500, 500]
+  process resize_to_fit: [2000, 2000]
   # Create different versions of your uploaded files:
   version :thumb do
     process resize_to_fit: [150, 150]
