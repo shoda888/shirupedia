@@ -1,10 +1,12 @@
 .row.col.s12
   = hidden_field_tag :id, @question.id, id: 'num'
+  label[for="photo_message"]
+    | フォトメッセージ
   #question-photo.dropzone.col.s12[style='border-style: dotted;']
     .dz-message.needsclick
-      p
+      p.sublabel
         | 質問に関するフォトメッセージがあれば自由に選択してください
-      strong
+      strong.sublabel
         | ドラッグまたはクリックで自動で画像が登録されます
   .input-field.col.s12
     .form-inline.pull-right

@@ -1,11 +1,88 @@
 section.content-header
 section.content
   .row
-    .col-md-12
-      .card.card-info
-        .card-header.with-border
-          h3.card-title
-            | 質問を編集
-        .form
-          = form_with url: question_path, local: true, method: :put do |form|
-            = render :partial => 'form', :locals => {:form => form}
+    .col.s12
+      .card
+        .card-content
+          .card-title
+            | 質問を編集する
+          - @question.errors.full_messages.each do |message|
+            .form-error
+              = message
+          .form
+            = form_with url: question_path, local: true, method: :put do |form|
+              .card-body
+                .row
+                  .input-field.col.s12
+                    label[for="title"]
+                      | タイトル
+                    = form.text_field 'question[title]', value: @question.title, required: true, class: 'question-title', placeholder: '例）重み付きレーベンシュタイン距離の定義について'
+
+                  .input-field.col.s12.invalid-enter
+                    label[for="field_list"]
+                      | 分野タグ
+                    small.sublabel
+                      | 東工大にある相談室をタグ付けすることでその相談室に質問を投稿することができます (カンマ区切りでタグとして登録できます)
+                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）物理相談室, 数学相談室, プログラミング, 機械', class: 'question-fields', "data-role" => "tagsinput"
+
+                  .input-field.col.s12
+                    label[for="text_message"]
+                      | テキストメッセージ
+                    small.sublabel
+                      | 数式や化学式を用いる場合はフォトメッセージを推奨しています
+                    = form.text_area 'question[text_message]', value: @question.text_message, class: 'materialize-textarea', placeholder: '例）重み付きレーベンシュタイン距離のアルゴリズムとしては次のどちらの解釈が多数派なのでしょうか？'
+
+                  .photos_field
+                    = render 'imgpost'
+                    .row
+                      - @question.covers.each do |cover|
+                        div id="cover_#{cover.id}"
+                          .col.s12.m4.card
+                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
+                            = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
+                    
+
+javascript:
+  $(".invalid-enter").on("keydown", function(e) {
+    if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+        return false;
+    } else {
+        return true;
+    }
+  });
+  Dropzone.autoDiscover = false;
+  var posturl = "/covers?id=" + $('#num').val();
+  $('.photo-grid').masonry({
+        itemSelector: '.photo-grid-item',
+        columnWidth: '.photo-grid-sizer',
+        percentPosition: true
+  });
+  $("#question-photo").dropzone({
+    url: posturl,
+    maxFilesize: 5,
+    maxFiles: 5,
+    addRemoveLinks: true,
+    dictRemoveFile:'削除',
+    parallelUploads: 5,
+    paramName: 'photo_message',
+    init: function() {
+        var dzClosure = this;
+        console.log(dzClosure);
+    },
+    success: function(file, response){
+      console.log('ok');
+      $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
+      $(file.previewElement).addClass('dz-success');
+      // $('.publish-notice').html('リプライ募集中');
+    },
+    removedfile: function(file){
+      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+      $.ajax({
+        type: 'DELETE',
+        url: '/covers/' + id
+      });
+
+      var previewElement;
+      return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+    }
+  });

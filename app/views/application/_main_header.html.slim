@@ -1,7 +1,7 @@
 .navbar-fixed
   nav
     .nav-wrapper.teal.lighten-3
-      a.brand-logo[href=questions_path style='margin-left: 40px;']
+      a.brand-logo[href=questions_path]
         | Shirupedia
       a.sidenav-trigger[href="#" data-target="mobile-demo"]
         i.material-icons
@@ -20,9 +20,7 @@
         li
           a[href=new_question_path]
             | 質問投稿
-        li
-          a[href="#"]
-            | Chats
+
         li
           - if my_profile = @current_user.profile
             a[href="/profiles/#{my_profile.token}"]
@@ -47,9 +45,7 @@ ul#mobile-demo.sidenav
   li
     a[href=new_question_path]
       | 質問投稿
-  li
-    a[href="#"]
-      | Chats
+
   li
     - if my_profile = @current_user.profile
       a[href="/profiles/#{my_profile.token}"]

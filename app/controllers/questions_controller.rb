@@ -20,13 +20,7 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
       @question.attributes = question_params
       if @question.save
-        @rooms = []
-        @question.field_list.each do |list|
-          @rooms << list if /相談室/ === list
-        end
-        str = @rooms.join("・")
-        str = str + 'へ' if str.present?
-        flash[:notice] = str + "質問を投稿しました"
+        flash[:notice] = detect_rooms + "質問を投稿しました"
         respond_to do |format|
           format.js { render ajax_redirect_to(question_path(@question)) }
         end
@@ -34,7 +28,7 @@ class QuestionsController < ApplicationController
     else
       @question = Question.new(user_id: @current_user.id)
       @question.attributes = question_params
-      render :imgpost if @question.save
+      render :imgcreate if @question.save
     end
   end
 
@@ -56,10 +50,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @question.attributes = question_params
     if @question.save
-      redirect_to question_path(@question), notice: '質問を編集しました'
-    else
-      flash[:notice] = "タイトルは必須です"
-      render :edit
+      redirect_to question_path(@question), notice: detect_rooms + '質問を編集しました'
     end
   end
 
@@ -83,13 +74,7 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
       @question.attributes = question_params
       if @question.save
-        @rooms = []
-        @question.field_list.each do |list|
-          @rooms << list if /相談室/ === list
-        end
-        str = @rooms.join("・")
-        str = str + 'へ' if str.present?
-        flash[:notice] = str + "質問を投稿しました"
+        flash[:notice] = detect_rooms + "質問を投稿しました"
         respond_to do |format|
           format.js { render ajax_redirect_to(root_path) }
         end
@@ -102,6 +87,16 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def detect_rooms
+    rooms = []
+    @question.field_list.each do |list|
+      rooms << list if list.match?(/相談室/)
+    end
+    str = rooms.join("・")
+    str += 'への' if str.present?
+    str
+  end
 
   def specialized_by_tag
     @fields = params[:fields]
