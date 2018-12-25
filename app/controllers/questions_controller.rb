@@ -66,6 +66,10 @@ class QuestionsController < ApplicationController
 
   def newpost
     @question = Question.new
+    @ogp = Ogp.new({ title: "Shirupediaに質問を投稿しよう",
+                     description: "東工大の各相談室に質問を送ることができます。質問内容を直接入力するか、それ記載したものをフォトメッセージとして送ることができます。",
+                     image: 'https://res.cloudinary.com/hnj7qqu7w/image/upload/v1544865660/fllxwb65ayzecqrfup2p.png',
+                     card: 'summary' })
     render layout: 'home'
   end
 

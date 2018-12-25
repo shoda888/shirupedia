@@ -56,8 +56,7 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @token = params[:user][:token]
-    @user ||= User.find_by(token: @token)
+    @user ||= User.find_by(token: params[:user][:token])
     @user.build_profile if @user.profile.nil?
     @profile = @user.profile
 
