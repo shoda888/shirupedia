@@ -87,7 +87,7 @@ Metrics/LineLength:
 # 代入少なく、関数呼び出し少なく、制御構文少なくしよう
 # テストやバッチ処理などをおこなうクラスはExcludeについかしましょう
 Metrics/AbcSize:
-  Max: 22
+  Max: 24
 
 # メソッドの長さは20行までにします
 Metrics/MethodLength:
