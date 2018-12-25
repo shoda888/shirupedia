@@ -20,12 +20,4 @@ class ApplicationController < ActionController::Base
       redirect_to questions_path
     end
   end
-
-  # def ensure_correct_user
-  #   @question = Question.find(params[:id])
-  #   if @question.user_id != @current_user.id
-  #     flash[:notice] = "権限がありません"
-  #     redirect_to questions_path
-  #   end
-  # end
 end

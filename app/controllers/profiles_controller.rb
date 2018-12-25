@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy, :answered, :questioned]
   before_action :request_path
   before_action :find_profile, only: [:answered, :questioned, :recommended, :show, :edit, :update]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def request_path
     @path = controller_path + '#' + action_name
@@ -102,6 +103,12 @@ class ProfilesController < ApplicationController
     end
     @covers.sort! do |a, b|
       a.created_at <=> b.created_at
+    end
+  end
+  def ensure_correct_user
+    if @user.id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to profile_path(@profile.token)
     end
   end
 end

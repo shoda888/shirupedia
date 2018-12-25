@@ -43,11 +43,9 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:id])
     @question.attributes = question_params
     if @question.save
       redirect_to question_path(@question), notice: detect_rooms + '質問を編集しました'
@@ -126,5 +124,10 @@ class QuestionsController < ApplicationController
   end
 
   def ensure_correct_user
+    @question = Question.find(params[:id])
+    if @question.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to questions_path
+    end
   end
 end
