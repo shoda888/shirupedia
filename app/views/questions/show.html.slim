@@ -32,12 +32,12 @@
 
           .col.s12
             - if @question_user == @current_user
-              - if @question.covers.present?
+              - if @question.wanted?
                 .btn.btn-block.btn-primary.btn-small.disabled
                   | リプライ募集中
               - else
-                .btn.publish-notice.btn-block.btn-primary.btn-small.disabled
-                  | 画像を添付すると公開されます
+                .btn.btn-block.btn-primary.btn-small.disabled
+                  | 質問は終了しました
             - else
               - if @question.wanted?
                 - if @answered_by_me

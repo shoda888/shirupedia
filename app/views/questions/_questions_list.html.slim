@@ -71,6 +71,9 @@
             - if q.wanted? && q.user != @current_user
               a.answer-btn.btn-flat
                 | 返答する
+            - elsif q.wanted? && q.user == @current_user
+              a.btn-flat[href=edit_question_path(q)]
+                | 編集する
             - elsif q.completed?
               a.btn-flat
                 | 質問は終了しました

@@ -29,13 +29,9 @@ class Question < ApplicationRecord
   include AASM
 
   aasm do
-    state :non_published, initial: true
-    state :wanted
+    state :wanted, initial: true
     state :completed
 
-    event :publish do
-      transitions from: :non_published, to: :wanted
-    end
     event :finish do
       transitions from: :wanted, to: :completed
     end
@@ -61,11 +57,4 @@ class Question < ApplicationRecord
     searched_by_same_department_person(school).exclude_my_questions(user_id)
   end
 
-  # def self.search(search) # self.でクラスメソッドとしている
-  #   if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-  #     Question.where(['title LIKE ?', "%#{search}%"])
-  #   else
-  #     Question.all # 全て表示。
-  #   end
-  # end
 end

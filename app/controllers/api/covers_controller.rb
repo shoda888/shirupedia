@@ -6,7 +6,6 @@ class Api::CoversController < Api::ApplicationController
     @cover.attributes = cover_params
     if @cover.save
       @question = @cover.coverable
-      @question.publish! if @question.non_published?
       response_success('cover', 'create')
     else
       response_bad_request
