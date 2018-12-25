@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # QuestionColor = %w(lime light-green green teal cyan light-blue ).freeze
   before_action :set_current_user
+  before_action :request_ogp
+
+  def request_ogp
+    # @url = request.url
+    @ogp = Ogp.new({ title: "Shirupedia", description: "東工大の学生を対象に授業・講義、学生生活の疑問点を解消するアプリケーション", image: "./public/shirupedia_logo.png" })
+  end
 
   def set_current_user
     @current_user = User.find_by(id: session[:user_id])
