@@ -1,3 +1,4 @@
+- provide :title, "#{@question.title}"
 .content
   .row
     .col.s12
@@ -5,7 +6,7 @@
         .card-content.row
           .col.s12.user-field
             a[href="/profiles/#{@question_user.profile.token}"]
-              img[src="#{@avatar}"]
+              = cl_image_tag(@avatar.file&.filename, :width=>30, :height=>30, :background=>"white", :crop=>"pad" )
               .user-name
                 = @question_user.name
 
@@ -86,26 +87,6 @@
           .col.s12
             div id="answers_field#{@question.id}"
               = render "answers/index", q: @question
-            / .card-panel
-            /   | リプライ
-            / - @answers.each do |answer|
-            /   .card
-            /     .card-content.row
-            /       .col.s12.user-field
-            /         a[href="/profiles/#{answer.user.profile.token}"]
-            /           img[alt="User Avatar" src="#{answer.user.profile.avatar.thumb}"]
-            /           .user-name
-            /             = answer.user.name
-            /       .col.s12
-            /         .row.photo-grid
-            /           - answer.covers.each do |cover|
-            /             div id="cover_#{cover.id}"
-            /               .photo-grid-sizer.col.s12.m6
-            /               .photo-grid-item.col.s12.m6.card
-            /                 = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
-            /                 - if answer.user == @current_user
-            /                   = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
-
 
     .col.s12
       .collection.with-header[style='background-color:white;']

@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
     @covers = @question.covers
     @answers = @question.answers.includes(:user).order('created_at desc')
     @question_user = @question.user
-    @avatar = @question_user.profile.avatar.thumb
+    @avatar = @question_user.profile.avatar
     @answered_by_me = @answers.find_by(user_id: @current_user.id)
     @related_questions = @question.find_related_fields
   end
