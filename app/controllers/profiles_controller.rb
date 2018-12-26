@@ -105,6 +105,7 @@ class ProfilesController < ApplicationController
       a.created_at <=> b.created_at
     end
   end
+
   def ensure_correct_user
     if @user.id != @current_user.id
       flash[:notice] = "権限がありません"

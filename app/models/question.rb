@@ -56,5 +56,4 @@ class Question < ApplicationRecord
   def self.find_same_department_questions_exclude_mine(school, user_id)
     searched_by_same_department_person(school).exclude_my_questions(user_id)
   end
-
 end
