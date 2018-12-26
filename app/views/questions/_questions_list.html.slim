@@ -30,7 +30,7 @@
               | close
             h6.modal-title
               a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.token}"]
-                = cl_image_tag(q.user.profile.avatar.file&.filename, :width=>25, :height=>25, :background=>"white", :crop=>"pad" )
+                = cl_image_tag(q.user.profile.avatar.file&.filename, :width=>30, :height=>30, :background=>"white", :crop=>"pad" )
               a.modal-title-context[href="/profiles/#{q.user.profile.token}"]
                 = "#{q.user.name}"
             h5

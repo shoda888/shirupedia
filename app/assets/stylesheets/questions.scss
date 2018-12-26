@@ -25,7 +25,7 @@ li.search-list{
 }
 .modal-title-context{
   margin-left: 12px;
-  color: #424242 !important;
+  color: #009688 !important;
 }
 .user-field{
   position: relative;
@@ -102,7 +102,12 @@ li.search-list{
 
 .submit-btn{
   position: relative;
-  width: 60%
+  @media screen and (min-width:993px){
+    width: 60%;
+  }
+  @media screen and (max-width:993px){
+    width: 100%;
+  }
 }
 
 .msg{
