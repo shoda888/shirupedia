@@ -37,11 +37,16 @@
 .carousel {
   min-height: 450px;
 }
-img {
+.iconImg {
   max-width: 100px;
   max-height: 100px;
   min-width: 100px;
   min-height: 100px;
+}
+.sampleImg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 .text br {
   display: none;

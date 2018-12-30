@@ -11,7 +11,7 @@ meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     = link_to '管理者ログイン', login_path, class: 'btn btn-small'
   .carousel-item.white
     br
-    img[src='/icon_question.png']
+    img.iconImg[src='/icon_question.png']
     h4.text
       |Shirupediaは
       br
@@ -71,7 +71,18 @@ meta[name="viewport" content="width=device-width, initial-scale=1.0"]
 
 .titech-info
   .titech-info__content
-    h5 Shirupediaは東工大発の学生団体です
+    h5
+      b Shirupediaは東工大発の学生団体です
+    p
+      b 大学生活で生まれる疑問を集めたものがあれば便利だなぁと思って作りました
+    br
+    img.sampleImg[src='/ios_sample1.png']
+    br
+    h5.textSample.black-text
+      b 質問者も回答者も同じ学校の人たちです
+    p.textSample.black-text
+      b 講義名で検索してみたらあなたの質問の答えが見つかるかも...
+    img.sampleImg[src='/ios_sample2.png']
     br
     .twitter-icon
       a[href='https://twitter.com/shirupedia']
