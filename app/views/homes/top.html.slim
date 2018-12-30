@@ -1,15 +1,84 @@
-.titech-cover style="background-image: url('https://res.cloudinary.com/hnj7qqu7w/image/upload/v1545738853/helloquence-s.jpg')"
-  .titech-cover__content
-    h4 Shirupediaが学生の知を創造する
+javascript:
+  autoplay();
+  function autoplay() {
+    $('.carousel').carousel('next');
+    setTimeout(autoplay, 8000);
+  }
+.carousel.carousel-slider.center.autoplay
+  .carousel-fixed-item.center
+    = link_to '管理者ログイン', login_path, class: 'btn btn-small'
+  .carousel-item.white
+    br
+    img.iconImg[src='/icon_question.png']
+    h4.text
+      |Shirupediaは
+      br
+      |より良い学習を提供します
     br
     p ご質問の投稿ありがとうございました
-    p 本サービスは来年4月頃から東工大で運用が開始されます
+    p.text
+      |本サービスは来年4月頃から東工大で運用が開始されます
     br
-    = link_to '管理者ログイン', login_path, class: 'btn btn-small'
+  .carousel-item.orange.darken-1
+    br
+    i.material-icons.large
+      |chat
+    h4.white-text リアルタイムのやり取り
+    br
+    p.text.white-text
+      |勉強をしていてわからない問題がある時
+      br
+      |講義中に疑問が生まれた時
+    p.text.white-text
+      |グループチャットや回答者とのDMで
+      br
+      |すぐに回答が得られます
+    br
+  .carousel-item.blue
+    br
+    i.material-icons.large
+      |archive
+    h4.white-text 学校に特化した知識の蓄積
+    p.text.white-text
+      |質問を講義や所属、大学イベントなど
+      br
+      |学校に特化した分類に分けることで
+    h6.text.white-text.bold
+      b 質問に適した回答者とのマッチング
+    h6.text.white-text
+      b みなさんの疑問に合った過去の質問の検索
+    p.text.white-text
+      |をより効率的に行うことができます
+    br
+  .carousel-item.red
+    br
+    i.material-icons.large
+      |camera_alt
+    h4.white-text 写真で聞く　写真で答える
+    br
+    p.white-text 込み入った質問ほど数式、グラフなどが必要になります
+    h6.white-text
+      b.text
+        |Shirupediaは時間のかかる文字入力をせずに
+        br
+        |画像で質問・回答します
+    p.white-text 簡単なコメントもつけてベストショットを選びましょう
+    br
 
 .titech-info
   .titech-info__content
-    h5 Shirupediaは東工大発の学生団体です
+    h5
+      b Shirupediaは東工大発の学生団体です
+    p
+      b 大学生活で生まれる疑問を集めたものがあれば便利だなぁと思って作りました
+    br
+    img.sampleImg[src='/ios_sample1.png']
+    br
+    h5.textSample.black-text
+      b 質問者も回答者も同じ学校の人たちです
+    p.textSample.black-text
+      b 講義名で検索してみたらあなたの質問の答えが見つかるかも...
+    img.sampleImg[src='/ios_sample2.png']
     br
     .twitter-icon
       a[href='https://twitter.com/shirupedia']
@@ -19,3 +88,7 @@
         i.fab.fa-facebook.fa-3x
     p サービスの運営に関わりたい！WEB技術について学びたい！という方は上記SNSアカウントへ
     p ご連絡お待ちしております！
+    br
+    h5 メンバー
+    p 東京工業大学 制御システム工学科４年　正田孝平　　shoda.k.aa＠m.titech.ac.jp
+    p 東京工業大学 工学部機械宇宙学科４年　永山流之介　nagayama.r.ac＠m.titech.ac.jp
