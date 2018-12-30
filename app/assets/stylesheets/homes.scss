@@ -31,3 +31,34 @@
     margin-left: 40px;
   }
 }
+.material-icons {
+  color: rgb(255,255,255);
+  align-self: center;
+ }
+.carousel-item {
+  align-items: center;
+  justify-content: center;
+}
+.carousel {
+  min-height: 450px;
+}
+.iconImg {
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+}
+.sampleImg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.text br {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .text br {
+    display: inline;
+  }
+}
