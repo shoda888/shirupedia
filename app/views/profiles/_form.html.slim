@@ -41,7 +41,7 @@
 
 .card-action.right-align
   - unless @profile.new_record?
-    a.btn href=profile_path(@profile) = '戻る'
+    a.btn href=profile_path(@profile.token) = '戻る'
   | &nbsp;
 
   button.btn[type="button" onclick="submit();"]
