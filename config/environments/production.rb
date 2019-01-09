@@ -85,6 +85,7 @@ Rails.application.configure do
 
   # mail
   config.action_mailer.default_url_options = { host: 'titech-shirupedia.herokuapp.com' }
+  # config.action_mailer.default_url_options = { host: 'www.shirupedia.com' }
   # ActionMailer::Base.delivery_method = :smtp
   # ActionMailer::Base.smtp_settings = {
   #   address: 'smtp.gmail.com',
@@ -101,6 +102,7 @@ Rails.application.configure do
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD'],
     domain: 'herokuapp.com',
+    # domain: 'shirupedia.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
