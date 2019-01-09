@@ -84,8 +84,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # mail
-  # config.action_mailer.default_url_options = { host: 'titech-shirupedia-stg.herokuapp.com' }
-  config.action_mailer.default_url_options = { host: 'www.shirupedia.com' }
+  config.action_mailer.default_url_options = { host: 'titech-shirupedia-stg.herokuapp.com' }
   # ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   # ActionMailer::Base.smtp_settings = {
@@ -102,8 +101,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD'],
-    # domain: 'herokuapp.com',
-    domain: 'shirupedia.com',
+    domain: 'herokuapp.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
