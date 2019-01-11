@@ -32,10 +32,14 @@
 
 .form-group
   = label_tag :interest_list, '興味のある分野', class: 'col-sm-3 control-label small'
+  small.sublabel
+    | 　*興味のある分野があればタグで登録してください(カンマ区切りでタグとして登録できます)
   .col-sm-9
     = text_field_tag 'profile[interest_list]', @profile.interest_list.join(','), placeholder: '例）programing,ロボット', "data-role" => "tagsinput"
 .form-group
   = label_tag :lesson_list, '受講している講義名', class: 'col-sm-3 control-label small'
+  small.sublabel
+    | 　*受講している講義があればタグで登録してください(カンマ区切りでタグとして登録できます)
   .col-sm-9
     = text_field_tag 'profile[lesson_list]', @profile.lesson_list.join(','), placeholder: '例）東工大立志プロジェクト,心理学Ｃ,電磁気学II', "data-role" => "tagsinput"
 
