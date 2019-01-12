@@ -14,6 +14,7 @@ class Api::ProfilesController < Api::ApplicationController
     if profile_valid && user_valid
       @user.token = SecureRandom.hex(12)
       @user.save(validate: false)
+      @profile.token = SecureRandom.hex(12)
       @profile.save(validate: false)
       signin_success('profile', 'create', @user.token, @user.id)
     else
@@ -43,7 +44,7 @@ class Api::ProfilesController < Api::ApplicationController
   def set_attribute
     user_params = params.permit(:name, :email, :password, :password_confirmation)
     @user.attributes = user_params
-    profile_params = params.permit(:grade, :school, :department, :lesson, :avatar, :interest_list, :lesson_list)
+    profile_params = params.permit(:grade, :school, :department, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
   end
 end

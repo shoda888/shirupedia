@@ -34,6 +34,6 @@ class Api::QuestionsController < Api::ApplicationController
   private
 
   def question_params
-    params.permit(:title, :field_list)
+    params.permit(:title, :field_list, :text_message)
   end
 end
