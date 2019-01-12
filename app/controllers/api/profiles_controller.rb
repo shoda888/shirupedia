@@ -1,5 +1,22 @@
 class Api::ProfilesController < Api::ApplicationController
   before_action :auth
+  before_action :find_profile, only: [:answered, :questioned, :recommended]
+
+  def answered
+    @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    render json: @questions, include: [:user, :answers, :likes, :covers]
+  end
+
+  def questioned
+    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    render json: @questions, include: [:user, :answers, :likes, :covers]
+  end
+
+  def recommended
+    @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    render json: @questions, include: [:user, :answers, :likes, :covers]
+  end
+
 
   def create
     @user = @current_user
@@ -40,6 +57,11 @@ class Api::ProfilesController < Api::ApplicationController
   end
 
   private
+
+  def find_profile
+    @profile = Profile.find_by(id: params[:id])
+    @user = @profile.user
+  end
 
   def set_attribute
     user_params = params.permit(:name, :email, :password, :password_confirmation)
