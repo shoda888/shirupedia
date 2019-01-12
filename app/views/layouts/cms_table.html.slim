@@ -6,13 +6,13 @@ html
     = csrf_meta_tags
     = favicon_link_tag('/favicon.ico')
     = stylesheet_link_tag 'application', media: 'all'
-    link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"]
+    link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"]
     link[href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"]
     meta[name="viewport" content="width=device-width, initial-scale=1"]
     = render 'ogp' if @ogp
     = javascript_include_tag 'application'
   body
-    script[src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"]
+    script[src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"]
     script[src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"]
 
     = render 'main_header'
