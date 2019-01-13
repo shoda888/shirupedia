@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     post '/users/signup', to: 'users#signup'
     post '/users/signin', to: 'users#signin'
     resources :users
+    resources :likes, only: [:create, :destroy]
+    resources :nices, only: [:create, :destroy]
     resources :questions do
       resources :answers
     end

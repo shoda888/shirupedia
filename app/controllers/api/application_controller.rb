@@ -3,6 +3,12 @@ class Api::ApplicationController < ApplicationController
 
   protect_from_forgery with: :null_session
 
+  rescue_from Exception, with: :response_internal_server_error
+  rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
+  rescue_from ActionController::RoutingError, with: :response_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :response_bad_request
+  rescue_from ActiveModel::ValidationError, with: :response_bad_request
+
   def auth
     ## 認証に失敗したらエラーレスポンスを返す
     authenticate || response_unauthorized
@@ -30,8 +36,8 @@ class Api::ApplicationController < ApplicationController
   end
 
   # 400 Bad Request
-  def response_bad_request
-    render status: 400, json: { status: 400, message: 'Bad Request' }
+  def response_bad_request(e = nil)
+    render status: 400, json: { status: 400, message: 'Bad Request', error_content: e }
   end
 
   # 401 Unauthorized
@@ -40,8 +46,8 @@ class Api::ApplicationController < ApplicationController
   end
 
   # 404 Not Found
-  def response_not_found(class_name = 'page')
-    render status: 404, json: { status: 404, message: "#{class_name.capitalize} Not Found" }
+  def response_not_found(e = nil)
+    render status: 404, json: { status: 404, message: "Not Found", error_content: e }
   end
 
   # 409 Conflict
@@ -50,7 +56,7 @@ class Api::ApplicationController < ApplicationController
   end
 
   # 500 Internal Server Error
-  def response_internal_server_error
-    render status: 500, json: { status: 500, message: 'Internal Server Error' }
+  def response_internal_server_error(e = nil)
+    render status: 500, json: { status: 500, message: 'Internal Server Error', error_content: e  }
   end
 end

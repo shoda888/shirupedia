@@ -15,7 +15,7 @@ class Api::UsersController < Api::ApplicationController
       UserMailer.created_with_email(@user, @user.token).deliver_now
       response_success('user', 'signup')
     else
-      response_internal_server_error
+      response_internal_server_error('有効なmアドレスを入力してください')
     end
   end
 
@@ -27,7 +27,7 @@ class Api::UsersController < Api::ApplicationController
       @user.save
       signin_success('user', 'signin', @user.token, @user.id)
     else
-      response_internal_server_error
+      response_internal_server_error('メールまたはパスワードが間違っています')
     end
   end
 

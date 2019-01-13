@@ -17,7 +17,7 @@ class Api::QuestionsController < Api::ApplicationController
     if @question.save
       response_success('question', 'create')
     else
-      response_bad_request
+      response_bad_request('タイトルは必須です')
     end
   end
 
@@ -27,7 +27,7 @@ class Api::QuestionsController < Api::ApplicationController
     if @question.save
       response_success('question', 'update')
     else
-      response_bad_request
+      response_bad_request('タイトルは必須です')
     end
   end
 

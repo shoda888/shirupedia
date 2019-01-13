@@ -35,7 +35,7 @@ class Api::ProfilesController < Api::ApplicationController
       @profile.save(validate: false)
       signin_success('profile', 'create', @user.token, @user.id)
     else
-      response_bad_request
+      response_bad_request('名前やパスワードが入力されているか確認してください')
     end
   end
 
@@ -52,7 +52,7 @@ class Api::ProfilesController < Api::ApplicationController
       @profile.save(validate: false)
       response_success('profile', 'update')
     else
-      response_bad_request
+      response_bad_request('名前は必須項目です')
     end
   end
 
