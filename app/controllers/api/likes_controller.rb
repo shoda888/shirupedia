@@ -12,5 +12,4 @@ class Api::LikesController < Api::ApplicationController
     @question.good_cancel(@current_user) if @question.iine?(@current_user)
     response_success('like', 'destroy')
   end
-
 end

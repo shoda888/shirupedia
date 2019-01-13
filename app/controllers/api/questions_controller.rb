@@ -2,7 +2,8 @@ class Api::QuestionsController < Api::ApplicationController
   before_action :auth
 
   def index
-    @questions = Question.all
+    specialized_by_belongs
+    specialized_by_tag
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
 
@@ -35,5 +36,24 @@ class Api::QuestionsController < Api::ApplicationController
 
   def question_params
     params.permit(:title, :field_list, :text_message)
+  end
+
+  def specialized_by_tag
+    @fields = params[:fields]
+    if @fields.present?
+      @questions = @questions.tagged_with(@fields.split, any: true)
+    end
+  end
+
+  def specialized_by_belongs
+    @school = params[:school]
+    @department = params[:department]
+    @questions = if @department
+                   Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id).search(params[:search])
+                 elsif @school
+                   Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id).search(params[:search])
+                 else
+                   Question.search(params[:search])
+                 end
   end
 end

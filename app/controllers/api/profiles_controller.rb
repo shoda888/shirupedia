@@ -17,7 +17,6 @@ class Api::ProfilesController < Api::ApplicationController
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
 
-
   def create
     @user = @current_user
     @user.build_profile if @user.profile.nil?

@@ -47,7 +47,7 @@ class Api::ApplicationController < ApplicationController
 
   # 404 Not Found
   def response_not_found(e = nil)
-    render status: 404, json: { status: 404, message: "Not Found", error_content: e }
+    render status: 404, json: { status: 404, message: 'Not Found', error_content: e }
   end
 
   # 409 Conflict
@@ -57,6 +57,6 @@ class Api::ApplicationController < ApplicationController
 
   # 500 Internal Server Error
   def response_internal_server_error(e = nil)
-    render status: 500, json: { status: 500, message: 'Internal Server Error', error_content: e  }
+    render status: 500, json: { status: 500, message: 'Internal Server Error', error_content: e }
   end
 end
