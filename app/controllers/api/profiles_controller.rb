@@ -1,6 +1,6 @@
 class Api::ProfilesController < Api::ApplicationController
   before_action :auth
-  before_action :find_profile, only: [:answered, :questioned, :recommended]
+  before_action :find_profile, only: [:answered, :questioned, :recommended, :update]
 
   def answered
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
@@ -25,10 +25,7 @@ class Api::ProfilesController < Api::ApplicationController
 
     set_attribute
 
-    user_valid = @user.valid?
-    profile_valid = @profile.valid?
-
-    if profile_valid && user_valid
+    if @user.valid? && @profile.valid?
       @user.token = SecureRandom.hex(12)
       @user.save(validate: false)
       @profile.token = SecureRandom.hex(12)
@@ -40,14 +37,9 @@ class Api::ProfilesController < Api::ApplicationController
   end
 
   def update
-    @profile = Profile.find(params[:id])
-    @user = @profile.user
     set_attribute
 
-    user_valid = @user.valid?
-    profile_valid = @profile.valid?
-
-    if profile_valid && user_valid
+    if @user.valid? && @profile.valid?
       @user.save(validate: false)
       @profile.save(validate: false)
       response_success('profile', 'update')
@@ -59,7 +51,7 @@ class Api::ProfilesController < Api::ApplicationController
   private
 
   def find_profile
-    @profile = Profile.find_by(id: params[:id])
+    @profile = Profile.find(params[:id])
     @user = @profile.user
   end
 

@@ -9,11 +9,8 @@ class Api::AnswersController < Api::ApplicationController
     if !@answer.changed? || @answer.save # answerが変わってなければそのまま
       @cover = @answer.covers.new(coverable_type: 'Answer', coverable_id: @answer.id)
       @cover.attributes = cover_params
-      if @cover.save
-        response_success('answer', 'create')
-      else
-        response_bad_request
-      end
+      @cover.save!
+      response_success('answer', 'create')
     else
       response_bad_request
     end

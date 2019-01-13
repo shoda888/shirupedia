@@ -4,21 +4,14 @@ class Api::CoversController < Api::ApplicationController
   def create
     @cover = Cover.new(coverable_type: 'Question', coverable_id: params[:id])
     @cover.attributes = cover_params
-    if @cover.save
-      @question = @cover.coverable
-      response_success('cover', 'create')
-    else
-      response_bad_request
-    end
+    @cover.save!
+    response_success('cover', 'create')
   end
 
   def destroy
     @cover = Cover.find(params[:id])
-    if @cover.destroy
-      response_success('cover', 'destroy')
-    else
-      response_bad_request
-    end
+    @cover.destroy!
+    response_success('cover', 'destroy')
   end
 
   private
