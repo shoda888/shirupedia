@@ -19,8 +19,12 @@ class QuestionSerializer < ActiveModel::Serializer
   belongs_to :user, serializer: UserSerializer
 
   attribute :count_answers
+  attribute :count_likes
 
   def count_answers
     object.answers.length
+  end
+  def count_likes
+    object.likes.length
   end
 end
