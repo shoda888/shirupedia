@@ -15,7 +15,7 @@
               = cl_image_tag cov.photo_message&.file&.filename
             / = cl_image_tag("ieoi71iwd2glxjgnkiyj.png", :opacity=>40, :effect=>"brightness:40", :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"})
             - else
-              = cl_image_tag cov.photo_message&.file&.filename, :opacity=>80, :effect=>"brightness:30", :transformation=>[ :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"}]
+              img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png"
           .white
             .card-content
               span.card-title.activator
@@ -49,7 +49,15 @@
                   - if cover.photo?
                     = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
                   - else
-                    = cl_image_tag cover.photo_message&.file&.filename, :opacity=>80, :effect=>"brightness:30", :transformation=>[ :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"}], class: 'card-image materialboxed', width: '100%'
+                    img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
+                  .reply-field[style='cursor: pointer;']
+                    a.tooltipped.comment-btn[data-position="right" data-tooltip="コメントする"]
+                      i.material-icons
+                        | reply
+                  div id="comments_field#{cover.id}" class="line-bc"
+                    = render 'comments/index', comments: cover.comments
+
+                  = render 'comments/form', cover: cover
 
             = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
               .col.s12

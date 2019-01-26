@@ -30,10 +30,17 @@
                     - if cover.photo?
                       = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
                     - else
-                      = cl_image_tag cover.photo_message&.file&.filename, :opacity=>80, :effect=>"brightness:30", :transformation=>[ :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{@question.text_message}"}], class: 'card-image materialboxed', width: '100%'
+                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{@question.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                     - if @question_user == @current_user
                       = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
+                    .reply-field[style='cursor: pointer;']
+                      a.tooltipped.comment-btn[data-position="right" data-tooltip="コメントする"]
+                        i.material-icons
+                          | reply
+                    div id="comments_field#{cover.id}" class="line-bc"
+                      = render 'comments/index', comments: cover.comments
 
+                    = render 'comments/form', cover: cover
           .col.s12
             - if @question_user == @current_user
               - if @question.wanted?

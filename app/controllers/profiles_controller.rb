@@ -92,7 +92,7 @@ class ProfilesController < ApplicationController
   def find_all_covers
     @covers = []
     @user.questions.each do |q|
-      q.covers.each do |c|
+      q.covers.where(role:'photo').each do |c|
         @covers << c
       end
     end
