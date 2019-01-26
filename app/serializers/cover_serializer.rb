@@ -8,6 +8,7 @@
 #  photo_message  :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  role           :integer          default("photo")
 #
 
 class CoverSerializer < ActiveModel::Serializer

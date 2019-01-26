@@ -10,7 +10,12 @@
       .card.sticky-action
         .modal-trigger[data-target="modal#{q.id}"]
           .card-image
-            = cl_image_tag q.covers.first&.photo_message&.file&.filename
+            - cov = q.covers.last
+            - if cov.photo?
+              = cl_image_tag cov.photo_message&.file&.filename
+            / = cl_image_tag("ieoi71iwd2glxjgnkiyj.png", :opacity=>40, :effect=>"brightness:40", :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"})
+            - else
+              = cl_image_tag cov.photo_message&.file&.filename, :opacity=>80, :effect=>"brightness:30", :transformation=>[ :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"}]
           .white
             .card-content
               span.card-title.activator
@@ -41,7 +46,10 @@
               - q.covers.each do |cover|
                 .photo-grid-sizer.col.s12.m4
                 .photo-grid-item.col.s12.m4.card
-                  = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
+                  - if cover.photo?
+                    = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
+                  - else
+                    = cl_image_tag cover.photo_message&.file&.filename, :opacity=>80, :effect=>"brightness:30", :transformation=>[ :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"}], class: 'card-image materialboxed', width: '100%'
 
             = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
               .col.s12

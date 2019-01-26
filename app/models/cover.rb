@@ -8,6 +8,7 @@
 #  photo_message  :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  role           :integer          default("photo")
 #
 
 class Cover < ApplicationRecord
@@ -16,6 +17,10 @@ class Cover < ApplicationRecord
   has_many :nices, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :nice_users, through: :nices, source: :user
+
+  enum role: { photo: 1, text: 2}
+  # photo: フォトカバー
+  # text: テキストカバー
 
   def nice?(user)
     nice_users.include?(user)

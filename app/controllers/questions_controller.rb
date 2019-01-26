@@ -20,6 +20,7 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
       @question.attributes = question_params
       if @question.save
+        @question.covers.create(:photo_message => File.open("./public/shirupedia_q_info.png"), role: 2)
         flash[:notice] = detect_rooms + "質問を投稿しました"
         respond_to do |format|
           format.js { render ajax_redirect_to(question_path(@question)) }
