@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include AjaxHelper
   # protect_from_forgery except: [:create]
   layout 'main_table'
-  before_action :authenticate_user, { except: [:newpost, :post] }
+  before_action :authenticate_user, { except: [:newpost, :post, :show] }
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
@@ -40,8 +40,18 @@ class QuestionsController < ApplicationController
     @answers = @question.answers.includes(:user).order('created_at desc')
     @question_user = @question.user
     @avatar = @question_user.profile.avatar
-    @answered_by_me = @answers.find_by(user_id: @current_user.id)
+    @answered_by_me = @answers.find_by(user_id: @current_user.id) if @current_user
     @related_questions = @question.find_related_fields
+    @image = if @cover = @covers.find_by(role: 'photo')
+               @cover.photo_message.url
+             else
+               'https://res.cloudinary.com/hnj7qqu7w/image/upload/v1544865660/fllxwb65ayzecqrfup2p.png'
+             end
+    @ogp = Ogp.new({ title: @question.title.to_s,
+                     description: @question.text_message.to_s,
+                     image: @image.to_s,
+                     card: 'summary' })
+    pp @image
   end
 
   def edit

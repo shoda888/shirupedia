@@ -18,7 +18,7 @@ class Cover < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :nice_users, through: :nices, source: :user
 
-  enum role: { photo: 1, text: 2}
+  enum role: { photo: 1, text: 2 }
   # photo: フォトカバー
   # text: テキストカバー
 

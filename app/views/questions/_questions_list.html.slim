@@ -13,7 +13,6 @@
             - cov = q.covers.last
             - if cov.photo?
               = cl_image_tag cov.photo_message&.file&.filename
-            / = cl_image_tag("ieoi71iwd2glxjgnkiyj.png", :opacity=>40, :effect=>"brightness:40", :overlay=>{:font_family=>"Sawarabi%20Gothic", :font_size=>35, :text=>"#{q.text_message}"})
             - else
               img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png"
           .white
@@ -40,8 +39,6 @@
                 = "#{q.user.name}"
             h5
               | #{q.title}
-            p
-              | #{q.text_message}
             .row.photo-grid
               - q.covers.each do |cover|
                 .photo-grid-sizer.col.s12.m4

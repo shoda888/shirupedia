@@ -11,11 +11,13 @@
                 = @question_user.name
 
           .col.s12
+            a.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
+              | link
+            - if @question_user == @current_user
+              a.tooltipped.right.small.material-icons[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問のタイトル・タグを編集する"]
+                | edit
             h4.card-title
               = @question.title
-            - if @question_user == @current_user
-              a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/edit" style='color: #80cbc4;' data-position="left" data-tooltip="質問のタイトル・タグを編集する"]
-                | edit
             - @question.field_list.each do |field|
               .chip.teal.lighten-3
                 = field
@@ -25,18 +27,23 @@
             .row.photo-grid
               - @question.covers.each do |cover|
                 div id="cover_#{cover.id}"
-                  .photo-grid-sizer.col.s12.m6
-                  .photo-grid-item.col.s12.m6.card
+                  .photo-grid-sizer.col.s12.m6.l4
+                  .photo-grid-item.col.s12.m6.l4.card
                     - if cover.photo?
                       = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
-                    - else
-                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{@question.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
+                    - elsif text = @question.text_message
+                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{text}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                     - if @question_user == @current_user
                       = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
                     .reply-field[style='cursor: pointer;']
-                      a.tooltipped.comment-btn[data-position="right" data-tooltip="コメントする"]
-                        i.material-icons
-                          | reply
+                      - if @current_user
+                        a.tooltipped.comment-btn[data-position="right" data-tooltip="返答する"]
+                          i.material-icons
+                            | reply
+                      - else
+                        a.tooltipped[href=login_path data-position="right" data-tooltip="返答する"]
+                          i.material-icons
+                            | reply
                     div id="comments_field#{cover.id}" class="line-bc"
                       = render 'comments/index', comments: cover.comments
 
@@ -54,6 +61,9 @@
                 - if @answered_by_me
                   .btn.btn-block.btn-danger.btn-small.answer-btn.active
                     | フォトリプライを追加する
+                - elsif !@current_user
+                  a.btn.btn-block.btn-danger.btn-small.active[href=login_path]
+                    | フォトリプライを送る
                 - else
                   .btn.btn-block.btn-danger.btn-small.answer-btn.active
                     | フォトリプライを送る

@@ -24,6 +24,7 @@ class QuestionSerializer < ActiveModel::Serializer
   def count_answers
     object.answers.length
   end
+
   def count_likes
     object.likes.length
   end

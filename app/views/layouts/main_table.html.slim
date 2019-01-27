@@ -8,6 +8,8 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"]
     link[href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"]
+    script[src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"]
+    script[src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"]
     meta[name="viewport" content="width=device-width, initial-scale=1"]
     = render 'ogp' if @ogp
     = javascript_include_tag 'application'
@@ -27,5 +29,17 @@ html
 
 javascript:
  $(document).ready(function(){
+   Push.Permission.request();
    $('.sidenav').sidenav();
+   var clipboard = new Clipboard('.clip');
+   clipboard.on('success', function(e) {
+     console.log(e);
+     e.clearSelection();
+     Push.create('クリップボードにurlをコピーしました！', {
+       body: e.text,
+       icon: 'https://res.cloudinary.com/hajcm9hwg/image/upload/dphwltrgho6nk3ys2nun.png',
+       timeout: 8000, // 通知が消えるタイミング
+       vibrate: [100, 100, 100], // モバイル端末でのバイブレーション秒数
+     });
+   });
  });

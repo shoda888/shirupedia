@@ -35,12 +35,12 @@ section.content
                   .photos_field
                     = render 'imgpost'
                     .row
-                      - @question.covers.each do |cover|
+                      - @question.covers.where(role:'photo').each do |cover|
                         div id="cover_#{cover.id}"
                           .col.s12.m4.card
-                            = cl_image_tag cover.photo_message.file.filename, class: 'card-image materialboxed', width: '100%'
+                            = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
                             = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
-                    
+
 
 javascript:
   $(".invalid-enter").on("keydown", function(e) {
