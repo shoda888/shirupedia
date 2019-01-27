@@ -47,8 +47,10 @@
                 .photo-grid-item.col.s12.m4.card
                   - if cover.photo?
                     = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
-                  - else
+                  - elsif q.text_message.present?
                     img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
+                  - else
+                    img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.title}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                   .reply-field[style='cursor: pointer;']
                     a.tooltipped.comment-btn[data-position="right" data-tooltip="コメントする"]
                       i.material-icons
