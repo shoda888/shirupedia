@@ -10,13 +10,13 @@
       .card.sticky-action
         .modal-trigger[data-target="modal#{q.id}"]
           .card-image
-            - cov = q.covers.last
-            - if !cov
-              img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.title}/dphwltrgho6nk3ys2nun.png"
-            - elsif cov.photo?
+            - cov = q.covers.find_by(role:'photo')
+            - if cov
               = cl_image_tag cov.photo_message&.file&.filename
-            - else
+            - elsif q.text_message.present?
               img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png"
+            - else
+              img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.title}/dphwltrgho6nk3ys2nun.png"
           .white
             .card-content
               span.card-title.activator
