@@ -31,6 +31,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @sodan = @user.email.match?(/\Asodan/)
   end
 
   def update
@@ -53,6 +54,7 @@ class ProfilesController < ApplicationController
     @user ||= User.find_by(token: params[:token])
     @profile = @user.profile || Profile.new
     @token = @user.token
+    @sodan = @user.email.match?(/\Asodan/)
     render layout: 'application'
   end
 
