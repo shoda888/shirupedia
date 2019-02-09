@@ -124,10 +124,12 @@
 javascript:
   Dropzone.autoDiscover = false;
   var posturl = "/covers?id=" + $('#num').val();
-  $('.photo-grid').masonry({
-        itemSelector: '.photo-grid-item',
-        columnWidth: '.photo-grid-sizer',
-        percentPosition: true
+  $('.photo-grid').imagesLoaded( function() {
+    $('.photo-grid').masonry({
+          itemSelector: '.photo-grid-item',
+          columnWidth: '.photo-grid-sizer',
+          percentPosition: true
+    });
   });
   $("#question-photo").dropzone({
     url: posturl,

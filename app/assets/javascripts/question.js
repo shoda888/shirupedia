@@ -5,10 +5,12 @@ $(function() {
     fullWidth: true,
     indicators: true
   });
-  $('.grid').masonry({
-        itemSelector: '.grid-item',
-        columnWidth: '.grid-sizer',
-        percentPosition: true
+  $('.grid').imagesLoaded( function() {
+    $('.grid').masonry({
+          itemSelector: '.grid-item',
+          columnWidth: '.grid-sizer',
+          percentPosition: true
+    });
   });
   $(document).on("click", ".answer-btn", function(){
     $('.answer-form').toggle();
