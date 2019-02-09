@@ -41,7 +41,7 @@ bash:
 	docker-compose exec web /bin/bash
 
 compile:
-	docker-compose run --rm web bundle exec rake assets:precompile RAILS_ENV=production
+	docker-compose run --rm web bundle exec rake assets:precompile assets:clean RAILS_ENV=production
 
 usage:
 	@echo usage: [build, up, down, test, autotest, cops, console, clean, init-local, ecr, upload {BRANCH=[branch]}, deploy {ENV=[env]}]
