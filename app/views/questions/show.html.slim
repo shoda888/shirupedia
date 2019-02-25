@@ -14,7 +14,7 @@
             a.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
               | link
             - if @question_user == @current_user
-              a.tooltipped.right.small.material-icons[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問のタイトル・タグを編集する"]
+              a.tooltipped.right.small.material-icons[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
                 | edit
             h4.card-title
               = @question.title
@@ -31,8 +31,10 @@
                   .photo-grid-item.col.s12.m6.l4.card
                     - if cover.photo?
                       = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
-                    - elsif text = @question.text_message
-                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{text}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
+                    - elsif @question.text_message.present?
+                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{@question.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
+                    - else
+                      img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{@question.title}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                     - if @question_user == @current_user
                       = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
                     .reply-field[style='cursor: pointer;']
