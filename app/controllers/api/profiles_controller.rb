@@ -4,6 +4,7 @@ class Api::ProfilesController < Api::ApplicationController
 
   def answered
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    specialized_by_state
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
 
@@ -14,6 +15,7 @@ class Api::ProfilesController < Api::ApplicationController
 
   def recommended
     @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    specialized_by_state
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
 
@@ -59,5 +61,8 @@ class Api::ProfilesController < Api::ApplicationController
     @user.attributes = user_params
     profile_params = params.permit(:grade, :school, :department, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
+  end
+  def specialized_by_state
+    @questions = @questions.where(aasm_state: 'wanted')
   end
 end

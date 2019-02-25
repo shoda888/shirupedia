@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
   def index
     specialized_by_belongs
     specialized_by_tag
+    specialized_by_state
     @questions = @questions.includes([:covers, :taggings, answers: { user: :profile, covers: [comments: :user] }, user: :profile]).order('created_at desc').page(params[:page]).per(30)
   end
 
@@ -68,10 +69,14 @@ class QuestionsController < ApplicationController
   end
 
   def fire
-    @answer = Answer.find(params[:id])
-    @question = @answer.question
-    @question.finish!
-    redirect_to question_path(@question), notice: '質問が終了しました'
+    @question = Question.find(params[:id])
+    if @question.wanted?
+      @question.close!
+      redirect_to question_path(@question), notice: '質問を非公開にしました'
+    else
+      @question.public!
+      redirect_to question_path(@question), notice: '質問を非公開にしました'
+    end
   end
 
   def newpost
@@ -129,6 +134,10 @@ class QuestionsController < ApplicationController
                  else
                    Question.search(params[:search])
                  end
+  end
+
+  def specialized_by_state
+    @questions = @questions.where(aasm_state: 'wanted')
   end
 
   def question_params

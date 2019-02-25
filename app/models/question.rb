@@ -30,10 +30,13 @@ class Question < ApplicationRecord
 
   aasm do
     state :wanted, initial: true
-    state :completed
+    state :closed
 
-    event :finish do
-      transitions from: :wanted, to: :completed
+    event :close do
+      transitions from: :wanted, to: :closed
+    end
+    event :public do
+      transitions from: :closed, to: :wanted
     end
   end
 

@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
 
   def answered
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    specialized_by_state
     render layout: 'cms_table'
   end
 
@@ -22,6 +23,7 @@ class ProfilesController < ApplicationController
 
   def recommended
     @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    specialized_by_state
     render layout: 'cms_table'
   end
 
@@ -106,6 +108,10 @@ class ProfilesController < ApplicationController
     @covers.sort! do |a, b|
       a.created_at <=> b.created_at
     end
+  end
+
+  def specialized_by_state
+    @questions = @questions.where(aasm_state: 'wanted')
   end
 
   def ensure_correct_user

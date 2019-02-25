@@ -4,6 +4,7 @@ class Api::QuestionsController < Api::ApplicationController
   def index
     specialized_by_belongs
     specialized_by_tag
+    specialized_by_state
     render json: @questions, include: [:user, :answers, :likes, :covers]
   end
 
@@ -55,5 +56,9 @@ class Api::QuestionsController < Api::ApplicationController
                  else
                    Question.search(params[:search])
                  end
+  end
+
+  def specialized_by_state
+    @questions = @questions.where(aasm_state: 'wanted')
   end
 end

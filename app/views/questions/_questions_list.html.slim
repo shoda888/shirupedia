@@ -88,12 +88,9 @@
             - if q.wanted? && q.user != @current_user
               a.answer-btn.btn-flat
                 | 返答する
-            - elsif q.wanted? && q.user == @current_user
-              a.btn-flat[href=edit_question_path(q)]
-                | 編集する
-            - elsif q.completed?
-              a.btn-flat
-                | 質問は終了しました
+            - elsif q.user == @current_user
+              a.tooltipped.btn-flat.small.material-icons.clip[href=edit_question_path(q) data-position="top" data-tooltip="質問を編集する" style="line-height: inherit";]
+                | edit
             .btn-flat.favo-field[style='cursor: default;']
               = render "likes/like", q: q
 #footer

@@ -14,8 +14,15 @@
             a.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
               | link
             - if @question_user == @current_user
-              a.tooltipped.right.small.material-icons[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
+              a.tooltipped.right.small.material-icons.clip[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
                 | edit
+              - if @question.wanted?
+                a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/fire" data-method="put" style='color: #80cbc4;' data-position="left" data-tooltip="質問を非公開にする"]
+                  | lock_open
+              - else
+                a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/fire" data-method="put" style='color: #80cbc4;' data-position="left" data-tooltip="質問を公開する"]
+                  | lock
+
             h4.card-title
               = @question.title
             - @question.field_list.each do |field|
