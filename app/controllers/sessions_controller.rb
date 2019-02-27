@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   before_action :forbid_login_user, { only: [:new, :create] }
-  before_action :basic, only: :new
 
   def new
   end
@@ -29,12 +28,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  def basic
-    authenticate_or_request_with_http_basic do |name, password|
-      name == 'admin' && password == '098098'
-    end
-  end
 
   def user_params
     params.require(:user).permit(:email)
