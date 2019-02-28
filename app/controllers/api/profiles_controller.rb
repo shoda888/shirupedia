@@ -5,18 +5,18 @@ class Api::ProfilesController < Api::ApplicationController
   def answered
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :likes, :covers]
+    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def questioned
     @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    render json: @questions, include: [:user, :answers, :likes, :covers]
+    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def recommended
     @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :likes, :covers]
+    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def create
