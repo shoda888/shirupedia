@@ -11,6 +11,7 @@
 #
 
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id, :text_message
+  attributes :id
+  belongs_to :user, serializer: UserSerializer
   has_many :covers, serializer: CoverSerializer
 end
