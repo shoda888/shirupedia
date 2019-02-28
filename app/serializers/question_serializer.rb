@@ -12,7 +12,7 @@
 #
 
 class QuestionSerializer < ActiveModel::Serializer
-  attributes :id, :title, :fields, :aasm_state
+  attributes :id, :title, :text_message, :fields, :aasm_state
   has_many :answers, serializer: AnswerSerializer
   has_many :covers, serializer: CoverSerializer
   has_many :likes, serializer: LikeSerializer

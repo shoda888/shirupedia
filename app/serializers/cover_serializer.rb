@@ -15,6 +15,12 @@ class CoverSerializer < ActiveModel::Serializer
   attributes :id, :url
 
   def url
-    object.photo_message.url
+    if object.photo_message.present?
+      object.photo_message.url
+    elsif object.coverable.text_message.present?
+      "https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{object.coverable.text_message}/dphwltrgho6nk3ys2nun.png"
+    else
+      "https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{object.coverable.title}/dphwltrgho6nk3ys2nun.png"
+    end
   end
 end
