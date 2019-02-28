@@ -17,7 +17,8 @@ class Api::QuestionsController < Api::ApplicationController
     @question = Question.new(user_id: @current_user.id)
     @question.attributes = question_params
     if @question.save
-      response_success('question', 'create')
+      @question.covers.create(role: 'text')
+      response_success('question', 'create', @question.id)
     else
       response_bad_request('タイトルは必須です')
     end
