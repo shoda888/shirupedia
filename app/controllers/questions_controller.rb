@@ -52,7 +52,6 @@ class QuestionsController < ApplicationController
                      description: @question.text_message.to_s,
                      image: @image.to_s,
                      card: 'summary' })
-    pp @image
   end
 
   def edit

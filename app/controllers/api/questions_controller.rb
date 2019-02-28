@@ -5,7 +5,7 @@ class Api::QuestionsController < Api::ApplicationController
     specialized_by_belongs
     specialized_by_tag
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :likes, :covers]
+    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def show
