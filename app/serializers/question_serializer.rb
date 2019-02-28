@@ -20,6 +20,7 @@ class QuestionSerializer < ActiveModel::Serializer
 
   attribute :count_answers
   attribute :count_likes
+  attribute :share_url
 
   def count_answers
     object.answers.length
@@ -27,5 +28,9 @@ class QuestionSerializer < ActiveModel::Serializer
 
   def count_likes
     object.likes.length
+  end
+
+  def share_url
+    Rails.application.routes.url_helpers.question_url(object)
   end
 end
