@@ -62,6 +62,7 @@ class Api::ProfilesController < Api::ApplicationController
     profile_params = params.permit(:grade, :school, :department, :avatar, :interest_list, :lesson_list)
     @profile.attributes = profile_params
   end
+
   def specialized_by_state
     @questions = @questions.where(aasm_state: 'wanted')
   end

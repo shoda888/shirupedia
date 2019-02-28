@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
       redirect_to question_path(@question), notice: '質問を非公開にしました'
     else
       @question.public!
-      redirect_to question_path(@question), notice: '質問を非公開にしました'
+      redirect_to question_path(@question), notice: '質問を公開にしました'
     end
   end
 
