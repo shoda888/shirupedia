@@ -30,8 +30,8 @@ html
 
 javascript:
  $(document).ready(function(){
-   Push.Permission.request();
    $('.sidenav').sidenav();
+   Push.Permission.request();
    var clipboard = new Clipboard('.clip');
    clipboard.on('success', function(e) {
      console.log(e);

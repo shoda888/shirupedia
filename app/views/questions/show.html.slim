@@ -11,7 +11,7 @@
                 = @question_user.name
 
           .col.s12
-            a.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
+            a.hide-on-med-and-down.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
               | link
             - if @question_user == @current_user
               a.tooltipped.right.small.material-icons.clip[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
