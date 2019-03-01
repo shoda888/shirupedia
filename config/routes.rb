@@ -51,6 +51,8 @@ Rails.application.routes.draw do
         get 'recommended', to: 'profiles#recommended'
       end
     end
-    resources :covers
+    resources :covers do
+      resources :comments
+    end
   end
 end
