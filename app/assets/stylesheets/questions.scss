@@ -18,14 +18,25 @@ li.search-list{
   padding-right: 14px;
 }
 .modal{
-  width: 90% !important;
-  max-height: 100% !important;
-  height: 90% !important;
-  top: 5% !important;
+  @media screen and (max-width:600px) {
+    width: 100% !important;
+    max-height: 100% !important;
+    height: 100% !important;
+    top: 0% !important;
+  }
+  @media screen and (min-width:601px) {
+    width: 90% !important;
+    max-height: 100% !important;
+    height: 90% !important;
+    top: 5% !important;
+  }
 }
 .modal-title-context{
   margin-left: 12px;
   color: #009688 !important;
+}
+.dropzone .dz-message {
+  margin-top: 0%!important;
 }
 .user-field{
   position: relative;

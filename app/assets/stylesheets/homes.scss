@@ -40,6 +40,11 @@
 .carousel {
   min-height: 450px;
 }
+.container {
+  @media screen and (max-width:600px) {
+    width: 100% !important;
+  }
+}
 .iconImg {
   max-width: 100px;
   max-height: 100px;
