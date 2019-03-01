@@ -64,10 +64,12 @@
               = form_with url: question_answers_path(question_id: q.id), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
                 .col.s12
                   .dz-message.needsclick
-                    p
-                      | フォトメッセージをドラッグまたはクリックして選択してください
-                    strong
-                      | ドラッグまたはクリックで自動で画像が登録されます
+                  p
+                    | フォトリプライをドラッグまたはクリックして選択してください
+                  p
+                    | 短文を送る場合は画像下のボタンからコメントができます
+                  strong
+                    | ドラッグまたはクリックで自動で画像が登録されます
                 .fallback
                   .form-group
                     = form.label :photo_message, class: 'col s3 control-label'

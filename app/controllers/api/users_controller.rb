@@ -3,7 +3,7 @@ class Api::UsersController < Api::ApplicationController
 
   def index # いらないかな
     @users = User.all
-    render json: @users
+    render json: @users, include: [:profile]
   end
 
   ## サインアップ
@@ -33,7 +33,7 @@ class Api::UsersController < Api::ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user
+    render json: @user, include: [:profile]
   end
 
   private
