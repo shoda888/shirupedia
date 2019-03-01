@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resources :questions do
       resources :answers
     end
-    resources :profiles do
+    resources :profiles, param: :token do
       member do
         get 'answered', to: 'profiles#answered'
         get 'questioned', to: 'profiles#questioned'
