@@ -52,7 +52,7 @@ class Api::ProfilesController < Api::ApplicationController
   private
 
   def find_profile
-    @profile = Profile.find(params[:id])
+    @profile = Profile.find_by(token: params[:token])
     @user = @profile.user
   end
 
