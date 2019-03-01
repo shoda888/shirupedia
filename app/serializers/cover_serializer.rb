@@ -13,6 +13,7 @@
 
 class CoverSerializer < ActiveModel::Serializer
   attributes :id, :url
+  has_many :comments, serializer: CommentSerializer
 
   def url
     if object.photo_message.present?

@@ -5,7 +5,7 @@ class Api::CommentsController < Api::ApplicationController
     @cover = Cover.find(params[:cover_id])
     @comment = @cover.comments.build(comment_params)
     @comment.user_id = @current_user.id
-    @comment.save
+    @comment.save!
     response_success('comment', 'create')
   end
 

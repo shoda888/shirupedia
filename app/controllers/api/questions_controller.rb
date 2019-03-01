@@ -10,7 +10,7 @@ class Api::QuestionsController < Api::ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    render json: @question, include: [:user, :covers, answers: [:covers, :user], likes: [:user]]
+    render json: @question, include: [:user, covers: [:comments], answers: [:user, covers: [:comments]], likes: [:user]]
   end
 
   def create
