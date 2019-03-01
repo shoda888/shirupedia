@@ -12,9 +12,6 @@ $(function() {
           percentPosition: true
     });
   });
-  $(document).on("click", ".answer-btn", function(){
-    $('.answer-form').toggle();
-  });
   $(document).on("click", ".comment-btn", function(){
     $(this).parent().siblings('.comment-form').toggle();
     $('.photo-grid').masonry({
@@ -37,7 +34,7 @@ $(function() {
     init: function() {
     },
     success: function(file, response){
-      $(file.previewElement).find('.dz-remove').attr('id',response.id);
+      $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
       $(file.previewElement).addClass('dz-success');
     },
     removedfile: function(file){

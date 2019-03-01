@@ -18,10 +18,8 @@ $("#question-photo").dropzone({
   paramName: 'photo_message',
   init: function() {
       var dzClosure = this;
-      console.log(dzClosure);
   },
   success: function(file, response){
-    console.log('ok');
     $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
     $(file.previewElement).addClass('dz-success');
     // $('.publish-notice').html('リプライ募集中');

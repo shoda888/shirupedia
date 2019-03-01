@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
   # protect_from_forgery except: [:create]
   layout 'main_table'
   before_action :authenticate_user, { except: [:newpost, :post, :show] }
-  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
+  before_action :check_public, { only: [:show] }
+  before_action :ensure_correct_user, { only: [:edit, :update, :destroy, :fire] }
 
   def index
     specialized_by_belongs
@@ -36,7 +37,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find(params[:id])
     @covers = @question.covers
     @answers = @question.answers.includes(:user).order('created_at desc')
     @question_user = @question.user
@@ -68,7 +68,6 @@ class QuestionsController < ApplicationController
   end
 
   def fire
-    @question = Question.find(params[:id])
     if @question.wanted?
       @question.close!
       redirect_to question_path(@question), notice: '質問を非公開にしました'
@@ -146,6 +145,14 @@ class QuestionsController < ApplicationController
   def ensure_correct_user
     @question = Question.find(params[:id])
     if @question.user_id != @current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to questions_path
+    end
+  end
+
+  def check_public
+    @question = Question.find(params[:id])
+    if @question.closed? && @current_user.id != @question.user_id
       flash[:notice] = "権限がありません"
       redirect_to questions_path
     end

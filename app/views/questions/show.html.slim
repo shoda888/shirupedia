@@ -59,36 +59,22 @@
                     = render 'comments/form', cover: cover
           .col.s12
             - if @question_user == @current_user
-              - if @question.wanted?
-                .btn.btn-block.btn-primary.btn-small.disabled
-                  | リプライ募集中
-              - else
-                .btn.btn-block.btn-primary.btn-small.disabled
-                  | 質問は終了しました
+              .col.s12
+                .card-content
+                  = hidden_field_tag :id, @question.id, id: 'num'
+                  #question-photo.dropzone.col.s12[style='border-style: dotted;']
+                    .dz-message.needsclick
+                      p
+                        | 質問に追加する写真があれば自由に選択してください
+                      strong
+                        | ドラッグまたはクリックで自動で画像が登録されます
             - else
-              - if @question.wanted?
-                - if @answered_by_me
-                  .btn.btn-block.btn-danger.btn-small.answer-btn.active
-                    | フォトリプライを追加する
-                - elsif !@current_user
-                  a.btn.btn-block.btn-danger.btn-small.active[href=login_path]
-                    | フォトリプライを送る
-                - else
-                  .btn.btn-block.btn-danger.btn-small.answer-btn.active
-                    | フォトリプライを送る
-              - else
-                .btn.btn-block.btn-primary.btn-small.disabled
-                  | 質問は終了しました
-
-
-          .col.s12
-            .row
-              - if @question_user != @current_user
+              - if @current_user
                 = form_with url: question_answers_path(@question), class: 'answer-form dropzone answer-photo', html: { style: 'border-style: dotted;'}, local: true do |form|
                   .col.s12
                     .dz-message.needsclick
                       p
-                        | フォトメッセージをドラッグまたはクリックして選択してください
+                        | フォトリプライをドラッグまたはクリックして選択してください
                       strong
                         | ドラッグまたはクリックで自動で画像が登録されます
                   .fallback
@@ -103,15 +89,8 @@
                         | &nbsp;
                         = submit_tag '送信', class: 'btn-small blue lighten-3'
               - else
-                .col.s12
-                  .card-content
-                    = hidden_field_tag :id, @question.id, id: 'num'
-                    #question-photo.dropzone.col.s12[style='border-style: dotted;']
-                      .dz-message.needsclick
-                        p
-                          | 質問に関連する写真があれば自由に選択してください
-                        strong
-                          | ドラッグまたはクリックで自動で画像が登録されます
+                a.btn.btn-block.btn-danger.btn-small.active[href=login_path]
+                  | フォトリプライを送る
 
           .col.s12
             div id="answers_field#{@question.id}"
@@ -150,10 +129,8 @@ javascript:
     paramName: 'photo_message',
     init: function() {
         var dzClosure = this;
-        console.log(dzClosure);
     },
     success: function(file, response){
-      console.log('ok');
       $(file.previewElement).find('.dz-remove').attr('id',response.itemId);
       $(file.previewElement).addClass('dz-success');
       $('.publish-notice').html('リプライ募集中');
