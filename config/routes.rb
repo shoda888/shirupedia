@@ -55,7 +55,7 @@ Rails.application.routes.draw do
       end
     end
     resources :covers do
-      resources :comments
+      resources :comments, only: [:create, :index]
     end
   end
 end

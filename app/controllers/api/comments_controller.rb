@@ -1,6 +1,12 @@
 class Api::CommentsController < Api::ApplicationController
   before_action :auth
 
+  def index
+    @cover = Cover.find(params[:cover_id])
+    @comments = @cover.comments
+    render json: @comments
+  end
+
   def create
     @cover = Cover.find(params[:cover_id])
     @comment = @cover.comments.build(comment_params)
