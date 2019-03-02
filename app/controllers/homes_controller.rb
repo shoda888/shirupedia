@@ -13,7 +13,6 @@ class HomesController < ApplicationController
   def privacy_policy
   end
   def start_up
-    @token = params[:token]
     render :layout => false
   end
 end
