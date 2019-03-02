@@ -1,0 +1,51 @@
+doctype html
+html[lang="ja"]
+  head
+    meta[charset="UTF-8"]
+    title
+      | Shirupedia
+  body
+    div[style="width: 0; height: 0; overflow: hidden;"]
+      iframe#launch_frame[name="launch_frame"]
+
+javascript:
+    // アプリを開く。アプリがインストールされていなければサイトを開く。
+  function launchApp() {
+    var IOS_SCHEME = 'shirupedia';
+    var IOS_STORE = 'https://www.apple.com/jp/ios/app-store/';
+    var ANDROID_SCHEME = 'shirupedia';
+    var ANDROID_PACKAGE = 'https://play.google.com/store/apps?hl=ja';
+    var PC_SITE = 'https://www.shirupedia.com'
+
+    var userAgent = navigator.userAgent.toLowerCase();
+    // iPhone端末ならアプリを開くかApp Storeを開く。
+    if (userAgent.search(/iphone|ipad|ipod/) > -1) {
+        launch_frame.location.href = IOS_SCHEME + '://' + getParam('token');
+        setTimeout(function() {
+            location.href = IOS_STORE;
+        }, 500);
+    }
+    // Android端末ならアプリを開くかGoogle Playを開く。
+    else if (userAgent.search(/android/) > -1) {
+        document.location = 'intent://#Intent;scheme=' + ANDROID_SCHEME
+                + ';package=' + ANDROID_PACKAGE + ';end';
+    }
+    // その他・不明・PCなどの場合はサイトを開く。
+    else {
+        document.location = PC_SITE;
+    }
+  }
+  function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  // ページ読み込み時に実行
+  window.onload = function() {
+    launchApp();
+  }

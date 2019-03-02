@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'term_of_service', to: 'homes#term_of_service'
   get 'privacy_policy', to: 'homes#privacy_policy'
+  get 'start_up', to: 'homes#start_up'
   get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy'
   resources :likes, only: [:create, :destroy]
