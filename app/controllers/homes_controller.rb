@@ -7,4 +7,9 @@ class HomesController < ApplicationController
                      image: 'https://res.cloudinary.com/hnj7qqu7w/image/upload/v1545738853/helloquence-s.jpg',
                      card: 'summary_large_image' })
   end
+
+  def term_of_service
+  end
+  def privacy_policy
+  end
 end
