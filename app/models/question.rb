@@ -19,8 +19,8 @@ class Question < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :iine_users, through: :likes, source: :user
 
-  scope :searched_by_same_school_person, -> (school) { joins(:user).merge(User.searched_by_same_school(school)) } # 同じ系の人の質問を抽出
-  scope :searched_by_same_department_person, -> (department) { joins(:user).merge(User.searched_by_same_department(department)) } # 同じ学科の人の質問を抽出
+  scope :searched_by_same_school_person, -> (school) { joins(:user).merge(User.searched_by_same_school(school)) } # 同じ学院の人の質問を抽出
+  scope :searched_by_same_department_person, -> (department) { joins(:user).merge(User.searched_by_same_department(department)) } # 同じ系の人の質問を抽出
   scope :exclude_my_questions, -> (user_id) { where.not(user_id: user_id) } # 自分の質問を除く
   scope :search, -> (word) { where(['title LIKE ?', "%#{word}%"]) } # 自分の質問を除く
 

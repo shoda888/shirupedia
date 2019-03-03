@@ -41,7 +41,11 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     post '/users/signup', to: 'users#signup'
     post '/users/signin', to: 'users#signin'
-    resources :users
+    resources :users do
+      member do
+        get 'recommended', to: 'users#recommended'
+      end
+    end
     resources :likes, only: [:create, :destroy]
     resources :nices, only: [:create, :destroy]
     resources :questions do
@@ -51,7 +55,6 @@ Rails.application.routes.draw do
       member do
         get 'answered', to: 'profiles#answered'
         get 'questioned', to: 'profiles#questioned'
-        get 'recommended', to: 'profiles#recommended'
       end
     end
     resources :covers do
