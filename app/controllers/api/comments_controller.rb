@@ -4,7 +4,7 @@ class Api::CommentsController < Api::ApplicationController
   def index
     @cover = Cover.find(params[:cover_id])
     @comments = @cover.comments
-    render json: @comments
+    render json: @comments, include: [:user]
   end
 
   def create
