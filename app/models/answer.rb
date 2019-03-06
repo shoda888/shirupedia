@@ -14,4 +14,11 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :question
   has_many :covers, as: :coverable, dependent: :destroy
+
+  def best?
+    self.covers.each do |cover|
+      return true if cover.nices.present?
+    end
+    false
+  end
 end
