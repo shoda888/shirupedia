@@ -14,7 +14,7 @@
 class CoverSerializer < ActiveModel::Serializer
   require 'uri'
   
-  attributes :id, :url
+  attributes :id, :url, :role
   has_many :comments, serializer: CommentSerializer
 
   def url
