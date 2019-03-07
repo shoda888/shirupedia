@@ -11,11 +11,19 @@
 #
 
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id, :best
+  attributes :id, :isGood, :nice_shot
   belongs_to :user, serializer: UserSerializer
   has_many :covers, serializer: CoverSerializer
 
-  def best
+  def isGood
     object.best?
+  end
+
+  def nice_shot
+    shot = []
+    object.covers.each do |cover|
+      shot << cover.id if cover.nices.present?
+    end
+    shot
   end
 end
