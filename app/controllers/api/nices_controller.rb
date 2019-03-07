@@ -8,7 +8,7 @@ class Api::NicesController < Api::ApplicationController
   end
 
   def destroy
-    @cover = Nice.find(params[:id]).cover
+    @cover = Cover.find(params[:id])
     @cover.nice_cancel(@current_user) if @cover.nice?(@current_user)
     response_success('nice', 'destroy')
   end
