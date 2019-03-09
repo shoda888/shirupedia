@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
     specialized_by_belongs
     specialized_by_tag
     specialized_by_state
-    @questions = @questions.includes([:covers, :taggings, answers: { user: :profile, covers: [comments: :user] }, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @questions = @questions.includes([:covers, :taggings, answers: { user: :profile, covers: [comments: :user] }, user: :profile]).page(params[:page]).per(30)
   end
 
   def new
@@ -135,7 +135,7 @@ class QuestionsController < ApplicationController
   end
 
   def specialized_by_state
-    @questions = @questions.where(aasm_state: 'wanted')
+    @questions = @questions.where(aasm_state: 'wanted').uniq.order('created_at desc')
   end
 
   def question_params

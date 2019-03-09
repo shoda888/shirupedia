@@ -60,6 +60,6 @@ class Api::QuestionsController < Api::ApplicationController
   end
 
   def specialized_by_state
-    @questions = @questions.where(aasm_state: 'wanted')
+    @questions = @questions.where(aasm_state: 'wanted').uniq.order('created_at desc')
   end
 end
