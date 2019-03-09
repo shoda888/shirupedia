@@ -15,6 +15,7 @@ class CoverSerializer < ActiveModel::Serializer
   require 'uri'
   
   attributes :id, :url, :role
+  attribute :count_comments
   has_many :comments, serializer: CommentSerializer
 
   def url
@@ -25,5 +26,9 @@ class CoverSerializer < ActiveModel::Serializer
     else
       "https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{URI.escape(object.coverable.title)}/dphwltrgho6nk3ys2nun.png"
     end
+  end
+
+  def count_comments
+    object.comments.length
   end
 end
