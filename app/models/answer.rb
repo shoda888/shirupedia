@@ -16,7 +16,7 @@ class Answer < ApplicationRecord
   has_many :covers, as: :coverable, dependent: :destroy
 
   def best?
-    self.covers.each do |cover|
+    covers.each do |cover|
       return true if cover.nices.present?
     end
     false

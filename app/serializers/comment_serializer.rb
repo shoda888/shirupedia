@@ -6,5 +6,4 @@ class CommentSerializer < ActiveModel::Serializer
   def avatar
     object.user.profile.avatar.url
   end
-
 end

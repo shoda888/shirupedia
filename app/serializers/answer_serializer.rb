@@ -11,11 +11,11 @@
 #
 
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id, :isGood, :nice_shot
+  attributes :id, :good_answer, :nice_shot
   belongs_to :user, serializer: UserSerializer
   has_many :covers, serializer: CoverSerializer
 
-  def isGood
+  def good_answer
     object.best?
   end
 

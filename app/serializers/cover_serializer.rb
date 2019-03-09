@@ -13,7 +13,7 @@
 
 class CoverSerializer < ActiveModel::Serializer
   require 'uri'
-  
+
   attributes :id, :url, :role
   attribute :count_comments
   has_many :comments, serializer: CommentSerializer

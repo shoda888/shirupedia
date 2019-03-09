@@ -10,9 +10,11 @@ class HomesController < ApplicationController
 
   def term_of_service
   end
+
   def privacy_policy
   end
+
   def start_up
-    render :layout => false
+    render layout: false
   end
 end
