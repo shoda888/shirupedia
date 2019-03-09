@@ -9,9 +9,9 @@ class Api::UsersController < Api::ApplicationController
   def recommended
     @user = User.find(params[:id])
     @profile = @user.profile
-    @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile])
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions.page(params[:page]).per(20), include: [:user, :answers, :covers, likes: [:user]]
   end
 
   ## サインアップ
@@ -51,6 +51,6 @@ class Api::UsersController < Api::ApplicationController
   end
 
   def specialized_by_state
-    @questions = @questions.where(aasm_state: 'wanted')
+    @questions = @questions.where(aasm_state: 'wanted').order('created_at desc')
   end
 end
