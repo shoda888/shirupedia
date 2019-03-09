@@ -5,7 +5,7 @@ class Api::QuestionsController < Api::ApplicationController
     specialized_by_belongs
     specialized_by_tag
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions.page(params[:page]).per(20), include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def show
@@ -60,6 +60,6 @@ class Api::QuestionsController < Api::ApplicationController
   end
 
   def specialized_by_state
-    @questions = @questions.where(aasm_state: 'wanted').uniq.order('created_at desc')
+    @questions = @questions.where(aasm_state: 'wanted').order('created_at desc')
   end
 end
