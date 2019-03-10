@@ -31,8 +31,12 @@
               | 系登録後、系での絞り込み検索ができます(B2以上)
       li.search-list.col.s9
         .input-field
+          small 自由検索(スペースを空けてOR検索ができます)
+          input[placeholder="自由検索" type="text" name='search' value="#{@search}"]
+      li.search-list.col.s9
+        .input-field
           small タグで検索(スペースを空けてOR検索ができます)
-          input[placeholder="ex)化学相談室 MATLAB相談室 逆問題" type="text" name='fields' value="#{@fields}"]
+          input[placeholder="ex)数学 MATLAB相談室 逆問題" type="text" name='fields' value="#{@fields}"]
             button.btn.btn-small.btn-search.waves-effect[type="submit" name="action"]
               i.material-icons
                 | search

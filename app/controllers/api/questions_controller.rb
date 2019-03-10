@@ -48,12 +48,10 @@ class Api::QuestionsController < Api::ApplicationController
   end
 
   def specialized_by_belongs
-    @school = params[:school]
-    @department = params[:department]
-    @questions = if @department
-                   Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id).search(params[:search])
-                 elsif @school
-                   Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id).search(params[:search])
+    @questions = if params[:department]
+                   Question.where(user_id: Profile.where(department: params[:department]).pluck(:user_id)).search(params[:search])
+                 elsif params[:school]
+                   Question.where(user_id: Profile.where(school: params[:school]).pluck(:user_id)).search(params[:search])
                  else
                    Question.search(params[:search])
                  end

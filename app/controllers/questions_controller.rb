@@ -125,12 +125,13 @@ class QuestionsController < ApplicationController
   def specialized_by_belongs
     @school = params[:school]
     @department = params[:department]
+    @search = params[:search]
     @questions = if @department
-                   Question.find_same_department_questions_exclude_mine(params[:department], @current_user.id).search(params[:search])
+                   Question.where(user_id: Profile.where(department: @department).pluck(:user_id)).search(@search)
                  elsif @school
-                   Question.find_same_school_questions_exclude_mine(params[:school], @current_user.id).search(params[:search])
+                   Question.where(user_id: Profile.where(school: @school).pluck(:user_id)).search(@search)
                  else
-                   Question.search(params[:search])
+                   Question.search(@search)
                  end
   end
 

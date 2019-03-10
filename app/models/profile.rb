@@ -18,9 +18,6 @@ class Profile < ApplicationRecord
   # carrierwaveとモデルの関連付け
   mount_uploader :avatar, AvatarUploader
 
-  scope :searched_by_school, -> (school) { where(school: school) }
-  scope :searched_by_department, -> (department) { where(department: department) }
-
   belongs_to :user
   # validates :grade, presence: true
   # validates :department, presence: true
