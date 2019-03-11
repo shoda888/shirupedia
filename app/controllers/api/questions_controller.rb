@@ -61,7 +61,7 @@ class Api::QuestionsController < Api::ApplicationController
     return Question.ids unless words.present?
     qids = []
     words.split(/[[:blank:]]+/).each do |w|
-      next if w == ""
+      next if w == ''
       qids << Question.where(['title LIKE ? OR text_message LIKE ?', "%#{w}%", "%#{w}%"]).ids
     end
     qids.flatten.uniq
