@@ -11,18 +11,18 @@ class ProfilesController < ApplicationController
   end
 
   def answered
-    @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @questions = @user.answeredquestions.includes([:fields, user: :profile])
     specialized_by_state
     render layout: 'cms_table'
   end
 
   def questioned
-    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(20)
     render layout: 'cms_table'
   end
 
   def recommended
-    @questions = Question.find_same_school_questions_exclude_mine(@profile.school, @user.id).includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
+    @questions = Question.where(user_id: Profile.where(school: @profile.school).pluck(:user_id) - [@user.id]) #同じ学院の他人の質問を取得
     specialized_by_state
     render layout: 'cms_table'
   end
@@ -111,7 +111,7 @@ class ProfilesController < ApplicationController
   end
 
   def specialized_by_state
-    @questions = @questions.where(aasm_state: 'wanted')
+    @questions = @questions.where(aasm_state: 'wanted').order('created_at desc').page(params[:page]).per(20)
   end
 
   def ensure_correct_user
