@@ -127,16 +127,26 @@ class QuestionsController < ApplicationController
     @department = params[:department]
     @search = params[:search]
     @questions = if @department
-                   Question.where(user_id: Profile.where(department: @department).pluck(:user_id)).search(@search)
+                   Question.where(id: Question.where(user_id: Profile.where(department: @department).pluck(:user_id)).ids & search_questions(@search))
                  elsif @school
-                   Question.where(user_id: Profile.where(school: @school).pluck(:user_id)).search(@search)
+                   Question.where(id: Question.where(user_id: Profile.where(school: @school).pluck(:user_id)).ids & search_questions(@search))
                  else
-                   Question.search(@search)
+                   Question.where(id: search_questions(@search))
                  end
   end
 
   def specialized_by_state
     @questions = @questions.where(aasm_state: 'wanted').order('created_at desc')
+  end
+
+  def search_questions(words)
+    return Question.ids unless words.present?
+    qids = []
+    words.split(/[[:blank:]]+/).each do |w|
+      next if w == ""
+      qids << Question.where(['title LIKE ? OR text_message LIKE ?', "%#{w}%", "%#{w}%"]).ids
+    end
+    qids.flatten.uniq
   end
 
   def question_params

@@ -49,12 +49,22 @@ class Api::QuestionsController < Api::ApplicationController
 
   def specialized_by_belongs
     @questions = if params[:department]
-                   Question.where(user_id: Profile.where(department: params[:department]).pluck(:user_id)).search(params[:search])
+                   Question.where(id: Question.where(user_id: Profile.where(department: params[:department]).pluck(:user_id)).ids & search_questions(params[:search]))
                  elsif params[:school]
-                   Question.where(user_id: Profile.where(school: params[:school]).pluck(:user_id)).search(params[:search])
+                   Question.where(id: Question.where(user_id: Profile.where(school: params[:school]).pluck(:user_id)).ids & search_questions(params[:search]))
                  else
-                   Question.search(params[:search])
+                   Question.where(id: search_questions(params[:search]))
                  end
+  end
+
+  def search_questions(words)
+    return Question.ids unless words.present?
+    qids = []
+    words.split(/[[:blank:]]+/).each do |w|
+      next if w == ""
+      qids << Question.where(['title LIKE ? OR text_message LIKE ?', "%#{w}%", "%#{w}%"]).ids
+    end
+    qids.flatten.uniq
   end
 
   def specialized_by_state
