@@ -4,14 +4,14 @@
       p
         = message
 
-.file-field.form-group
-  .btn
-    i.material-icons.large
-      | portrait
-    input[type="file"]
-  .col-sm-9.file-path-wrapper
-    input[type="text" name="profile[avatar]" class='file-path validate' placeholder='プロフィール画像を選択してください']
-    = file_field :profile, :avatar, class: 'file-path validate', type: 'file'
+.avatar
+  = label_tag :avatar, 'アバター', class: 'custom-file-label col-12', for: "custom-file"
+  #file
+    = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :background=>"white", :crop=>"pad")
+    / = image_tag @profile.avatar, class: 'rounded-circle', id: 'avatar_img'
+  .custom-file
+    = file_field :profile, :avatar, class: 'custom-file-input', type: "file"
+
 .form-group
   = label_tag :name, '名前', class: 'col-sm-3 control-label small'
   .col-sm-9
