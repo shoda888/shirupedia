@@ -47,6 +47,7 @@ class ProfilesController < ApplicationController
       @profile.save(validate: false)
       redirect_to profile_path(@profile.token), notice: 'ユーザー情報を編集しました'
     else
+      @errors = @user.errors.full_messages + @profile.errors.full_messages 
       render :edit
     end
   end
@@ -75,6 +76,7 @@ class ProfilesController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path(@profile.token), notice: 'ユーザー情報を登録しました'
     else
+      @errors = @user.errors.full_messages + @profile.errors.full_messages 
       render :new, layout: 'application'
     end
   end
