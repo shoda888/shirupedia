@@ -34,12 +34,12 @@
 /   information grade=@profile.grade school=@profile.school department=@profile.department
 - unless @sodan
   .input-field
-    = select :profile, :grade, {"選択してください": "", "学部1年": "B1", "学部2年": "B2", "学部3年": "B3", "学部4年": "B4", "修士1年": "M1", "修士2年": "M2", "博士1年": "D1", "博士2年": "D2"}
-    = label_tag :grade, '学年'
+    = select :profile, :grade, {"選択してください": "", "学部1年": "B1", "学部2年": "B2", "学部3年": "B3", "学部4年": "B4", "修士1年": "M1", "修士2年": "M2", "博士1年": "D1", "博士2年": "D2"}, required: true
+    = label_tag :grade, '学年 (必須)'
 
   .input-field
-    = select :profile, :school, {"選択してください": "", "理学院": "理学院", "工学院": "工学院", "物質理工学院": "物質理工学院", "情報理工学院": "情報理工学院", "生命理工学院": "生命理工学院", "環境・社会理工学院": "環境・社会理工学院"}
-    = label_tag :school, '学院'
+    = select :profile, :school, {"選択してください": "", "理学院": "理学院", "工学院": "工学院", "物質理工学院": "物質理工学院", "情報理工学院": "情報理工学院", "生命理工学院": "生命理工学院", "環境・社会理工学院": "環境・社会理工学院"}, required: true
+    = label_tag :school, '学院 (必須)'
 
   .input-field
     = select :profile, :department, {"選択してください": "", "数学系": "数学系", "物理学系": "物理学系", "化学系": "化学系", "地球惑星科学系": "地球惑星科学系", "機械系": "機械系", "システム制御系": "システム制御系", "電気電子系": "電気電子系",

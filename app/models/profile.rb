@@ -19,6 +19,6 @@ class Profile < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   belongs_to :user
-  # validates :grade, presence: true
-  # validates :department, presence: true
+  validates :grade, presence: true
+  validates :school, presence: true
 end
