@@ -6,9 +6,8 @@
 
 .avatar
   = label_tag :avatar, 'アバター', class: 'custom-file-label col-12', for: "custom-file"
-  #file
-    = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :background=>"white", :crop=>"pad")
-    / = image_tag @profile.avatar, class: 'rounded-circle', id: 'avatar_img'
+  #file.avatar-img
+    = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :gravity=>"auto", :crop=>"fill")
   .custom-file
     = file_field :profile, :avatar, class: 'custom-file-input', type: "file"
 
@@ -72,3 +71,28 @@
 
   button.btn[type="button" onclick="submit();"]
     | 登録
+
+javascript:
+  $('.custom-file-input').on('change', handleFileSelect);
+  function handleFileSelect(evt) {
+      var files = evt.target.files;
+      for (var i = 0, f; f = files[i]; i++) {
+
+          var reader = new FileReader();
+
+          reader.onload = (function (theFile) {
+              return function (e) {
+                  if (theFile.type.match('image.*')) {
+                      var $html = ['<img class="avatar-img" src="', e.target.result, '" title="', escape(theFile.name), '" />'].join('');
+                      var $text = ['<small class="sublabel">', ' *保存後、画像特徴から適切に正方形にクロップされます', '</small>'].join('');
+                  }
+                  $('img').hide();
+                  $('#file').prepend($html);
+                  $('.custom-file-label').after($text);
+              };
+          })(f);
+
+          reader.readAsDataURL(f);
+      }
+      $(this).next('.custom-file-label').html('');
+  }

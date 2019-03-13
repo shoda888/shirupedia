@@ -2,7 +2,7 @@
   .titech-cover__content
     .profile-banner
       .avatar-left
-        = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :background=>"white", :crop=>"pad" )
+        = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :gravity=>"auto", :crop=>"fill")
       .description
         .profile-name
           = @user.name
