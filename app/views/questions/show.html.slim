@@ -6,7 +6,7 @@
         .card-content.row
           .col.s12.user-field
             a[href="/profiles/#{@question_user.profile.token}"]
-              = cl_image_tag(@avatar.file&.filename, :width=>30, :height=>30, :background=>"white", :crop=>"pad" )
+              = cl_image_tag(@avatar, :width=>30, :height=>30, :gravity=>"auto", :crop=>"fill")
               .user-name
                 = @question_user.name
 
@@ -37,7 +37,7 @@
                   .photo-grid-sizer.col.s12.m6.l4
                   .photo-grid-item.col.s12.m6.l4.card
                     - if cover.photo?
-                      = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
+                      = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
                     - elsif @question.text_message.present?
                       img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{@question.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                     - else

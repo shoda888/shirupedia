@@ -12,7 +12,7 @@
           .card-image
             - cov = q.covers.find_by(role:'photo')
             - if cov
-              = cl_image_tag cov.photo_message&.file&.filename
+              = cl_image_tag cov.photo_message
             - elsif q.text_message.present?
               img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png"
             - else
@@ -36,7 +36,7 @@
               | close
             h6.modal-title
               a.client-avatar.waves-effect.waves-light[href="/profiles/#{q.user.profile.token}"]
-                = cl_image_tag(q.user.profile.avatar.file&.filename, :width=>30, :height=>30, :background=>"white", :crop=>"pad" )
+                = cl_image_tag(q.user.profile.avatar, :width=>30, :height=>30, :gravity=>"auto", :crop=>"fill")
               a.modal-title-context[href="/profiles/#{q.user.profile.token}"]
                 = "#{q.user.name}"
             h5
@@ -46,7 +46,7 @@
                 .photo-grid-sizer.col.s12.m4
                 .photo-grid-item.col.s12.m4.card
                   - if cover.photo?
-                    = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
+                    = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
                   - elsif q.text_message.present?
                     img src="https://res.cloudinary.com/hajcm9hwg/image/upload/e_brightness:30,o_80/w_430,c_fit,l_text:Sawarabi%20Gothic_35:#{q.text_message}/dphwltrgho6nk3ys2nun.png" class='card-image materialboxed' width='100%'
                   - else

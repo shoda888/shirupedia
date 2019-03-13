@@ -22,14 +22,14 @@ section.content
                     label[for="field_list"]
                       | 分野タグ
                     small.sublabel
-                      | 東工大にある相談室をタグ付けすることでその相談室に質問を投稿することができます (カンマ区切りでタグとして登録できます)
-                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）物理相談室, 数学相談室, プログラミング, 機械', class: 'question-fields', "data-role" => "tagsinput"
+                      |  *質問に関する分野のタグで登録してください (カンマ区切りでタグとして登録できます)
+                    = text_field_tag 'question[field_list]', @question.field_list.join(','), placeholder: '例）プログラミング, 数学, MATLAB相談室', class: 'question-fields', "data-role" => "tagsinput"
 
                   .input-field.col.s12
                     label[for="text_message"]
                       | テキストメッセージ
                     small.sublabel
-                      | 数式や化学式を用いる場合はフォトメッセージを推奨しています
+                      |  *数式や化学式を用いる場合はフォトメッセージを推奨しています
                     = form.text_area 'question[text_message]', value: @question.text_message, class: 'materialize-textarea', placeholder: '例）重み付きレーベンシュタイン距離のアルゴリズムとしては次のどちらの解釈が多数派なのでしょうか？'
 
                   .photos_field
@@ -38,7 +38,7 @@ section.content
                       - @question.covers.where(role:'photo').each do |cover|
                         div id="cover_#{cover.id}"
                           .col.s12.m4.card
-                            = cl_image_tag cover.photo_message&.file&.filename, class: 'card-image materialboxed', width: '100%'
+                            = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
                             = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトメッセージを削除してもよろしいですか？" }, class: 'delete_button', remote: true
 
 
