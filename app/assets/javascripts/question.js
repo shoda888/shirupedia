@@ -5,6 +5,10 @@ $(function() {
     fullWidth: true,
     indicators: true
   });
+  $('.chip').on('click', function(e) {
+    e.stopPropagation();
+    document.location = "/questions?fields=" + e.target.innerText;
+  });
   $('.grid').imagesLoaded( function() {
     $('.grid').masonry({
           itemSelector: '.grid-item',
