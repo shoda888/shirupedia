@@ -16,7 +16,6 @@
 .balloon6 .faceicon {
     float: left;
     margin-right: -50px;
-    width: 40px;
 }
 
 .balloon6 .faceicon img{
@@ -31,7 +30,7 @@
 .says {
     display: inline-block;
     position: relative;
-    margin: 0 0 0 50px;
+    margin: 0 0 0 45px;
     padding: 10px;
     max-width: 250px;
     border-radius: 12px;
@@ -68,6 +67,7 @@
     border-radius: 12px;
     background: #80cbc4;
     font-size: 15px;
+    text-align: left;
 }
 
 .mycomment p:after {
