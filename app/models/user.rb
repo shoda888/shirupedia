@@ -20,7 +20,8 @@ class User < ApplicationRecord
   has_many :answeredquestions, through: :answers, source: :question
   has_many :likes, dependent: :destroy
   has_many :nices, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :blocks, dependent: :destroy
+  has_many :users_blocked, class_name: 'User', foreign_key: 'target_user_id'
 
   validates :email, format: { with: /.+titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
@@ -32,4 +33,8 @@ class User < ApplicationRecord
 
   validates :password, length: { maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED }, on: :update
   validates :password, confirmation: true, allow_blank: true, on: :update
+
+  def block(u)
+    blocks.create(target_user_id: u.id)
+  end
 end
