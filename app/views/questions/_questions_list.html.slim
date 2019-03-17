@@ -43,8 +43,8 @@
               | #{q.title}
             .row.photo-grid
               - q.covers.each do |cover|
-                .photo-grid-sizer.col.s12.m4
-                .photo-grid-item.col.s12.m4.card
+                .photo-grid-sizer.col.s6.m4.l3
+                .photo-grid-item.col.s6.m4.l3.card
                   - if cover.photo?
                     = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
                   - elsif q.text_message.present?

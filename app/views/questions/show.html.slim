@@ -11,7 +11,7 @@
                 = @question_user.name
 
           .col.s12
-            a.hide-on-med-and-down.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
+            a.hide-on-small-only.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
               | link
             - if @question_user == @current_user
               a.tooltipped.right.small.material-icons.clip[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
@@ -22,6 +22,21 @@
               - else
                 a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/fire" data-method="put" style='color: #80cbc4;' data-position="left" data-tooltip="質問を公開する"]
                   | lock
+            - else
+              a.modal-trigger.tooltipped.right.small.material-icons.clip[href='#modal1' style='color: #80cbc4;' data-position="left" data-tooltip="質問を報告する"]
+                | flag
+              #modal1.modal
+                .modal-content
+                  / = form_tag(profiles_path) do
+                  h5
+                    | Modal Header
+                  p
+                    | A bunch of text
+                .modal-footer
+                  a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
+                    | Disagree
+                  a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
+                    | Agree
 
             h4.card-title
               = @question.title
@@ -34,8 +49,8 @@
             .row.photo-grid
               - @question.covers.each do |cover|
                 div id="cover_#{cover.id}"
-                  .photo-grid-sizer.col.s12.m6.l4
-                  .photo-grid-item.col.s12.m6.l4.card
+                  .photo-grid-sizer.col.s6.m4.l3
+                  .photo-grid-item.col.s6.m4.l3.card
                     - if cover.photo?
                       = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
                     - elsif @question.text_message.present?
@@ -108,6 +123,7 @@
 javascript:
   Dropzone.autoDiscover = false;
   var posturl = "/covers?id=" + $('#num').val();
+  $('.modal').modal();
   $('.photo-grid').imagesLoaded( function() {
     $('.photo-grid').masonry({
           itemSelector: '.photo-grid-item',

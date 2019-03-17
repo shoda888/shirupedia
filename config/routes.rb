@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
     resources :nices, only: [:create, :destroy]
     resources :questions do
+      resources :reports, only: [:create]
       resources :answers
     end
     resources :profiles, param: :token do
