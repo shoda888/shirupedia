@@ -10,8 +10,6 @@
 #
 
 class Block < ApplicationRecord
-    belongs_to :user
-    belongs_to :target_user, dependent: :destroy, class_name: 'User', foreign_key:'target_user_id'
-
+  belongs_to :user
+  belongs_to :target_user, dependent: :destroy, class_name: 'User', foreign_key: 'target_user_id'
 end
-  

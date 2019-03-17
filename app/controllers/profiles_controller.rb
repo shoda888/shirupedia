@@ -11,8 +11,8 @@ class ProfilesController < ApplicationController
   end
 
   def answered
-    @questions = @user.answeredquestions.includes([:fields, user: :profile])
-    specialized_by_state
+    @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(20)
+    # specialized_by_state
     render layout: 'cms_table'
   end
 
@@ -28,7 +28,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    find_all_covers
+    @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(20)
     render layout: 'cms_table'
   end
 
@@ -47,7 +47,7 @@ class ProfilesController < ApplicationController
       @profile.save(validate: false)
       redirect_to profile_path(@profile.token), notice: 'ユーザー情報を編集しました'
     else
-      @errors = @user.errors.full_messages + @profile.errors.full_messages 
+      @errors = @user.errors.full_messages + @profile.errors.full_messages
       render :edit
     end
   end
@@ -76,7 +76,7 @@ class ProfilesController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path(@profile.token), notice: 'ユーザー情報を登録しました'
     else
-      @errors = @user.errors.full_messages + @profile.errors.full_messages 
+      @errors = @user.errors.full_messages + @profile.errors.full_messages
       render :new, layout: 'application'
     end
   end
@@ -95,22 +95,22 @@ class ProfilesController < ApplicationController
     @profile.attributes = profile_params
   end
 
-  def find_all_covers
-    @covers = []
-    @user.questions.each do |q|
-      q.covers.where(role: 'photo').each do |c|
-        @covers << c
-      end
-    end
-    @user.answers.each do |a|
-      a.covers.each do |c|
-        @covers << c
-      end
-    end
-    @covers.sort! do |a, b|
-      a.created_at <=> b.created_at
-    end
-  end
+  # def find_all_covers
+  #   @covers = []
+  #   @user.questions.each do |q|
+  #     q.covers.where(role: 'photo').each do |c|
+  #       @covers << c
+  #     end
+  #   end
+  #   @user.answers.each do |a|
+  #     a.covers.each do |c|
+  #       @covers << c
+  #     end
+  #   end
+  #   @covers.sort! do |a, b|
+  #     a.created_at <=> b.created_at
+  #   end
+  # end
 
   def specialized_by_state
     @questions = @questions.where(aasm_state: 'wanted').order('created_at desc').page(params[:page]).per(20)

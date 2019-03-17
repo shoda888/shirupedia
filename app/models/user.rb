@@ -21,7 +21,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :nices, dependent: :destroy
   has_many :blocks, dependent: :destroy
-  has_many :users_blocked, class_name: 'User', foreign_key: 'target_user_id'
 
   validates :email, format: { with: /.+titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
