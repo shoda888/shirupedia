@@ -1,6 +1,7 @@
 - q.answers.each do |answer|
-  - if answer.covers.length > 0
-    hr.hr-text[data-content="PhotoReply by #{answer.user.name}"]
+  - au = answer.user
+  - if answer.covers.length > 0 && !@current_user.blocked?(au)
+    hr.hr-text[data-content="PhotoReply by #{au.name}"]
     .row.photo-grid
       - answer.covers.each do |cover|
         div id="cover_#{cover.id}"
@@ -8,8 +9,8 @@
             .photo-grid-sizer.col.s12.m4
             .photo-grid-item.col.s12.m4.card
               = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
-              a[href="/profiles/#{answer.user.profile.token}"]
-                = cl_image_tag(answer.user.profile.avatar, :width=>30, :height=>30, :gravity=>"auto", :crop=>"fill", :class =>'img-circle')
+              a[href="/profiles/#{au.profile.token}"]
+                = cl_image_tag(au.profile.avatar, :width=>30, :height=>30, :gravity=>"auto", :crop=>"fill", :class =>'img-circle')
                 
 
               - if q.user == @current_user
@@ -25,7 +26,7 @@
                   a.tooltipped[href=login_path data-position="right" data-tooltip="返答する"]
                     i.material-icons
                       | reply
-              - if answer.user == @current_user
+              - if au == @current_user
                 = link_to content_tag(:i, 'close', class: 'material-icons close_btn'), cover_path(cover), method: :delete, data: { confirm: "フォトリプライを削除してもよろしいですか？" }, class: 'delete_button', remote: true
 
               div id="comments_field#{cover.id}" class="line-bc"
