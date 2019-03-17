@@ -6,8 +6,13 @@
       .description
         .profile-name
           = @user.name
-          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
-            | edit
+          - if @current_user == @user
+            a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
+              | edit
+          - else
+            .block-field
+              = render "blocks/block", u: @user
+
         .profile-main
           = @profile.grade
           | &nbsp;&nbsp;&nbsp;

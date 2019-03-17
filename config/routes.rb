@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
   resources :likes, only: [:create, :destroy]
   resources :nices, only: [:create, :destroy]
+  resources :blocks, only: [:create, :destroy]
   resource :sessions
   resources :users
   resources :profiles, param: :token do

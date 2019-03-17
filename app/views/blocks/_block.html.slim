@@ -1,0 +1,7 @@
+- if @current_user.blocked?(u)
+  .block
+    = link_to content_tag(:i, 'block', class: 'material-icons'), block_path(id: u.id), method: :delete, class: 'blocked waves-effect waves-red', remote: true
+- else
+  .cancel-block
+    = link_to content_tag(:i, 'block', class: 'material-icons'), blocks_path(id: u.id), method: :post, class: 'unblocked waves-effect waves-red', remote: true
+

@@ -15,12 +15,13 @@ class User < ApplicationRecord
   has_secure_password validations: false
   has_secure_token
   has_one :profile
-  has_many :questions
-  has_many :answers
+  has_many :questions, dependent: :destroy
+  has_many :answers, dependent: :destroy
   has_many :answeredquestions, through: :answers, source: :question
   has_many :likes, dependent: :destroy
   has_many :nices, dependent: :destroy
   has_many :blocks, dependent: :destroy
+  has_many :block_users, through: :blocks, source: :target_user
 
   validates :email, format: { with: /.+titech.ac.jp/ }
   validates :email, presence: true, uniqueness: true
@@ -35,5 +36,13 @@ class User < ApplicationRecord
 
   def block(u)
     blocks.create(target_user_id: u.id)
+  end
+
+  def unblock(u)
+    blocks.find_by(target_user_id: u.id).destroy
+  end
+
+  def blocked?(u)
+    block_users.include?(u)
   end
 end
