@@ -13,7 +13,17 @@ class Api::UsersController < Api::ApplicationController
     specialized_by_state
     render json: @questions.page(params[:page]).per(20), include: [:user, :answers, :covers, likes: [:user]]
   end
-
+  ## ブロック処理
+  def block
+    @user = User.find(params[:id])
+    @current_user.block(@user) unless @current_user.blocked?(@user)
+    response_success('user', 'block')
+  end
+  def unblock
+    @user = User.find(params[:id])
+    @current_user.unblock(@user) if @current_user.blocked?(@user)
+    response_success('user', 'unblock')
+  end
   ## サインアップ
   def signup
     @user = User.new(name: params[:name], email: params[:email])

@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     resources :users do
       member do
         get 'recommended', to: 'users#recommended'
+        post 'block', to: 'users#block'
+        delete 'block', to: 'users#unblock'
       end
     end
     resources :likes, only: [:create, :destroy]
