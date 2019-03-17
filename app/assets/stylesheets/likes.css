@@ -1,6 +1,9 @@
-.like{
+.like, .blocked{
   color: red;
 }
 .uniine{
   color: black;
+}
+.unblocked{
+  color: white;
 }

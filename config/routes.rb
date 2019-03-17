@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
   resources :likes, only: [:create, :destroy]
   resources :nices, only: [:create, :destroy]
+  resources :blocks, only: [:create, :destroy]
   resource :sessions
   resources :users
   resources :profiles, param: :token do
@@ -44,6 +45,8 @@ Rails.application.routes.draw do
     resources :users do
       member do
         get 'recommended', to: 'users#recommended'
+        post 'block', to: 'users#block'
+        delete 'block', to: 'users#unblock'
       end
     end
     resources :likes, only: [:create, :destroy]

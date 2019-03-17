@@ -127,11 +127,11 @@ class QuestionsController < ApplicationController
     @department = params[:department]
     @search = params[:search]
     @questions = if @department
-                   Question.where(id: Question.where(user_id: Profile.where(department: @department).pluck(:user_id)).ids & search_questions(@search))
+                   Question.where(id: Question.where(user_id: Profile.where(department: @department).pluck(:user_id) - @current_user.blocks.pluck(:target_user_id)).ids & search_questions(@search))
                  elsif @school
-                   Question.where(id: Question.where(user_id: Profile.where(school: @school).pluck(:user_id)).ids & search_questions(@search))
+                   Question.where(id: Question.where(user_id: Profile.where(school: @school).pluck(:user_id) - @current_user.blocks.pluck(:target_user_id)).ids & search_questions(@search))
                  else
-                   Question.where(id: search_questions(@search))
+                   Question.where(id: Question.where.not(user_id: @current_user.blocks.pluck(:target_user_id)).ids & search_questions(@search))
                  end
   end
 

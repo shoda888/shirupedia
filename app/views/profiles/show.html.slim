@@ -6,23 +6,15 @@
       .cms-tab01
         ul.cms-tab01__ul
           li.cms-tab01__li.cms-tab01__li--active
-            = link_to 'ギャラリー', profile_path(@profile.token)
+            = link_to '質問', questioned_profile_path(@profile.token)
           li.cms-tab01__li
             = link_to '返答した質問', answered_profile_path(@profile.token)
           li.cms-tab01__li
-            = link_to '自分の質問', questioned_profile_path(@profile.token)
-          li.cms-tab01__li
             = link_to 'おすすめの質問', recommended_profile_path(@profile.token)
 
-  .row.photo-grid
-    - @covers.each do |cover|
-      .photo-grid-sizer.col.s12.m4
-      .photo-grid-item.col.s12.m4.card
-        = cl_image_tag cover.photo_message, class: 'card-image materialboxed', width: '100%'
-
-javascript:
-  $('.photo-grid').masonry({
-        itemSelector: '.photo-grid-item',
-        columnWidth: '.photo-grid-sizer',
-        percentPosition: true
-  });
+  .q-lists
+    - if @current_user.blocked?(@user)
+      h6.center-align
+        | ブロックしているので表示できません。
+    - else
+      = render 'questions/questions_list'

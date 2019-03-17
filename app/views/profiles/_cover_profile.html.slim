@@ -3,11 +3,15 @@
     .profile-banner
       .avatar-left
         = cl_image_tag(@profile.avatar, :width=>80, :height=>80, :gravity=>"auto", :crop=>"fill")
+      - if @current_user == @user
+        a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
+          | edit
+      - else
+        .block-field.right
+          = render "blocks/block", u: @user
       .description
         .profile-name
           = @user.name
-          a.tooltipped.right.small.material-icons[href=edit_profile_path(@profile.token) style='color: white;' data-position="left" data-tooltip="プロフィールを編集する"]
-            | edit
         .profile-main
           = @profile.grade
           | &nbsp;&nbsp;&nbsp;

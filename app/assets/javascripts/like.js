@@ -9,4 +9,10 @@ $(function() {
     $(this).toggleClass('like');
     $(this).find('.material-icons').html('favorite');
   });
+  $('.block').on('click', function() {
+    $(this).toggleClass('unblocked');
+  });
+  $('.cancel-block').on('click', function() {
+    $(this).toggleClass('blocked');
+  });
 });
