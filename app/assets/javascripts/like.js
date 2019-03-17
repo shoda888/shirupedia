@@ -10,13 +10,9 @@ $(function() {
     $(this).find('.material-icons').html('favorite');
   });
   $('.block').on('click', function() {
-    $(this).find('.blocked').css('color','black');
-    $(this).toggleClass('uniine');
-    // $(this).find('.material-icons').html('favorite_border');
+    $(this).toggleClass('unblocked');
   });
   $('.cancel-block').on('click', function() {
-    $(this).find('.unblocked').css('color','red');
-    $(this).toggleClass('like');
-    // $(this).find('.material-icons').html('favorite');
+    $(this).toggleClass('blocked');
   });
 });
