@@ -12,4 +12,9 @@
           li.cms-tab01__li.cms-tab01__li--active
             = link_to 'おすすめの質問', recommended_profile_path(@profile.token)
 
-  = render 'questions/questions_list'
+  .q-lists
+    - if @current_user.blocked?(@user)
+      h6.center-align
+        | ブロックしているので表示できません。
+    - else
+      = render 'questions/questions_list'
