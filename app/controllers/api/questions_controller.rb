@@ -49,11 +49,11 @@ class Api::QuestionsController < Api::ApplicationController
 
   def specialized_by_belongs
     @questions = if params[:department]
-                   Question.where(id: Question.where(user_id: Profile.where(department: params[:department]).pluck(:user_id)).ids & search_questions(params[:search]))
+                   Question.where(id: Question.where(user_id: Profile.where(department: params[:department]).pluck(:user_id) - @current_user.blocks.pluck(:target_user_id)).ids & search_questions(params[:search]))
                  elsif params[:school]
-                   Question.where(id: Question.where(user_id: Profile.where(school: params[:school]).pluck(:user_id)).ids & search_questions(params[:search]))
+                   Question.where(id: Question.where(user_id: Profile.where(school: params[:school]).pluck(:user_id) - @current_user.blocks.pluck(:target_user_id)).ids & search_questions(params[:search]))
                  else
-                   Question.where(id: search_questions(params[:search]))
+                   Question.where(id: Question.where.not(user_id: @current_user.blocks.pluck(:target_user_id)).ids & search_questions(params[:search]))
                  end
   end
 

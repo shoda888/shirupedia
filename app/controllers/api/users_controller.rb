@@ -9,7 +9,7 @@ class Api::UsersController < Api::ApplicationController
   def recommended
     @user = User.find(params[:id])
     @profile = @user.profile
-    @questions = Question.where(user_id: Profile.where(school: @profile.school).pluck(:user_id) - [@user.id]) # 同じ学院の他人の質問を取得
+    @questions = Question.where(user_id: Profile.where(school: @profile.school).pluck(:user_id) - [@user.id] - @current_user.blocks.pluck(:target_user_id)) # 同じ学院の他人の質問を取得
     specialized_by_state
     render json: @questions.page(params[:page]).per(20), include: [:user, :answers, :covers, likes: [:user]]
   end
