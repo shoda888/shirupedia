@@ -34,6 +34,17 @@ class Api::QuestionsController < Api::ApplicationController
     end
   end
 
+  def fire
+    @question = Question.find(params[:id])
+    if @question.wanted?
+      @question.close!
+      response_success('question', 'close')
+    else
+      @question.public!
+      response_success('question', 'public')
+    end
+  end
+
   private
 
   def question_params

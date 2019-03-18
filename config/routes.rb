@@ -55,6 +55,9 @@ Rails.application.routes.draw do
     resources :questions do
       resources :reports, only: [:create]
       resources :answers
+      member do
+        put :fire
+      end
     end
     resources :profiles, param: :token do
       member do
