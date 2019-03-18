@@ -5,12 +5,12 @@ class Api::ProfilesController < Api::ApplicationController
   def answered
     @questions = @user.answeredquestions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
     specialized_by_state
-    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions, scope:{current_user_id: @current_user.id}, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def questioned
     @questions = @user.questions.includes([:fields, user: :profile]).order('created_at desc').page(params[:page]).per(30)
-    render json: @questions, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions, scope:{current_user_id: @current_user.id}, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def create
