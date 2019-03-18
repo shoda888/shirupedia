@@ -12,6 +12,10 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email
+  attributes :id, :name, :email, :is_blocked
   has_one :profile, serializer: ProfileSerializer
+
+  def is_blocked
+    scope[:is_blocked]
+  end
 end

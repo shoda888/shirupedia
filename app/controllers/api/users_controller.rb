@@ -54,7 +54,8 @@ class Api::UsersController < Api::ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user, include: [:profile]
+    render json: @user, scope:{is_blocked: @current_user.blocked?(@user)}, include: [:profile]
+
   end
 
   private
