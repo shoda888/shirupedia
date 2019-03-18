@@ -12,6 +12,7 @@ class UserMailer < ApplicationMailer
     end
     mail(to: user.email, subject: 'welcome to shirupedia')
   end
+
   def send_report(qid, content, name, uid)
     @qid = qid
     @content = content

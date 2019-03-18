@@ -11,7 +11,7 @@ class Api::UsersController < Api::ApplicationController
     @profile = @user.profile
     @questions = Question.where(user_id: Profile.where(school: @profile.school).pluck(:user_id) - [@user.id] - @current_user.blocks.pluck(:target_user_id)) # 同じ学院の他人の質問を取得
     specialized_by_state
-    render json: @questions.page(params[:page]).per(20), scope:{current_user_id: @current_user.id}, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions.page(params[:page]).per(20), scope: { current_user_id: @current_user.id }, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   ## ブロック処理
@@ -54,7 +54,7 @@ class Api::UsersController < Api::ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user, scope:{current_user_id: @current_user.id}, include: [:profile]
+    render json: @user, scope: { current_user_id: @current_user.id }, include: [:profile]
   end
 
   private

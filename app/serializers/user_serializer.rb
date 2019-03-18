@@ -14,7 +14,6 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :is_blocked
   has_one :profile, serializer: ProfileSerializer
-  # has_many :blocks, serializer: BlockSerializer
 
   def is_blocked
     Block.where(target_user_id: object.id).pluck(:user_id).include?(scope[:current_user_id])

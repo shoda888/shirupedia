@@ -5,12 +5,12 @@ class Api::QuestionsController < Api::ApplicationController
     specialized_by_belongs
     specialized_by_tag
     specialized_by_state
-    render json: @questions.page(params[:page]).per(20), scope:{current_user_id: @current_user.id}, include: [:user, :answers, :covers, likes: [:user]]
+    render json: @questions.page(params[:page]).per(20), scope: { current_user_id: @current_user.id }, include: [:user, :answers, :covers, likes: [:user]]
   end
 
   def show
     @question = Question.find(params[:id])
-    render json: @question, scope:{current_user_id: @current_user.id}, include: [:user, covers: [comments: [:user]], answers: [:user, covers: [comments: [:user]]], likes: [:user]]
+    render json: @question, scope: { current_user_id: @current_user.id }, include: [:user, covers: [comments: [:user]], answers: [:user, covers: [comments: [:user]]], likes: [:user]]
   end
 
   def create
