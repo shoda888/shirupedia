@@ -14,7 +14,7 @@
             a.hide-on-small-only.tooltipped.right.small.material-icons.clip[data-clipboard-text="#{request.url}" data-position="left" data-tooltip="クリップボードに共有用URLをコピー"]
               | link
             - if @question_user == @current_user
-              a.tooltipped.right.small.material-icons.clip[href=edit_question_path(@question) style='color: #80cbc4;' data-position="left" data-tooltip="質問を編集する"]
+              a.tooltipped.right.small.material-icons[href=edit_question_path(@question) style='color: #80cbc4; padding-left: 20px;' data-position="left" data-tooltip="質問を編集する"]
                 | edit
               - if @question.wanted?
                 a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/fire" data-method="put" style='color: #80cbc4;' data-position="left" data-tooltip="質問を非公開にする"]
@@ -23,20 +23,21 @@
                 a.tooltipped.right.small.material-icons[href="/questions/#{@question.id}/fire" data-method="put" style='color: #80cbc4;' data-position="left" data-tooltip="質問を公開する"]
                   | lock
             - else
-              a.modal-trigger.tooltipped.right.small.material-icons.clip[href='#modal1' style='color: #80cbc4;' data-position="left" data-tooltip="質問を報告する"]
+              a.modal-trigger.tooltipped.right.small.material-icons[href='#modal1' style='color: #80cbc4;' data-position="left" data-tooltip="質問を報告する"]
                 | flag
               #modal1.modal
-                .modal-content
-                  / = form_tag(profiles_path) do
-                  h5
-                    | Modal Header
-                  p
-                    | A bunch of text
-                .modal-footer
-                  a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
-                    | Disagree
-                  a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
-                    | Agree
+                = form_with url: question_reports_path(question_id: @question.id), local: true do |form|
+                  .modal-content
+                    h5
+                      | 不適切な質問を報告
+                    .input-field.col.s12
+                      small.sublabel
+                        | 質問が適切でないと判断した理由を記載し、送信してください
+                      = form.text_area 'content', placeholder: '例）ユーザーに不快な印象を与える恐れがあったため', required: true           
+                  .modal-footer
+                    a.modal-close.waves-effect.waves-green.btn-flat[href="#!"]
+                      | キャンセル
+                    = submit_tag '送信', class: 'btn btn-flat'
 
             h4.card-title
               = @question.title

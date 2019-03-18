@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       post 'content_post', to: 'questions#content_post'
     end
     resources :answers
+    resources :reports, only: [:create]
     member do
       put :fire
     end
