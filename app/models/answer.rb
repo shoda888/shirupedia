@@ -11,6 +11,7 @@
 #
 
 class Answer < ApplicationRecord
+  after_create :notice_answer_came
   belongs_to :user
   belongs_to :question
   has_many :covers, as: :coverable, dependent: :destroy
@@ -20,5 +21,9 @@ class Answer < ApplicationRecord
       return true if cover.nices.present?
     end
     false
+  end
+
+  def notice_answer_came
+    UserMailer.notification_answer(question.share_url, user.name, question.user.email).deliver_now
   end
 end

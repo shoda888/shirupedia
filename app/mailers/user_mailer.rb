@@ -13,10 +13,16 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: 'welcome to shirupedia')
   end
 
-  def send_report(url, content, name, uid)
+  def send_report(url, content, name, _uid)
     @url = url
     @content = content
     @name = name
     mail(to: 'shirupedia@gmail.com', subject: 'report from shirupedia')
+  end
+
+  def notification_answer(url, name, email_address)
+    @url = url
+    @name = name
+    mail(to: email_address, subject: 'answer notification')
   end
 end

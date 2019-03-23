@@ -30,7 +30,5 @@ class QuestionSerializer < ActiveModel::Serializer
     object.likes.length
   end
 
-  def share_url
-    object.share_url
-  end
+  delegate :share_url, to: :object
 end
