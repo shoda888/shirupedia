@@ -1,2 +1,9 @@
+div style=("font-size: 32px; font-weight: 600; padding-top: 10px;")
+  | Reported from Shirupedia
 div style="margin: 40px 0 10px 0; font-weight: 600;"
-  = "ID#{@qid}の質問が#{@content}という理由でユーザーID#{@uid}の#{@name}さんから報告をうけました"
+  | #{@name}さんより#{@content}という理由で質問が報告されました
+div style="margin-bottom: 40px; font-weight: 600;"
+  | 下記ボタンより確認してください。
+div style="font-size: 14px; display: inline-block; border-radius: 3px; padding: 12px 26px; background-color: #C7B082; margin: 0 30px 30px 0;"
+  a href=@url style="color: #fff; text-decoration: none;"
+    | ブラウザで開く

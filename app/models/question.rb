@@ -46,4 +46,8 @@ class Question < ApplicationRecord
   def good_cancel(user)
     likes.find_by(user_id: user.id).destroy
   end
+
+  def share_url
+    Rails.application.routes.url_helpers.question_url(self)
+  end
 end

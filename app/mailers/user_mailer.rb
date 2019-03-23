@@ -13,11 +13,10 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: 'welcome to shirupedia')
   end
 
-  def send_report(qid, content, name, uid)
-    @qid = qid
+  def send_report(url, content, name, uid)
+    @url = url
     @content = content
     @name = name
-    @uid = uid
     mail(to: 'shirupedia@gmail.com', subject: 'report from shirupedia')
   end
 end

@@ -31,6 +31,6 @@ class QuestionSerializer < ActiveModel::Serializer
   end
 
   def share_url
-    Rails.application.routes.url_helpers.question_url(object)
+    object.share_url
   end
 end
