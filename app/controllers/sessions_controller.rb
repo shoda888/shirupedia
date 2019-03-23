@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(user_params)
-    if @user && @user.password.present? && @user.authenticate(params[:user][:password])
+    if @user && @user.password_digest.present? && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path

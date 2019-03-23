@@ -48,11 +48,11 @@ class Api::UsersController < Api::ApplicationController
   ## サインイン
   def signin
     @user = User.find_by(email: params[:email])
-    if @user && @user.password.present? && @user.authenticate(params[:password])
+    if @user && @user.password_digest.present? && @user.authenticate(params[:password])
       @user.token = SecureRandom.hex(12)
       @user.save
       signin_success('user', 'signin', @user.token, @user.id)
-    elsif @user.password.blank?
+    elsif @user.password_digest.blank?
       response_internal_server_error('メール認証を完了させてください')
     else
       response_internal_server_error('メールまたはパスワードが間違っています')
