@@ -9,14 +9,12 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(user_params)
-    if @user && @user.authenticate(params[:user][:password])
-      # @user.token = SecureRandom.hex(12) # 新しくtoken生成する必要はなさそう
-      # @user.save
+    if @user && @user.password.present? && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to questions_path
     else
-      flash[:notice] = "ログイン情報が誤っています"
+      flash[:notice] = "ログイン情報が誤っているか、メール認証を完了していません"
       render :new
     end
   end
