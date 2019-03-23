@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     post '/users/signup', to: 'users#signup'
     post '/users/signin', to: 'users#signin'
+    get '/users/target', to: 'users#target'
     resources :users do
       member do
         get 'recommended', to: 'users#recommended'

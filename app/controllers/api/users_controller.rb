@@ -6,6 +6,11 @@ class Api::UsersController < Api::ApplicationController
     render json: @users, include: [:profile]
   end
 
+  def target
+    @users = @current_user.block_users
+    render json: @users, scope: { current_user_id: @current_user.id }, include: [:profile]
+  end
+
   def recommended
     @user = User.find(params[:id])
     @profile = @user.profile
