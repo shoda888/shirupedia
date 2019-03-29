@@ -12,10 +12,10 @@ javascript:
     // アプリを開く。アプリがインストールされていなければサイトを開く。
   function launchApp() {
     var IOS_SCHEME = 'shirupedia';
-    var IOS_STORE = 'https://www.apple.com/jp/ios/app-store/';
+    var IOS_STORE = 'https://itunes.apple.com/jp/app/shirupedia/id1455611959?mt=8';
     var ANDROID_SCHEME = 'shirupedia';
     var ANDROID_PACKAGE = 'com.shirupedia';
-    var PC_SITE = 'https://www.shirupedia.com'
+    var PC_SITE = 'https://www.shirupedia.com/profiles/new?token='
 
     var userAgent = navigator.userAgent.toLowerCase();
     // iPhone端末ならアプリを開くかApp Storeを開く。
@@ -32,7 +32,7 @@ javascript:
     }
     // その他・不明・PCなどの場合はサイトを開く。
     else {
-        document.location = PC_SITE;
+        document.location = PC_SITE + getParam('token');
     }
   }
   function getParam(name, url) {
