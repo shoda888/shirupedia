@@ -1,6 +1,6 @@
 - q.answers.each do |answer|
   - au = answer.user
-  - if answer.covers.length > 0 && !@current_user.blocked?(au)
+  - if answer.covers.length > 0 && !@current_user&.blocked?(au)
     hr.hr-text[data-content="PhotoReply by #{au.name}"]
     .row.photo-grid
       - answer.covers.each do |cover|
